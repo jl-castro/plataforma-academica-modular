@@ -1,0 +1,95 @@
+<div class="section-label">
+  <lucide-icon name="activity" [size]="14"></lucide-icon>
+  Estadísticas generales
+</div>
+<h2>Dashboard</h2>
+<p class="section-desc">Resumen académico de la Plataforma Académica Modular.</p>
+
+<div *ngIf="loading" class="loading">Cargando estadísticas...</div>
+
+<div *ngIf="!loading && stats">
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <lucide-icon name="users" [size]="16"></lucide-icon>
+      <span class="metric-label">Estudiantes</span>
+      <span class="metric-value">{{ stats.totalEstudiantes }}</span>
+    </div>
+    <div class="metric-card">
+      <lucide-icon name="book-open" [size]="16"></lucide-icon>
+      <span class="metric-label">Materias activas</span>
+      <span class="metric-value">{{ stats.totalMaterias }}</span>
+    </div>
+    <div class="metric-card">
+      <lucide-icon name="check-circle" [size]="16"></lucide-icon>
+      <span class="metric-label">Tasa de aprobación</span>
+      <span class="metric-value success">{{ stats.tasaAprobacion }}%</span>
+    </div>
+    <div class="metric-card">
+      <lucide-icon name="trending-up" [size]="16"></lucide-icon>
+      <span class="metric-label">Promedio general</span>
+      <span class="metric-value primary">{{ stats.promedioGeneral }}</span>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="card-title">
+      <lucide-icon name="bar-chart-2" [size]="16"></lucide-icon>
+      Estudiantes por carrera
+    </div>
+    <div class="bar-list">
+      <div *ngFor="let carrera of stats.porCarrera" class="bar-item">
+        <div class="bar-label">
+          <span class="bar-name">{{ carrera.nombre }}</span>
+          <span class="bar-count">{{ carrera.cantidad }}</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill" [style.width.%]="(carrera.cantidad / stats.totalEstudiantes) * 100"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="section-card">
+      <div class="card-title">
+        <lucide-icon name="clock" [size]="16"></lucide-icon>
+        Distribución por semestre
+      </div>
+      <div class="pill-grid">
+        <div *ngFor="let s of stats.porSemestre" class="pill-item">
+          <span class="pill-label">{{ s.semestre }}° sem</span>
+          <span class="pill-value">{{ s.cantidad }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-card">
+      <div class="card-title">
+        <lucide-icon name="activity" [size]="16"></lucide-icon>
+        Estado de módulos
+      </div>
+      <div class="module-list">
+        <div class="module-item">
+          <lucide-icon name="check-circle" [size]="14"></lucide-icon>
+          <span>Estudiantes</span>
+          <span class="status-badge success">Activo</span>
+        </div>
+        <div class="module-item">
+          <lucide-icon name="check-circle" [size]="14"></lucide-icon>
+          <span>Inscripciones</span>
+          <span class="status-badge success">Activo</span>
+        </div>
+        <div class="module-item">
+          <lucide-icon name="check-circle" [size]="14"></lucide-icon>
+          <span>Calificaciones</span>
+          <span class="status-badge success">Activo</span>
+        </div>
+        <div class="module-item">
+          <lucide-icon name="check-circle" [size]="14"></lucide-icon>
+          <span>Dashboard</span>
+          <span class="status-badge success">Activo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

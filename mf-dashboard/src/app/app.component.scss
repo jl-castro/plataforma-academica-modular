@@ -1,0 +1,18 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: #fafafa;
+  color: #111111;
+}
+
+.encabezado-app {
+  padding: 16px;
+  background: #ffffff;
+  border-bottom: 1px solid #ebebeb;
+}
+
+.encabezado-app__titulo {
+  color: #111111;
+  font-size: 15px;
+  font-weight: 500;
+}

@@ -1,0 +1,22 @@
+{
+  "totalEstudiantes": 8,
+  "totalMaterias": 12,
+  "tasaAprobacion": 78,
+  "promedioGeneral": 74.5,
+  "porCarrera": [
+    { "nombre": "Informática", "cantidad": 3 },
+    { "nombre": "Sistemas", "cantidad": 2 },
+    { "nombre": "Electrónica", "cantidad": 2 },
+    { "nombre": "Civil", "cantidad": 1 },
+    { "nombre": "Medicina", "cantidad": 1 }
+  ],
+  "porSemestre": [
+    { "semestre": 2, "cantidad": 1 },
+    { "semestre": 4, "cantidad": 1 },
+    { "semestre": 5, "cantidad": 1 },
+    { "semestre": 6, "cantidad": 3 },
+    { "semestre": 7, "cantidad": 1 },
+    { "semestre": 8, "cantidad": 1 },
+    { "semestre": 10, "cantidad": 1 }
+  ]
+}

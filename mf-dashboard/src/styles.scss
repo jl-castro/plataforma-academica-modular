@@ -1,1 +1,40 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
+
+:root {
+  --pam-bg: #fafafa;
+  --pam-surface: #ffffff;
+  --pam-primary: #1a73e8;
+  --pam-primary-light: #e8f0fe;
+  --pam-text-main: #111111;
+  --pam-text-muted: #777777;
+  --pam-text-hint: #bbbbbb;
+  --pam-border: #ebebeb;
+  --pam-success: #1e8e3e;
+  --pam-warning: #f29900;
+  --pam-danger: #d93025;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 14px;
+  background: #fafafa;
+  color: #111111;
+  line-height: 1.5;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+strong {
+  font-weight: 500;
+}
