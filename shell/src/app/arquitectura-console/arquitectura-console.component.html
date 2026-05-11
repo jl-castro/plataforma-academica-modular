@@ -1,32 +1,29 @@
-<section class="pam-console" aria-label="Consola arquitectónica">
-  <header class="pam-console__head">
-    <h2>Consola arquitectónica</h2>
-    <button type="button" class="pam-console__clear" (click)="limpiar()">
-      Limpiar
-    </button>
-  </header>
-  <div class="pam-console__body" role="log" aria-live="polite" #logBody>
-    @if (lineas.length === 0) {
-      <p class="pam-console__empty">Sin eventos registrados.</p>
-    } @else {
-      <ol class="pam-console__list">
-        @for (linea of lineas; track linea.id; let i = $index) {
-          <li class="pam-console__row" [class.pam-console__row--recent]="i >= lineas.length - 3">
-            <span class="pam-console__ts">[{{ linea.hora }}]</span>
-            <span
-              class="pam-console__dir"
-              [class.emitido]="linea.direction === 'emitido'"
-              [class.recibido]="linea.direction === 'recibido'"
-              [class.error]="linea.direction === 'error'"
-            >
-              {{ linea.direction }}
-            </span>
-            <span class="pam-console__evt">{{ linea.evento }}</span>
-            <span class="pam-console__arrow">→</span>
-            <span class="pam-console__summary">{{ linea.resumen }}</span>
-          </li>
-        }
-      </ol>
-    }
+<div class="console-wrapper">
+  <div class="console-header">
+    <div class="console-title">
+      <lucide-icon name="activity" [size]="14"></lucide-icon>
+      Consola arquitectónica
+    </div>
+    <button class="clear-btn" (click)="clearLogs()">Limpiar</button>
   </div>
-</section>
+
+  <div class="console-body" #logContainer>
+    <div *ngIf="logs.length === 0" class="empty-state">
+      Sin eventos registrados.
+    </div>
+    <div
+      *ngFor="let log of logs; let i = index"
+      class="log-entry"
+      [class.log-recent]="i >= logs.length - 3">
+      <span class="log-time">[{{ log.timestamp }}]</span>
+      <span class="log-direction" [class.dir-emitido]="log.direction === 'emitido'"
+                                   [class.dir-recibido]="log.direction === 'recibido'"
+                                   [class.dir-error]="log.direction === 'error'">
+        {{ log.direction }}
+      </span>
+      <span class="log-evento">{{ log.evento }}</span>
+      <span class="log-arrow">→</span>
+      <span class="log-resumen">{{ log.resumen }}</span>
+    </div>
+  </div>
+</div>

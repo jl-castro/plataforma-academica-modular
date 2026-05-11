@@ -65,6 +65,8 @@ export class CalificacionesComponent implements OnInit, OnDestroy {
     void this.eventBusLoader.getEventBus().then((bus) => {
       this.subs.add(
         bus.on('estudiante.seleccionado').subscribe((payload: unknown) => {
+          const globalBus = (window as any).__PAM_EVENT_BUS__;
+          if (globalBus) globalBus.log('estudiante.seleccionado', payload, 'recibido');
           this.estudiante = payload as EstudianteSeleccionadoPayload;
           this.mostrarBannerEvento(this.estudiante.nombre);
           this.cargarCalificaciones(this.estudiante.id);

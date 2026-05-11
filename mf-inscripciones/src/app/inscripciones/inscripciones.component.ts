@@ -48,6 +48,8 @@ export class InscripcionesComponent implements OnInit, OnDestroy {
         .on('estudiante.seleccionado')
         .pipe(takeUntil(this.destroy$))
         .subscribe((estudiante: unknown) => {
+          const globalBus = (window as any).__PAM_EVENT_BUS__;
+          if (globalBus) globalBus.log('estudiante.seleccionado', estudiante, 'recibido');
           this.onEstudianteEvento(estudiante);
           const id = this.estudianteSeleccionado?.id;
           if (id) {

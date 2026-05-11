@@ -6,13 +6,17 @@ export interface EventLog {
   timestamp: string;
   evento: string;
   payload: any;
-  direction: 'emitido' | 'recibido';
+  direction: 'emitido' | 'recibido' | 'error';
 }
 
 @Injectable()
 export class EventBusService {
   private subjects = new Map<string, BehaviorSubject<any>>();
   private logs: EventLog[] = [];
+
+  constructor() {
+    (window as any).__PAM_EVENT_BUS__ = this;
+  }
 
   private getSubject(evento: string): BehaviorSubject<any> {
     if (!this.subjects.has(evento)) {
@@ -22,14 +26,14 @@ export class EventBusService {
   }
 
   emit(evento: string, payload: any): void {
-    const log: EventLog = {
-      timestamp: new Date().toISOString(),
+    const timestamp = new Date().toISOString();
+    this.logs.push({
+      timestamp,
       evento,
       payload,
       direction: 'emitido',
-    };
-    this.logs.push(log);
-    this.getSubject(evento).next({ payload, timestamp: log.timestamp });
+    });
+    this.getSubject(evento).next({ payload, timestamp });
   }
 
   on(evento: string): Observable<any> {
@@ -39,7 +43,7 @@ export class EventBusService {
     );
   }
 
-  log(evento: string, payload: any, direction: 'emitido' | 'recibido'): void {
+  log(evento: string, payload: any, direction: 'emitido' | 'recibido' | 'error'): void {
     this.logs.push({
       timestamp: new Date().toISOString(),
       evento,
