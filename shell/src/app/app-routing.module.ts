@@ -11,6 +11,7 @@ import {
 } from '@angular/router';
 import { loadRemoteModule } from '@angular-architects/module-federation';
 import { filter } from 'rxjs';
+import { ModuloHealthGuard } from './guards/modulo-health.guard';
 
 const failedModulos = new Set<string>();
 const modulos = ['estudiantes', 'inscripciones', 'calificaciones', 'dashboard'] as const;
@@ -186,19 +187,31 @@ const routes: Routes = [
   { path: '', redirectTo: '/estudiantes', pathMatch: 'full' },
   {
     path: 'estudiantes',
+    canActivate: [ModuloHealthGuard],
+    data: { moduloId: 'estudiantes' },
     loadChildren: () => loadModulo('estudiantes'),
   },
   {
     path: 'inscripciones',
+    canActivate: [ModuloHealthGuard],
+    data: { moduloId: 'inscripciones' },
     loadChildren: () => loadModulo('inscripciones'),
   },
   {
     path: 'calificaciones',
+    canActivate: [ModuloHealthGuard],
+    data: { moduloId: 'calificaciones' },
     loadChildren: () => loadModulo('calificaciones'),
   },
   {
     path: 'dashboard',
+    canActivate: [ModuloHealthGuard],
+    data: { moduloId: 'dashboard' },
     loadChildren: () => loadModulo('dashboard'),
+  },
+  {
+    path: 'modulo-error',
+    loadChildren: () => import('./modulo-error/modulo-error.module').then((m) => m.ModuloErrorModule),
   },
 ];
 

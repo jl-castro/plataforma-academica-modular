@@ -9,6 +9,7 @@ import {
   PAM_MODULO_CARGADO_INITIALIZER,
 } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ModuloHealthGuard } from './guards/modulo-health.guard';
 import { EventBusService, eventBusInstance } from './services/event-bus.service';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ArquitecturaConsoleComponent } from './arquitectura-console/arquitectura-console.component';
@@ -67,6 +68,7 @@ import {
   ],
   providers: [
     PAM_MODULO_CARGADO_INITIALIZER,
+    ModuloHealthGuard,
     { provide: RouteReuseStrategy, useClass: NoCacheRouteReuseStrategy },
     { provide: EventBusService, useValue: eventBusInstance },
   ],

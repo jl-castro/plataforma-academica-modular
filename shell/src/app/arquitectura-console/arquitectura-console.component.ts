@@ -62,8 +62,8 @@ export class ArquitecturaConsoleComponent implements OnInit, OnDestroy, AfterVie
   private extractResumen(payload: any): string {
     if (!payload) return '';
     if (typeof payload === 'string') return payload;
-    if (payload.nombre) return payload.nombre;
     if (payload.modulo) return payload.modulo;
+    if (payload.nombre) return payload.nombre;
     if (payload.message) return payload.message;
     if (payload.id) return `id: ${payload.id}`;
     const first = Object.values(payload)[0];

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-modulo-error',
@@ -12,9 +12,14 @@ export class ModuloErrorComponent {
   isRetrying = false;
   retryFailed = false;
   private currentPath = '';
+  private moduloId = '';
 
-  constructor(private router: Router) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {
     this.currentPath = this.router.url.split('?')[0];
+    this.moduloId = this.route.snapshot.queryParamMap.get('modulo') ?? this.currentPath.replace(/^\//, '');
   }
 
   retry(): void {
@@ -24,18 +29,28 @@ export class ModuloErrorComponent {
 
     // Try to fetch the remoteEntry to check if server is back up
     const remoteMap: Record<string, string> = {
-      '/calificaciones': 'http://localhost:4203/remoteEntry.js',
+      estudiantes: 'http://localhost:4201/remoteEntry.js',
+      inscripciones: 'http://localhost:4202/remoteEntry.js',
+      calificaciones: 'http://localhost:4203/remoteEntry.js',
+      dashboard: 'http://localhost:4204/remoteEntry.js',
+      '/estudiantes': 'http://localhost:4201/remoteEntry.js',
       '/inscripciones':  'http://localhost:4202/remoteEntry.js',
-      '/estudiantes':    'http://localhost:4201/remoteEntry.js',
+      '/calificaciones': 'http://localhost:4203/remoteEntry.js',
+      '/dashboard': 'http://localhost:4204/remoteEntry.js',
     };
 
-    const remoteEntry = remoteMap[this.currentPath];
+    const remoteEntry = remoteMap[this.moduloId] ?? remoteMap[this.currentPath];
 
-    fetch(remoteEntry, { cache: 'no-store' })
+    if (!remoteEntry) {
+      this.isRetrying = false;
+      this.retryFailed = true;
+      return;
+    }
+
+    fetch(remoteEntry, { cache: 'no-store', method: 'HEAD' })
       .then(res => {
         if (res.ok) {
-          // Server is back — navigate to estudiantes to clear cache, then reload
-          this.router.navigateByUrl('/estudiantes');
+          this.router.navigateByUrl(`/${this.moduloId}`);
         } else {
           this.isRetrying = false;
           this.retryFailed = true;

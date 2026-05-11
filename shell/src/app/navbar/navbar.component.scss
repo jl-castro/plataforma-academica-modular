@@ -67,6 +67,27 @@
   font-weight: 500;
 }
 
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pam-links a .health-dot {
+  display: block;
+}
+
+.health-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+
+  &.online  { background: #1e8e3e; }
+  &.offline { background: #d93025; }
+  &.unknown { background: #bbbbbb; }
+}
+
 @media (max-width: 620px) {
   .pam-nav {
     height: auto;
