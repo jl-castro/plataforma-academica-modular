@@ -8,6 +8,26 @@ import { AppComponent } from './app.component';
 import { EventBusService, eventBusInstance } from './services/event-bus.service';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ArquitecturaConsoleComponent } from './arquitectura-console/arquitectura-console.component';
+import {
+  Activity,
+  AlertCircle,
+  Award,
+  BookMarked,
+  BookOpen,
+  Calendar,
+  CheckCircle,
+  ChevronRight,
+  ClipboardList,
+  Clock,
+  GraduationCap,
+  Hash,
+  LayoutDashboard,
+  LucideAngularModule,
+  TrendingUp,
+  User,
+  Users,
+  XCircle,
+} from 'lucide-angular';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, ArquitecturaConsoleComponent],
@@ -17,6 +37,25 @@ import { ArquitecturaConsoleComponent } from './arquitectura-console/arquitectur
     HttpClientModule,
     RouterModule,
     AppRoutingModule,
+    LucideAngularModule.pick({
+      Users,
+      GraduationCap,
+      BookOpen,
+      ClipboardList,
+      LayoutDashboard,
+      Activity,
+      BookMarked,
+      Calendar,
+      User,
+      Hash,
+      Clock,
+      ChevronRight,
+      Award,
+      AlertCircle,
+      CheckCircle,
+      XCircle,
+      TrendingUp,
+    }),
   ],
   providers: [
     PAM_MODULO_CARGADO_INITIALIZER,

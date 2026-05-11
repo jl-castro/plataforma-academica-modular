@@ -8,8 +8,8 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
   protected readonly enlaces = [
-    { ruta: '/estudiantes', etiqueta: 'Estudiantes' },
-    { ruta: '/inscripciones', etiqueta: 'Inscripciones' },
-    { ruta: '/calificaciones', etiqueta: 'Calificaciones' },
+    { ruta: '/estudiantes', etiqueta: 'Estudiantes', inicial: 'ES' },
+    { ruta: '/inscripciones', etiqueta: 'Inscripciones', inicial: 'IN' },
+    { ruta: '/calificaciones', etiqueta: 'Calificaciones', inicial: 'CA' },
   ] as const;
 }

@@ -17,6 +17,8 @@ export interface InscripcionItem {
 export interface EstudianteSeleccionado {
   id: number;
   nombre: string;
+  codigo: string;
+  carrera: string;
 }
 
 @Component({
@@ -64,6 +66,14 @@ export class InscripcionesComponent implements OnInit, OnDestroy {
 
   protected get hayEstudiante(): boolean {
     return this.estudianteSeleccionado !== null;
+  }
+
+  protected get materiasInscritas(): number {
+    return this.inscripciones.filter((ins) => ins.estado === 'Inscrito').length;
+  }
+
+  protected get materiasPendientes(): number {
+    return this.inscripciones.filter((ins) => ins.estado === 'Pendiente').length;
   }
 
   protected claseEstado(estado: InscripcionItem['estado']): string {
@@ -114,10 +124,12 @@ export class InscripcionesComponent implements OnInit, OnDestroy {
       const p = payload as Record<string, unknown>;
       const id = Number(p['id'] ?? p['estudianteId']);
       const nombre = String(p['nombre'] ?? p['nombres'] ?? 'Estudiante');
+      const codigo = String(p['codigo'] ?? '');
+      const carrera = String(p['carrera'] ?? '');
       if (!Number.isNaN(id)) {
-        return { id, nombre };
+        return { id, nombre, codigo, carrera };
       }
     }
-    return { id: 0, nombre: 'Estudiante' };
+    return { id: 0, nombre: 'Estudiante', codigo: '', carrera: '' };
   }
 }

@@ -1,23 +1,29 @@
-<section class="pam-console" aria-label="Consola de arquitectura">
+<section class="pam-console" aria-label="Consola arquitectónica">
   <header class="pam-console__head">
-    <h2>Consola de arquitectura</h2>
+    <h2>Consola arquitectónica</h2>
     <button type="button" class="pam-console__clear" (click)="limpiar()">
-      Limpiar registro
+      Limpiar
     </button>
   </header>
-  <div class="pam-console__body" role="log" aria-live="polite">
+  <div class="pam-console__body" role="log" aria-live="polite" #logBody>
     @if (lineas.length === 0) {
       <p class="pam-console__empty">Sin eventos registrados.</p>
     } @else {
       <ol class="pam-console__list">
-        @for (linea of lineas; track linea.timestamp + linea.evento + linea.direction) {
-          <li class="pam-console__row">
-            <span class="pam-console__ts">{{ linea.timestamp }}</span>
-            <span class="pam-console__dir" [class.emitido]="linea.direction === 'emitido'" [class.recibido]="linea.direction === 'recibido'">
+        @for (linea of lineas; track linea.id; let i = $index) {
+          <li class="pam-console__row" [class.pam-console__row--recent]="i >= lineas.length - 3">
+            <span class="pam-console__ts">[{{ linea.hora }}]</span>
+            <span
+              class="pam-console__dir"
+              [class.emitido]="linea.direction === 'emitido'"
+              [class.recibido]="linea.direction === 'recibido'"
+              [class.error]="linea.direction === 'error'"
+            >
               {{ linea.direction }}
             </span>
             <span class="pam-console__evt">{{ linea.evento }}</span>
-            <code class="pam-console__payload">{{ linea.payload | json }}</code>
+            <span class="pam-console__arrow">→</span>
+            <span class="pam-console__summary">{{ linea.resumen }}</span>
           </li>
         }
       </ol>

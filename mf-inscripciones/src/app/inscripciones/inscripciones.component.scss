@@ -1,204 +1,280 @@
-@use 'pam-variables' as pam;
-
 .inscripciones {
-	max-width: 1200px;
-	margin: 0 auto;
-	padding: 1.25rem 1rem 2rem;
-	position: relative;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 16px;
 }
 
 .inscripciones__banner {
-	position: sticky;
-	top: 0;
-	z-index: 2;
-	margin-bottom: 1rem;
-	padding: 0.65rem 1rem;
-	border-radius: 10px;
-	background: pam.$pam-highlight;
-	color: pam.$pam-text;
-	font-size: 0.9rem;
-	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-	animation: slideDown 0.25s ease-out;
-}
-
-@keyframes slideDown {
-	from {
-		opacity: 0;
-		transform: translateY(-6px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
+  margin-bottom: 16px;
+  padding: 8px 12px;
+  border: 1px solid #ebebeb;
+  border-radius: 10px;
+  background: #e6f4ea;
+  color: #1e8e3e;
+  font-size: 13px;
+  font-weight: 400;
 }
 
 .inscripciones__header {
-	margin-bottom: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.inscripciones__kicker {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  color: #777777;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.inscripciones__kicker lucide-icon {
+  margin-right: 6px;
 }
 
 .inscripciones__title {
-	margin: 0 0 0.35rem;
-	font-size: clamp(1.35rem, 2.5vw, 1.75rem);
-	font-weight: 700;
-	letter-spacing: -0.02em;
+  color: #111111;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 8px;
 }
 
-.inscripciones__subtitle {
-	margin: 0;
-	color: rgba(pam.$pam-text, 0.85);
-	font-size: 1rem;
+.inscripciones__header p {
+  color: #777777;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.student-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 10px 14px;
+  border-left: 3px solid #1a73e8;
+  border-radius: 8px;
+  background: #f8f9fa;
+}
+
+.student-header lucide-icon {
+  color: #1a73e8;
+}
+
+.student-name {
+  color: #111111;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.student-meta {
+  color: #777777;
+  font-size: 12px;
+  font-weight: 400;
 }
 
 .inscripciones__waiting {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-	min-height: 220px;
-	padding: 2rem 1rem;
-	border-radius: 16px;
-	background: pam.$pam-card-bg;
-	border: 1px solid rgba(255, 255, 255, 0.06);
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 8px;
+}
+
+.inscripciones__waiting-icon {
+  display: none;
 }
 
 .inscripciones__waiting-title {
-	margin: 0 0 0.5rem;
-	font-size: 1.15rem;
-	font-weight: 600;
+  color: #777777;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .inscripciones__waiting-hint {
-	margin: 0;
-	max-width: 420px;
-	color: rgba(pam.$pam-text, 0.72);
-	font-size: 0.95rem;
-	line-height: 1.45;
+  max-width: 420px;
+  color: #bbbbbb;
+  font-size: 13px;
+  font-weight: 400;
 }
 
 .inscripciones__summary {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.65rem;
-	margin-bottom: 1.25rem;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
 }
 
 .inscripciones__chip {
-	display: inline-flex;
-	align-items: center;
-	gap: 0.35rem;
-	padding: 0.45rem 0.85rem;
-	border-radius: 999px;
-	background: pam.$pam-highlight;
-	font-size: 0.9rem;
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 16px 20px;
+  border: 1px solid #ebebeb;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #777777;
+  font-size: 12px;
+  font-weight: 400;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
-.inscripciones__chip--muted {
-	background: rgba(pam.$pam-highlight, 0.65);
+.inscripciones__chip:hover {
+  background: #fafafa;
+}
+
+.inscripciones__chip span {
+  display: flex;
+  align-items: center;
+}
+
+.inscripciones__chip lucide-icon {
+  color: #1a73e8;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.inscripciones__chip strong {
+  color: #111111;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.2;
 }
 
 .inscripciones__grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-	gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
 }
 
 .card {
-	background: pam.$pam-card-bg;
-	border-radius: 14px;
-	padding: 1.1rem 1.15rem;
-	border: 1px solid rgba(255, 255, 255, 0.06);
-	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-	display: flex;
-	flex-direction: column;
-	gap: 0.85rem;
-	transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.card:hover {
-	transform: translateY(-2px);
-	box-shadow: 0 14px 36px rgba(0, 0, 0, 0.28);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 20px;
+  border: 1px solid #ebebeb;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 .card__head {
-	display: flex;
-	align-items: flex-start;
-	justify-content: space-between;
-	gap: 0.75rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .card__title {
-	margin: 0;
-	font-size: 1.05rem;
-	font-weight: 600;
-	line-height: 1.35;
-	flex: 1;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  color: #111111;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.card__title lucide-icon {
+  color: #777777;
+  margin-right: 8px;
 }
 
 .badge {
-	flex-shrink: 0;
-	font-size: 0.72rem;
-	font-weight: 700;
-	text-transform: uppercase;
-	letter-spacing: 0.04em;
-	padding: 0.3rem 0.55rem;
-	border-radius: 8px;
-	color: pam.$pam-primary;
+  flex-shrink: 0;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
 }
 
 .badge--inscrito {
-	background: pam.$pam-status-inscrito;
-	color: #063a2f;
+  background: #e6f4ea;
+  color: #1e8e3e;
 }
 
 .badge--pendiente {
-	background: pam.$pam-status-pendiente;
-	color: #3d2f00;
+  background: #fef7e0;
+  color: #f29900;
 }
 
 .badge--retirado {
-	background: pam.$pam-status-retirado;
-	color: pam.$pam-text;
+  background: #fce8e6;
+  color: #d93025;
 }
 
 .card__meta {
-	margin: 0;
-	display: flex;
-	flex-direction: column;
-	gap: 0.55rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .card__row {
-	display: grid;
-	grid-template-columns: 92px 1fr;
-	gap: 0.5rem 0.75rem;
-	align-items: baseline;
-	font-size: 0.9rem;
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 8px;
+  align-items: baseline;
+  color: #777777;
+  font-size: 12px;
+  font-weight: 400;
 }
 
-.card__row dt {
-	margin: 0;
-	color: rgba(pam.$pam-text, 0.55);
-	font-weight: 600;
-}
-
+.card__row dt,
 .card__row dd {
-	margin: 0;
-	color: rgba(pam.$pam-text, 0.92);
-	line-height: 1.4;
+  color: #777777;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.card__row:nth-child(2) dd {
+  justify-self: start;
+  padding: 2px 8px;
+  border-radius: 20px;
+  background: #f1f3f4;
+  color: #5f6368;
+  font-size: 12px;
 }
 
 .inscripciones__empty {
-	margin: 0;
-	padding: 1.25rem;
-	border-radius: 12px;
-	background: pam.$pam-card-bg;
-	color: rgba(pam.$pam-text, 0.85);
-	text-align: center;
+  padding: 16px 20px;
+  border: 1px solid #ebebeb;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #777777;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+@media (max-width: 760px) {
+  .inscripciones__summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .inscripciones__grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 480px) {
-	.card__row {
-		grid-template-columns: 1fr;
-	}
+  .inscripciones__header {
+    flex-direction: column;
+  }
+
+  .student-header {
+    width: 100%;
+  }
+
+  .card__row,
+  .inscripciones__summary {
+    grid-template-columns: 1fr;
+  }
 }

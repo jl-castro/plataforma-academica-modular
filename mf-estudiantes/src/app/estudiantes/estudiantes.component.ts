@@ -43,6 +43,18 @@ export class EstudiantesComponent implements OnInit {
     }
   }
 
+  get totalCarreras(): number {
+    return new Set(this.estudiantes.map((est) => est.carrera)).size;
+  }
+
+  get semestrePromedio(): number {
+    if (this.estudiantes.length === 0) {
+      return 0;
+    }
+    const total = this.estudiantes.reduce((acc, est) => acc + est.semestre, 0);
+    return Math.round((total / this.estudiantes.length) * 10) / 10;
+  }
+
   iniciales(nombre: string): string {
     const partes = nombre.trim().split(/\s+/).filter((p) => p.length > 0);
     if (partes.length === 0) {

@@ -1,43 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
+
 :root {
-  --pam-primary: #1a1a2e;
-  --pam-accent: #16213e;
-  --pam-highlight: #0f3460;
-  --pam-active: #e94560;
-  --pam-text: #ffffff;
-  --pam-card-bg: #16213e;
-  --pam-selected-card: #e94560;
+  --pam-bg: #fafafa;
+  --pam-surface: #ffffff;
+  --pam-primary: #1a73e8;
+  --pam-primary-light: #e8f0fe;
+  --pam-text-main: #111111;
+  --pam-text-muted: #777777;
+  --pam-text-hint: #bbbbbb;
+  --pam-border: #ebebeb;
+  --pam-selected-border: #1a73e8;
+  --pam-console-bg: #fafafa;
+  --pam-console-active: #1a73e8;
+  --pam-success: #1e8e3e;
+  --pam-warning: #f29900;
+  --pam-danger: #d93025;
 }
 
-$pam-primary: #1a1a2e;
-$pam-accent: #16213e;
-$pam-highlight: #0f3460;
-$pam-active: #e94560;
-$pam-text: #ffffff;
-$pam-card-bg: #16213e;
-$pam-selected-card: #e94560;
-
-*,
-*::before,
-*::after {
+* {
   box-sizing: border-box;
-}
-
-html,
-body {
-  height: 100%;
-}
-
-body {
   margin: 0;
-  font-family:
-    system-ui,
-    -apple-system,
-    'Segoe UI',
-    Roboto,
-    Ubuntu,
-    Cantarell,
-    'Noto Sans',
-    sans-serif;
-  background: $pam-primary;
-  color: $pam-text;
+  padding: 0;
+}
+
+body {
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 14px;
+  background: #fafafa;
+  color: #111111;
+  line-height: 1.5;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+strong {
+  font-weight: 500;
 }

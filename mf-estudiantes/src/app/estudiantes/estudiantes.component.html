@@ -1,8 +1,24 @@
 <section class="estudiantes">
-  <h1 class="titulo">👨‍🎓 Estudiantes</h1>
+  <header class="modulo-header">
+    <div>
+      <span class="modulo-kicker">
+        <lucide-icon name="layout-dashboard" [size]="14"></lucide-icon>
+        Registro académico
+      </span>
+      <h2 class="titulo">
+        <lucide-icon name="users" [size]="18"></lucide-icon>
+        Estudiantes
+        <span class="count-badge">{{ estudiantes.length }} activos</span>
+      </h2>
+      <p>Selecciona un perfil para sincronizar inscripciones y calificaciones.</p>
+    </div>
+  </header>
 
   @if (mensajeSeleccion) {
-    <p class="confirmacion" role="status">{{ mensajeSeleccion }}</p>
+    <p class="confirmacion" role="status">
+      <lucide-icon name="check-circle" [size]="14"></lucide-icon>
+      {{ mensajeSeleccion }}
+    </p>
   }
 
   @if (cargando) {
@@ -10,6 +26,30 @@
   } @else if (error) {
     <p class="estado estado--error">{{ error }}</p>
   } @else {
+    <section class="resumen" aria-label="Resumen de estudiantes">
+      <article class="resumen__item">
+        <span>
+          <lucide-icon name="users" [size]="16"></lucide-icon>
+          Registros
+        </span>
+        <strong>{{ estudiantes.length }}</strong>
+      </article>
+      <article class="resumen__item">
+        <span>
+          <lucide-icon name="book-open" [size]="16"></lucide-icon>
+          Carreras
+        </span>
+        <strong>{{ totalCarreras }}</strong>
+      </article>
+      <article class="resumen__item">
+        <span>
+          <lucide-icon name="calendar" [size]="16"></lucide-icon>
+          Sem. promedio
+        </span>
+        <strong>{{ semestrePromedio }}</strong>
+      </article>
+    </section>
+
     <ul class="rejilla">
       @for (est of estudiantes; track est.id) {
         <li>
@@ -22,10 +62,10 @@
             <div class="avatar" aria-hidden="true">{{ iniciales(est.nombre) }}</div>
             <div class="datos">
               <span class="nombre">{{ est.nombre }}</span>
-              <span class="meta"><span class="etiqueta">Código:</span> {{ est.codigo }}</span>
-              <span class="meta"><span class="etiqueta">Carrera:</span> {{ est.carrera }}</span>
-              <span class="meta"><span class="etiqueta">Semestre:</span> {{ est.semestre }}º</span>
+              <span class="codigo">{{ est.codigo }}</span>
+              <span class="meta">{{ est.carrera }} · {{ est.semestre }}º semestre</span>
             </div>
+            <span class="accion" aria-hidden="true">Seleccionar</span>
           </button>
         </li>
       }

@@ -1,6 +1,7 @@
 <div class="calificaciones" *ngIf="!estudiante">
   <div class="espera">
-    <p class="espera-titulo">⏳ Esperando selección de estudiante...</p>
+    <div class="espera-icono" aria-hidden="true">CA</div>
+    <p class="espera-titulo">Esperando selección de estudiante</p>
     <p class="espera-detalle">
       Selecciona un estudiante en el módulo Estudiantes para ver sus calificaciones
     </p>
@@ -13,13 +14,21 @@
   </div>
 
   <header class="cabecera-modulo">
-    <h1>🎓 Calificaciones</h1>
-    <p class="estudiante-activo">
-      Estudiante:
-      <strong>{{ estudiante.nombre }}</strong>
-      <span class="meta">({{ estudiante.codigo }}) · {{ estudiante.carrera }}</span>
-    </p>
+    <div>
+      <span class="cabecera-kicker">
+        <lucide-icon name="activity" [size]="14"></lucide-icon>
+        Rendimiento académico
+      </span>
+      <h1>Calificaciones</h1>
+      <p>Lectura rápida de avance, distribución y estado final por materia.</p>
+    </div>
   </header>
+
+  <div class="student-header">
+    <lucide-icon name="user" [size]="16"></lucide-icon>
+    <span class="student-name">{{ estudiante.nombre }}</span>
+    <span class="student-meta">{{ estudiante.codigo }} · {{ estudiante.carrera }}</span>
+  </div>
 
   <p class="mensaje-error" *ngIf="errorCarga">{{ errorCarga }}</p>
   <p class="mensaje-carga" *ngIf="cargandoDatos && !errorCarga">Cargando calificaciones...</p>
@@ -27,19 +36,31 @@
   <ng-container *ngIf="!cargandoDatos && !errorCarga">
     <section class="tarjetas" aria-label="Resumen de rendimiento">
       <article class="tarjeta">
-        <span class="tarjeta-etiqueta">Materias</span>
+        <span class="tarjeta-etiqueta">
+          <lucide-icon name="book-open" [size]="16"></lucide-icon>
+          Materias
+        </span>
         <span class="tarjeta-valor">{{ totalMaterias }}</span>
       </article>
       <article class="tarjeta tarjeta-aprobado">
-        <span class="tarjeta-etiqueta">Aprobadas</span>
+        <span class="tarjeta-etiqueta">
+          <lucide-icon name="check-circle" [size]="16"></lucide-icon>
+          Aprobadas
+        </span>
         <span class="tarjeta-valor">{{ materiasAprobadas }}</span>
       </article>
       <article class="tarjeta tarjeta-reprobado">
-        <span class="tarjeta-etiqueta">Reprobadas</span>
+        <span class="tarjeta-etiqueta">
+          <lucide-icon name="x-circle" [size]="16"></lucide-icon>
+          Reprobadas
+        </span>
         <span class="tarjeta-valor">{{ materiasReprobadas }}</span>
       </article>
       <article class="tarjeta tarjeta-promedio">
-        <span class="tarjeta-etiqueta">Promedio general</span>
+        <span class="tarjeta-etiqueta">
+          <lucide-icon name="trending-up" [size]="16"></lucide-icon>
+          Promedio general
+        </span>
         <span class="tarjeta-valor">{{ calcularPromedio(calificaciones) }}</span>
       </article>
     </section>
@@ -50,22 +71,35 @@
       aria-label="Distribución de notas finales"
     >
       <h2>Distribución de calificaciones</h2>
-      <div class="distribucion-leyenda">
+      <div class="distribucion-etiquetas" aria-hidden="true">
         <span
-          ><i class="muestra muestra-excelente"></i> Excelente (≥90):
-          {{ distribucionNotas.excelente }}</span
+          class="distribucion-etiqueta"
+          *ngIf="distribucionNotas.excelente > 0"
+          [style.width.%]="porcentajeDistribucion(distribucionNotas.excelente)"
         >
+          {{ porcentajeDistribucion(distribucionNotas.excelente) | number: '1.0-0' }}%
+        </span>
         <span
-          ><i class="muestra muestra-bueno"></i> Bueno (70–89): {{ distribucionNotas.bueno }}</span
+          class="distribucion-etiqueta"
+          *ngIf="distribucionNotas.bueno > 0"
+          [style.width.%]="porcentajeDistribucion(distribucionNotas.bueno)"
         >
+          {{ porcentajeDistribucion(distribucionNotas.bueno) | number: '1.0-0' }}%
+        </span>
         <span
-          ><i class="muestra muestra-suficiente"></i> Suficiente (51–69):
-          {{ distribucionNotas.suficiente }}</span
+          class="distribucion-etiqueta"
+          *ngIf="distribucionNotas.suficiente > 0"
+          [style.width.%]="porcentajeDistribucion(distribucionNotas.suficiente)"
         >
+          {{ porcentajeDistribucion(distribucionNotas.suficiente) | number: '1.0-0' }}%
+        </span>
         <span
-          ><i class="muestra muestra-reprobado"></i> Reprobado (&lt;51):
-          {{ distribucionNotas.reprobado }}</span
+          class="distribucion-etiqueta"
+          *ngIf="distribucionNotas.reprobado > 0"
+          [style.width.%]="porcentajeDistribucion(distribucionNotas.reprobado)"
         >
+          {{ porcentajeDistribucion(distribucionNotas.reprobado) | number: '1.0-0' }}%
+        </span>
       </div>
       <div class="barra-distribucion" role="img" [attr.aria-label]="'Barras proporcionales a ' + distribucionNotas.total + ' materias concluidas'">
         <div
@@ -96,7 +130,10 @@
     </section>
 
     <section class="tabla-wrap" *ngIf="calificaciones.length > 0">
-      <h2>Detalle por materia</h2>
+      <h2>
+        <lucide-icon name="graduation-cap" [size]="16"></lucide-icon>
+        Detalle por materia
+      </h2>
       <table class="tabla-calificaciones">
         <thead>
           <tr>

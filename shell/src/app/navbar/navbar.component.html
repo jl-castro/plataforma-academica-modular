@@ -1,5 +1,12 @@
 <nav class="pam-nav" aria-label="Navegación principal">
-  <a class="pam-brand" routerLink="/estudiantes">PAM</a>
+  <a class="pam-brand" routerLink="/estudiantes" aria-label="Inicio PAM">
+    <lucide-icon name="layout-dashboard" [size]="18"></lucide-icon>
+    <span class="pam-brand__mark">PAM</span>
+    <span class="pam-brand__text">
+      <strong>Plataforma Académica</strong>
+      <small>Operación modular</small>
+    </span>
+  </a>
   <ul class="pam-links">
     @for (enlace of enlaces; track enlace.ruta) {
       <li>
@@ -8,6 +15,7 @@
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
         >
+          <span aria-hidden="true">{{ enlace.inicial }}</span>
           {{ enlace.etiqueta }}
         </a>
       </li>

@@ -4,36 +4,69 @@
 	</div>
 
 	<header class="inscripciones__header">
-		<h1 class="inscripciones__title">📋 Inscripciones</h1>
-		<p class="inscripciones__subtitle" *ngIf="hayEstudiante">
-			Estudiante:
-			<strong>{{ estudianteSeleccionado?.nombre }}</strong>
-		</p>
+		<div>
+			<span class="inscripciones__kicker">
+				<lucide-icon name="clipboard-list" [size]="14"></lucide-icon>
+				Gestión curricular
+			</span>
+			<h1 class="inscripciones__title">Inscripciones</h1>
+			<p>Control de carga académica y estado de materias por estudiante.</p>
+		</div>
 	</header>
 
 	<section class="inscripciones__waiting" *ngIf="!hayEstudiante">
-		<p class="inscripciones__waiting-title">⏳ Esperando selección de estudiante...</p>
+		<div class="inscripciones__waiting-icon" aria-hidden="true">IN</div>
+		<p class="inscripciones__waiting-title">Esperando selección de estudiante</p>
 		<p class="inscripciones__waiting-hint">
 			Selecciona un estudiante en el módulo Estudiantes para ver sus inscripciones
 		</p>
 	</section>
 
 	<ng-container *ngIf="hayEstudiante">
+		<div class="student-header">
+			<lucide-icon name="user" [size]="16"></lucide-icon>
+			<span class="student-name">{{ estudianteSeleccionado?.nombre }}</span>
+			<span class="student-meta">{{ estudianteSeleccionado?.codigo }} · {{ estudianteSeleccionado?.carrera }}</span>
+		</div>
+
 		<div class="inscripciones__summary">
 			<span class="inscripciones__chip">
-				Total de créditos:
+				<span>
+					<lucide-icon name="award" [size]="16"></lucide-icon>
+				Créditos:
+				</span>
 				<strong>{{ totalCreditos }}</strong>
 			</span>
 			<span class="inscripciones__chip inscripciones__chip--muted">
-				Materias inscritas:
+				<span>
+					<lucide-icon name="book-open" [size]="16"></lucide-icon>
+				Materias:
+				</span>
 				<strong>{{ inscripciones.length }}</strong>
+			</span>
+			<span class="inscripciones__chip inscripciones__chip--success">
+				<span>
+					<lucide-icon name="check-circle" [size]="16"></lucide-icon>
+				Inscritas:
+				</span>
+				<strong>{{ materiasInscritas }}</strong>
+			</span>
+			<span class="inscripciones__chip inscripciones__chip--warning">
+				<span>
+					<lucide-icon name="clock" [size]="16"></lucide-icon>
+				Pendientes:
+				</span>
+				<strong>{{ materiasPendientes }}</strong>
 			</span>
 		</div>
 
 		<div class="inscripciones__grid" *ngIf="inscripciones.length > 0; else sinMaterias">
 			<article class="card" *ngFor="let ins of inscripciones">
 				<div class="card__head">
-					<h2 class="card__title">{{ ins.materia }}</h2>
+					<h2 class="card__title">
+						<lucide-icon name="book-marked" [size]="16"></lucide-icon>
+						{{ ins.materia }}
+					</h2>
 					<span [ngClass]="claseEstado(ins.estado)">{{ ins.estado }}</span>
 				</div>
 				<dl class="card__meta">
