@@ -2,10 +2,9 @@
   min-height: 100vh;
   background: #fafafa;
   color: #111111;
-  padding-bottom: 140px;
 }
 
 .pam-main {
   margin: 0 auto;
-  padding: 0;
+  padding: 0 0 var(--pam-console-reserved-space);
 }

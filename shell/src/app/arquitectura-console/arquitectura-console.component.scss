@@ -43,7 +43,7 @@
 }
 
 .console-body {
-  height: 160px;
+  height: var(--pam-console-body-height);
   overflow-y: auto;
   padding: 6px 16px;
 }
