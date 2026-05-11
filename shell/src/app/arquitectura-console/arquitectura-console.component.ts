@@ -1,10 +1,7 @@
 import { ChangeDetectorRef, Component, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { interval } from 'rxjs';
-import {
-  EventBusLogEntry,
-  EventBusService,
-} from '../services/event-bus.service';
+import { EventLog, EventBusService } from '../services/event-bus.service';
 
 @Component({
   selector: 'app-arquitectura-console',
@@ -17,7 +14,7 @@ export class ArquitecturaConsoleComponent {
   private readonly cdr = inject(ChangeDetectorRef);
   private readonly destroyRef = inject(DestroyRef);
 
-  protected lineas: EventBusLogEntry[] = [];
+  protected lineas: EventLog[] = [];
 
   constructor() {
     interval(400)

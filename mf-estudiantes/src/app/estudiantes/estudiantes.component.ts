@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { EventBusService } from '../services/event-bus.service';
+import estudiantesJson from '../../assets/data/estudiantes.json';
 
 export interface Estudiante {
   id: number;
@@ -24,22 +24,16 @@ export class EstudiantesComponent implements OnInit {
   seleccionId: number | null = null;
   mensajeSeleccion: string | null = null;
 
-  constructor(
-    private readonly http: HttpClient,
-    private readonly eventBus: EventBusService,
-  ) {}
+  constructor(private readonly eventBus: EventBusService) {}
 
   ngOnInit(): void {
-    this.http.get<Estudiante[]>('assets/data/estudiantes.json').subscribe({
-      next: (lista) => {
-        this.estudiantes = lista;
-        this.cargando = false;
-      },
-      error: () => {
-        this.error = 'No se pudo cargar la lista de estudiantes.';
-        this.cargando = false;
-      },
-    });
+    try {
+      this.estudiantes = estudiantesJson as Estudiante[];
+    } catch {
+      this.error = 'No se pudo cargar la lista de estudiantes.';
+    } finally {
+      this.cargando = false;
+    }
   }
 
   iniciales(nombre: string): string {

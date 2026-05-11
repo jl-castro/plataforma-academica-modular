@@ -1,51 +1,61 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { filter, map, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 
-export type EventBusDirection = 'out' | 'in';
-
-export interface EventBusLogEntry {
-	timestamp: Date;
-	evento: string;
-	payload: unknown;
-	direction: EventBusDirection;
+export interface EventLog {
+  timestamp: string;
+  evento: string;
+  payload: any;
+  direction: 'emitido' | 'recibido';
 }
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class EventBusService {
-	private readonly bus = new Subject<{ evento: string; payload: unknown }>();
-	private readonly logs: EventBusLogEntry[] = [];
 
-	emit(evento: string, payload: unknown): void {
-		this.logs.push({
-			timestamp: new Date(),
-			evento,
-			payload,
-			direction: 'out',
-		});
-		this.bus.next({ evento, payload });
-	}
+  private subjects = new Map<string, BehaviorSubject<any>>();
+  private logs: EventLog[] = [];
 
-	on(evento: string): Observable<unknown> {
-		return this.bus.pipe(
-			filter((e) => e.evento === evento),
-			tap((e) => {
-				this.logs.push({
-					timestamp: new Date(),
-					evento,
-					payload: e.payload,
-					direction: 'in',
-				});
-			}),
-			map((e) => e.payload),
-		);
-	}
+  private getSubject(evento: string): BehaviorSubject<any> {
+    if (!this.subjects.has(evento)) {
+      this.subjects.set(evento, new BehaviorSubject<any>(null));
+    }
+    return this.subjects.get(evento)!;
+  }
 
-	getLogs(): EventBusLogEntry[] {
-		return [...this.logs];
-	}
+  emit(evento: string, payload: any): void {
+    const log: EventLog = {
+      timestamp: new Date().toISOString(),
+      evento,
+      payload,
+      direction: 'emitido'
+    };
+    this.logs.push(log);
+    this.getSubject(evento).next({ payload, timestamp: log.timestamp });
+  }
 
-	clearLogs(): void {
-		this.logs.length = 0;
-	}
+  on(evento: string): Observable<any> {
+    return this.getSubject(evento).pipe(
+      filter(value => value !== null),
+      map(value => value.payload)
+    );
+  }
+
+  log(evento: string, payload: any, direction: 'emitido' | 'recibido'): void {
+    this.logs.push({
+      timestamp: new Date().toISOString(),
+      evento,
+      payload,
+      direction
+    });
+  }
+
+  getLogs(): EventLog[] {
+    return this.logs;
+  }
+
+  clearLogs(): void {
+    this.logs = [];
+  }
 }
