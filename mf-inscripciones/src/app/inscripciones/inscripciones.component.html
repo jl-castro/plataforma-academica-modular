@@ -1,0 +1,64 @@
+<div class="inscripciones">
+	<div class="inscripciones__banner" *ngIf="eventoBannerVisible" role="status" aria-live="polite">
+		{{ eventoBannerText }}
+	</div>
+
+	<header class="inscripciones__header">
+		<h1 class="inscripciones__title">📋 Inscripciones</h1>
+		<p class="inscripciones__subtitle" *ngIf="hayEstudiante">
+			Estudiante:
+			<strong>{{ estudianteSeleccionado?.nombre }}</strong>
+		</p>
+	</header>
+
+	<section class="inscripciones__waiting" *ngIf="!hayEstudiante">
+		<p class="inscripciones__waiting-title">⏳ Esperando selección de estudiante...</p>
+		<p class="inscripciones__waiting-hint">
+			Selecciona un estudiante en el módulo Estudiantes para ver sus inscripciones
+		</p>
+	</section>
+
+	<ng-container *ngIf="hayEstudiante">
+		<div class="inscripciones__summary">
+			<span class="inscripciones__chip">
+				Total de créditos:
+				<strong>{{ totalCreditos }}</strong>
+			</span>
+			<span class="inscripciones__chip inscripciones__chip--muted">
+				Materias inscritas:
+				<strong>{{ inscripciones.length }}</strong>
+			</span>
+		</div>
+
+		<div class="inscripciones__grid" *ngIf="inscripciones.length > 0; else sinMaterias">
+			<article class="card" *ngFor="let ins of inscripciones">
+				<div class="card__head">
+					<h2 class="card__title">{{ ins.materia }}</h2>
+					<span [ngClass]="claseEstado(ins.estado)">{{ ins.estado }}</span>
+				</div>
+				<dl class="card__meta">
+					<div class="card__row">
+						<dt>Código</dt>
+						<dd>{{ ins.codigo }}</dd>
+					</div>
+					<div class="card__row">
+						<dt>Créditos</dt>
+						<dd>{{ ins.creditos }}</dd>
+					</div>
+					<div class="card__row">
+						<dt>Horario</dt>
+						<dd>{{ ins.horario }}</dd>
+					</div>
+					<div class="card__row">
+						<dt>Docente</dt>
+						<dd>{{ ins.docente }}</dd>
+					</div>
+				</dl>
+			</article>
+		</div>
+
+		<ng-template #sinMaterias>
+			<p class="inscripciones__empty">No hay materias registradas para este estudiante.</p>
+		</ng-template>
+	</ng-container>
+</div>

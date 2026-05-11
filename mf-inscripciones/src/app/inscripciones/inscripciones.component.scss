@@ -1,0 +1,204 @@
+@use 'pam-variables' as pam;
+
+.inscripciones {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 1.25rem 1rem 2rem;
+	position: relative;
+}
+
+.inscripciones__banner {
+	position: sticky;
+	top: 0;
+	z-index: 2;
+	margin-bottom: 1rem;
+	padding: 0.65rem 1rem;
+	border-radius: 10px;
+	background: pam.$pam-highlight;
+	color: pam.$pam-text;
+	font-size: 0.9rem;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+	animation: slideDown 0.25s ease-out;
+}
+
+@keyframes slideDown {
+	from {
+		opacity: 0;
+		transform: translateY(-6px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.inscripciones__header {
+	margin-bottom: 1.5rem;
+}
+
+.inscripciones__title {
+	margin: 0 0 0.35rem;
+	font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+	font-weight: 700;
+	letter-spacing: -0.02em;
+}
+
+.inscripciones__subtitle {
+	margin: 0;
+	color: rgba(pam.$pam-text, 0.85);
+	font-size: 1rem;
+}
+
+.inscripciones__waiting {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	min-height: 220px;
+	padding: 2rem 1rem;
+	border-radius: 16px;
+	background: pam.$pam-card-bg;
+	border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.inscripciones__waiting-title {
+	margin: 0 0 0.5rem;
+	font-size: 1.15rem;
+	font-weight: 600;
+}
+
+.inscripciones__waiting-hint {
+	margin: 0;
+	max-width: 420px;
+	color: rgba(pam.$pam-text, 0.72);
+	font-size: 0.95rem;
+	line-height: 1.45;
+}
+
+.inscripciones__summary {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.65rem;
+	margin-bottom: 1.25rem;
+}
+
+.inscripciones__chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+	padding: 0.45rem 0.85rem;
+	border-radius: 999px;
+	background: pam.$pam-highlight;
+	font-size: 0.9rem;
+}
+
+.inscripciones__chip--muted {
+	background: rgba(pam.$pam-highlight, 0.65);
+}
+
+.inscripciones__grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+	gap: 1rem;
+}
+
+.card {
+	background: pam.$pam-card-bg;
+	border-radius: 14px;
+	padding: 1.1rem 1.15rem;
+	border: 1px solid rgba(255, 255, 255, 0.06);
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+	display: flex;
+	flex-direction: column;
+	gap: 0.85rem;
+	transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 14px 36px rgba(0, 0, 0, 0.28);
+}
+
+.card__head {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 0.75rem;
+}
+
+.card__title {
+	margin: 0;
+	font-size: 1.05rem;
+	font-weight: 600;
+	line-height: 1.35;
+	flex: 1;
+}
+
+.badge {
+	flex-shrink: 0;
+	font-size: 0.72rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	padding: 0.3rem 0.55rem;
+	border-radius: 8px;
+	color: pam.$pam-primary;
+}
+
+.badge--inscrito {
+	background: pam.$pam-status-inscrito;
+	color: #063a2f;
+}
+
+.badge--pendiente {
+	background: pam.$pam-status-pendiente;
+	color: #3d2f00;
+}
+
+.badge--retirado {
+	background: pam.$pam-status-retirado;
+	color: pam.$pam-text;
+}
+
+.card__meta {
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.55rem;
+}
+
+.card__row {
+	display: grid;
+	grid-template-columns: 92px 1fr;
+	gap: 0.5rem 0.75rem;
+	align-items: baseline;
+	font-size: 0.9rem;
+}
+
+.card__row dt {
+	margin: 0;
+	color: rgba(pam.$pam-text, 0.55);
+	font-weight: 600;
+}
+
+.card__row dd {
+	margin: 0;
+	color: rgba(pam.$pam-text, 0.92);
+	line-height: 1.4;
+}
+
+.inscripciones__empty {
+	margin: 0;
+	padding: 1.25rem;
+	border-radius: 12px;
+	background: pam.$pam-card-bg;
+	color: rgba(pam.$pam-text, 0.85);
+	text-align: center;
+}
+
+@media (max-width: 480px) {
+	.card__row {
+		grid-template-columns: 1fr;
+	}
+}

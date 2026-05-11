@@ -1,1 +1,30 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'styles/pam-variables';
+
+html,
+body {
+	height: 100%;
+	margin: 0;
+}
+
+body {
+	font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, Cantarell, 'Noto Sans',
+		sans-serif;
+	background: pam-variables.$pam-primary;
+	color: pam-variables.$pam-text;
+}
+
+.pam-shell-header {
+	background: pam-variables.$pam-accent;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+	padding: 0.65rem 1rem;
+}
+
+.pam-shell-header__brand {
+	font-size: 0.9rem;
+	font-weight: 600;
+	color: rgba(pam-variables.$pam-text, 0.92);
+}
+
+.pam-shell-main {
+	min-height: calc(100vh - 48px);
+}

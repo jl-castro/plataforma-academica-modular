@@ -27,8 +27,16 @@
 								"glob": "**/*",
 								"input": "public",
 								"output": "."
+							},
+							{
+								"glob": "**/*",
+								"input": "src/assets",
+								"output": "/assets"
 							}
 						],
+						"stylePreprocessorOptions": {
+							"includePaths": ["src/styles"]
+						},
 						"styles": [
 							"src/styles.scss"
 						],

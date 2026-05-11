@@ -1,0 +1,22 @@
+// Paleta PAM — variables SCSS globales
+$pam-primary: #1a1a2e;
+$pam-accent: #16213e;
+$pam-highlight: #0f3460;
+$pam-active: #e94560;
+$pam-text: #ffffff;
+$pam-card-bg: #16213e;
+$pam-status-inscrito: #00b894;
+$pam-status-pendiente: #fdcb6e;
+$pam-status-retirado: #e94560;
+
+:root {
+	--pam-primary: #{$pam-primary};
+	--pam-accent: #{$pam-accent};
+	--pam-highlight: #{$pam-highlight};
+	--pam-active: #{$pam-active};
+	--pam-text: #{$pam-text};
+	--pam-card-bg: #{$pam-card-bg};
+	--pam-status-inscrito: #{$pam-status-inscrito};
+	--pam-status-pendiente: #{$pam-status-pendiente};
+	--pam-status-retirado: #{$pam-status-retirado};
+}
