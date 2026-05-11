@@ -1,0 +1,102 @@
+.pam-console {
+  margin: 1rem;
+  border: 1px solid #334155;
+  border-radius: 0.5rem;
+  background: #020617;
+  color: #e2e8f0;
+  max-height: 40vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.pam-console__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0.75rem;
+  background: #0f172a;
+  border-bottom: 1px solid #1e293b;
+}
+
+.pam-console__head h2 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.pam-console__clear {
+  cursor: pointer;
+  border: 1px solid #475569;
+  background: #1e293b;
+  color: #f8fafc;
+  border-radius: 0.375rem;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.8rem;
+}
+
+.pam-console__clear:hover {
+  background: #334155;
+}
+
+.pam-console__body {
+  overflow: auto;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.78rem;
+}
+
+.pam-console__empty {
+  margin: 0;
+  color: #94a3b8;
+}
+
+.pam-console__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.pam-console__row {
+  display: grid;
+  grid-template-columns: 11rem 5.5rem 1fr;
+  gap: 0.5rem;
+  align-items: baseline;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid #1e293b;
+}
+
+.pam-console__payload {
+  grid-column: 1 / -1;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #bae6fd;
+  font-size: 0.72rem;
+}
+
+.pam-console__ts {
+  color: #94a3b8;
+  font-variant-numeric: tabular-nums;
+}
+
+.pam-console__dir {
+  text-transform: uppercase;
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+
+.pam-console__dir.emitido {
+  color: #4ade80;
+}
+
+.pam-console__dir.recibido {
+  color: #fbbf24;
+}
+
+.pam-console__evt {
+  color: #e2e8f0;
+  font-weight: 600;
+}

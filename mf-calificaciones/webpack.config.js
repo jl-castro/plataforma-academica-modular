@@ -5,7 +5,7 @@ module.exports = withModuleFederationPlugin({
   name: 'mf-calificaciones',
 
   exposes: {
-    './Component': './src\app\app.ts',
+    './Module': './src/app/calificaciones/calificaciones.module.ts',
   },
 
   shared: {

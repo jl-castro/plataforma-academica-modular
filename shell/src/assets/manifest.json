@@ -1,0 +1,35 @@
+{
+  "estudiantes": {
+    "id": "estudiantes",
+    "nombre": "Módulo Estudiantes",
+    "remoteEntry": "http://localhost:4201/remoteEntry.js",
+    "exposedModule": "./Module",
+    "ruta": "/estudiantes",
+    "version": "1.0.0",
+    "eventosEmitidos": ["estudiante.seleccionado"],
+    "eventosEscuchados": [],
+    "estado": "activo"
+  },
+  "inscripciones": {
+    "id": "inscripciones",
+    "nombre": "Módulo Inscripciones",
+    "remoteEntry": "http://localhost:4202/remoteEntry.js",
+    "exposedModule": "./Module",
+    "ruta": "/inscripciones",
+    "version": "1.0.0",
+    "eventosEmitidos": ["inscripcion.guardada"],
+    "eventosEscuchados": ["estudiante.seleccionado"],
+    "estado": "activo"
+  },
+  "calificaciones": {
+    "id": "calificaciones",
+    "nombre": "Módulo Calificaciones",
+    "remoteEntry": "http://localhost:4203/remoteEntry.js",
+    "exposedModule": "./Module",
+    "ruta": "/calificaciones",
+    "version": "1.0.0",
+    "eventosEmitidos": ["calificacion.actualizada"],
+    "eventosEscuchados": ["inscripcion.guardada"],
+    "estado": "activo"
+  }
+}

@@ -1,0 +1,15 @@
+<div class="pam-shell">
+  <app-navbar></app-navbar>
+  <main class="pam-main">
+    <header class="pam-main__header">
+      <h1>{{ titulo }}</h1>
+      @if (microfrontends.length) {
+        <p class="pam-main__meta">
+          {{ microfrontends.length }} microfrontends registrados (manifest)
+        </p>
+      }
+    </header>
+    <router-outlet />
+  </main>
+  <app-arquitectura-console></app-arquitectura-console>
+</div>

@@ -1,0 +1,16 @@
+<nav class="pam-nav" aria-label="Navegación principal">
+  <a class="pam-brand" routerLink="/estudiantes">PAM</a>
+  <ul class="pam-links">
+    @for (enlace of enlaces; track enlace.ruta) {
+      <li>
+        <a
+          [routerLink]="enlace.ruta"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          {{ enlace.etiqueta }}
+        </a>
+      </li>
+    }
+  </ul>
+</nav>

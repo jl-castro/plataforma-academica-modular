@@ -1,0 +1,43 @@
+.pam-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.75rem 1.25rem;
+  background: #0f172a;
+  color: #e2e8f0;
+  border-bottom: 1px solid #1e293b;
+}
+
+.pam-brand {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #38bdf8;
+  text-decoration: none;
+}
+
+.pam-links {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pam-links a {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  border-radius: 0.375rem;
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.pam-links a:hover {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+.pam-links a.active {
+  background: #0369a1;
+  color: #f0f9ff;
+}

@@ -1,0 +1,26 @@
+<section class="pam-console" aria-label="Consola de arquitectura">
+  <header class="pam-console__head">
+    <h2>Consola de arquitectura</h2>
+    <button type="button" class="pam-console__clear" (click)="limpiar()">
+      Limpiar registro
+    </button>
+  </header>
+  <div class="pam-console__body" role="log" aria-live="polite">
+    @if (lineas.length === 0) {
+      <p class="pam-console__empty">Sin eventos registrados.</p>
+    } @else {
+      <ol class="pam-console__list">
+        @for (linea of lineas; track linea.timestamp + linea.evento + linea.direction) {
+          <li class="pam-console__row">
+            <span class="pam-console__ts">{{ linea.timestamp }}</span>
+            <span class="pam-console__dir" [class.emitido]="linea.direction === 'emitido'" [class.recibido]="linea.direction === 'recibido'">
+              {{ linea.direction }}
+            </span>
+            <span class="pam-console__evt">{{ linea.evento }}</span>
+            <code class="pam-console__payload">{{ linea.payload | json }}</code>
+          </li>
+        }
+      </ol>
+    }
+  </div>
+</section>

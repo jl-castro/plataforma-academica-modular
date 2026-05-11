@@ -5,7 +5,7 @@ module.exports = withModuleFederationPlugin({
   name: 'mf-inscripciones',
 
   exposes: {
-    './Component': './src\app\app.ts',
+    './Module': './src/app/inscripciones/inscripciones.module.ts',
   },
 
   shared: {
