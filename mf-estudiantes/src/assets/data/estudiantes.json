@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "nombre": "Ana Lucía Quispe Mamani",
+    "codigo": "2021-INF-001",
+    "carrera": "Informática",
+    "semestre": 6,
+    "email": "ana.quispe@umsa.edu.bo"
+  },
+  {
+    "id": 2,
+    "nombre": "Carlos Eduardo Flores Condori",
+    "codigo": "2020-SIS-014",
+    "carrera": "Sistemas",
+    "semestre": 7,
+    "email": "carlos.flores@umsa.edu.bo"
+  },
+  {
+    "id": 3,
+    "nombre": "María Fernanda Vargas Loayza",
+    "codigo": "2022-ELE-003",
+    "carrera": "Electrónica",
+    "semestre": 4,
+    "email": "maria.vargas@umsa.edu.bo"
+  },
+  {
+    "id": 4,
+    "nombre": "Juan Pablo Rojas Apaza",
+    "codigo": "2019-CIV-102",
+    "carrera": "Civil",
+    "semestre": 10,
+    "email": "juan.rojas@umsa.edu.bo"
+  },
+  {
+    "id": 5,
+    "nombre": "Valentina Agreda Choque",
+    "codigo": "2023-MED-008",
+    "carrera": "Medicina",
+    "semestre": 2,
+    "email": "valentina.agreda@umsa.edu.bo"
+  },
+  {
+    "id": 6,
+    "nombre": "Diego Armando Tarqui Calle",
+    "codigo": "2021-INF-019",
+    "carrera": "Informática",
+    "semestre": 8,
+    "email": "diego.tarqui@umsa.edu.bo"
+  },
+  {
+    "id": 7,
+    "nombre": "Gabriela Suxo Quispe",
+    "codigo": "2022-SIS-027",
+    "carrera": "Sistemas",
+    "semestre": 5,
+    "email": "gabriela.suxo@umsa.edu.bo"
+  },
+  {
+    "id": 8,
+    "nombre": "Luis Fernando Camacho Rivera",
+    "codigo": "2021-ELE-011",
+    "carrera": "Electrónica",
+    "semestre": 6,
+    "email": "luis.camacho@umsa.edu.bo"
+  }
+]
