@@ -14,7 +14,7 @@ export class DashboardComponent implements OnInit {
   constructor(private readonly http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http.get('assets/data/dashboard.json').subscribe({
+    this.http.get('http://localhost:4204/assets/data/dashboard.json').subscribe({
       next: (stats) => {
         this.stats = stats;
         this.loading = false;

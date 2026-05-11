@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ManifestService, MicrofrontendManifestEntry } from '../services/manifest.service';
 
 @Component({
   selector: 'app-navbar',
@@ -6,10 +7,14 @@ import { Component } from '@angular/core';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
-export class NavbarComponent {
-  protected readonly enlaces = [
-    { ruta: '/estudiantes', etiqueta: 'Estudiantes', inicial: 'ES' },
-    { ruta: '/inscripciones', etiqueta: 'Inscripciones', inicial: 'IN' },
-    { ruta: '/calificaciones', etiqueta: 'Calificaciones', inicial: 'CA' },
-  ] as const;
+export class NavbarComponent implements OnInit {
+  modulos: MicrofrontendManifestEntry[] = [];
+
+  constructor(private readonly manifestService: ManifestService) {}
+
+  ngOnInit(): void {
+    this.manifestService.getModulos().subscribe((modulos) => {
+      this.modulos = Object.values(modulos).filter((modulo) => modulo.estado === 'activo');
+    });
+  }
 }

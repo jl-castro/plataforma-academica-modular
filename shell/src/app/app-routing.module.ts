@@ -4,7 +4,7 @@ import { loadRemoteModule } from '@angular-architects/module-federation';
 import { filter } from 'rxjs';
 
 const failedModulos = new Set<string>();
-const modulos = ['estudiantes', 'inscripciones', 'calificaciones'] as const;
+const modulos = ['estudiantes', 'inscripciones', 'calificaciones', 'dashboard'] as const;
 
 function emitModuloCargado(modulo: string): void {
   const tryEmit = (attempts: number) => {
@@ -64,7 +64,7 @@ export const PAM_MODULO_CARGADO_INITIALIZER: Provider = {
 };
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'estudiantes' },
+  { path: '', redirectTo: '/estudiantes', pathMatch: 'full' },
   {
     path: 'estudiantes',
     loadChildren: () =>
@@ -116,6 +116,24 @@ const routes: Routes = [
         .catch((err) => {
           failedModulos.add('calificaciones');
           emitModuloError('calificaciones', err);
+          return import('./modulo-error/modulo-error.module').then((m) => m.ModuloErrorModule);
+        }),
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () =>
+      loadRemoteModule({
+        type: 'module',
+        remoteEntry: 'http://localhost:4204/remoteEntry.js',
+        exposedModule: './Module',
+      })
+        .then((m) => {
+          failedModulos.delete('dashboard');
+          return m.DashboardModule;
+        })
+        .catch((err) => {
+          failedModulos.add('dashboard');
+          emitModuloError('dashboard', err);
           return import('./modulo-error/modulo-error.module').then((m) => m.ModuloErrorModule);
         }),
   },

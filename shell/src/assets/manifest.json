@@ -1,7 +1,7 @@
 {
   "estudiantes": {
     "id": "estudiantes",
-    "nombre": "Módulo Estudiantes",
+    "nombre": "Estudiantes",
     "remoteEntry": "http://localhost:4201/remoteEntry.js",
     "exposedModule": "./Module",
     "ruta": "/estudiantes",
@@ -12,24 +12,35 @@
   },
   "inscripciones": {
     "id": "inscripciones",
-    "nombre": "Módulo Inscripciones",
+    "nombre": "Inscripciones",
     "remoteEntry": "http://localhost:4202/remoteEntry.js",
     "exposedModule": "./Module",
     "ruta": "/inscripciones",
     "version": "1.0.0",
-    "eventosEmitidos": ["inscripcion.guardada"],
+    "eventosEmitidos": [],
     "eventosEscuchados": ["estudiante.seleccionado"],
     "estado": "activo"
   },
   "calificaciones": {
     "id": "calificaciones",
-    "nombre": "Módulo Calificaciones",
+    "nombre": "Calificaciones",
     "remoteEntry": "http://localhost:4203/remoteEntry.js",
     "exposedModule": "./Module",
     "ruta": "/calificaciones",
     "version": "1.0.0",
-    "eventosEmitidos": ["calificacion.actualizada"],
-    "eventosEscuchados": ["inscripcion.guardada"],
+    "eventosEmitidos": [],
+    "eventosEscuchados": ["estudiante.seleccionado"],
+    "estado": "activo"
+  },
+  "dashboard": {
+    "id": "dashboard",
+    "nombre": "Dashboard",
+    "remoteEntry": "http://localhost:4204/remoteEntry.js",
+    "exposedModule": "./Module",
+    "ruta": "/dashboard",
+    "version": "1.0.0",
+    "eventosEmitidos": [],
+    "eventosEscuchados": [],
     "estado": "activo"
   }
 }

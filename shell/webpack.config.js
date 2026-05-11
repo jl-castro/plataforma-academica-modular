@@ -8,6 +8,7 @@ module.exports = withModuleFederationPlugin({
     "mf-estudiantes":    "mf-estudiantes@http://localhost:4201/remoteEntry.js",
     "mf-inscripciones":  "mf-inscripciones@http://localhost:4202/remoteEntry.js",
     "mf-calificaciones": "mf-calificaciones@http://localhost:4203/remoteEntry.js",
+    "mf-dashboard":      "mf-dashboard@http://localhost:4204/remoteEntry.js",
   },
 
   exposes: {

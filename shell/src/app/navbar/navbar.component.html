@@ -8,15 +8,15 @@
     </span>
   </a>
   <ul class="pam-links">
-    @for (enlace of enlaces; track enlace.ruta) {
+    @for (modulo of modulos; track modulo.ruta) {
       <li>
         <a
-          [routerLink]="enlace.ruta"
+          [routerLink]="modulo.ruta"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
         >
-          <span aria-hidden="true">{{ enlace.inicial }}</span>
-          {{ enlace.etiqueta }}
+          <span aria-hidden="true">{{ modulo.nombre.slice(0, 2).toUpperCase() }}</span>
+          {{ modulo.nombre }}
         </a>
       </li>
     }

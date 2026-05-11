@@ -24,14 +24,24 @@ export class ManifestService {
 
   constructor(private readonly http: HttpClient) {}
 
-  getMicrofrontends(): Observable<MicrofrontendManifestEntry[]> {
+  getModulos(): Observable<Record<string, MicrofrontendManifestEntry>> {
     return this.http.get<ManifestFile>(ManifestService.MANIFEST_URL).pipe(
       map((file) =>
-        Object.entries(file).map(([key, value]) => ({
-          ...value,
-          id: value.id ?? key,
-        })),
+        Object.entries(file).reduce<Record<string, MicrofrontendManifestEntry>>(
+          (manifest, [key, value]) => ({
+            ...manifest,
+            [key]: {
+              ...value,
+              id: value.id ?? key,
+            },
+          }),
+          {},
+        ),
       ),
     );
+  }
+
+  getMicrofrontends(): Observable<MicrofrontendManifestEntry[]> {
+    return this.getModulos().pipe(map((modulos) => Object.values(modulos)));
   }
 }
