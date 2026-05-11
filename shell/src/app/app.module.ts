@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule, PAM_MODULO_CARGADO_INITIALIZER } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { EventBusService, eventBusInstance } from './services/event-bus.service';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ArquitecturaConsoleComponent } from './arquitectura-console/arquitectura-console.component';
 
@@ -17,7 +18,10 @@ import { ArquitecturaConsoleComponent } from './arquitectura-console/arquitectur
     RouterModule,
     AppRoutingModule,
   ],
-  providers: [PAM_MODULO_CARGADO_INITIALIZER],
+  providers: [
+    PAM_MODULO_CARGADO_INITIALIZER,
+    { provide: EventBusService, useValue: eventBusInstance },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

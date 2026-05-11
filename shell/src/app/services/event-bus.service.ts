@@ -9,11 +9,8 @@ export interface EventLog {
   direction: 'emitido' | 'recibido';
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class EventBusService {
-
   private subjects = new Map<string, BehaviorSubject<any>>();
   private logs: EventLog[] = [];
 
@@ -29,7 +26,7 @@ export class EventBusService {
       timestamp: new Date().toISOString(),
       evento,
       payload,
-      direction: 'emitido'
+      direction: 'emitido',
     };
     this.logs.push(log);
     this.getSubject(evento).next({ payload, timestamp: log.timestamp });
@@ -37,8 +34,8 @@ export class EventBusService {
 
   on(evento: string): Observable<any> {
     return this.getSubject(evento).pipe(
-      filter(value => value !== null),
-      map(value => value.payload)
+      filter((value) => value !== null),
+      map((value) => value.payload),
     );
   }
 
@@ -47,7 +44,7 @@ export class EventBusService {
       timestamp: new Date().toISOString(),
       evento,
       payload,
-      direction
+      direction,
     });
   }
 
@@ -59,3 +56,5 @@ export class EventBusService {
     this.logs = [];
   }
 }
+
+export const eventBusInstance = new EventBusService();

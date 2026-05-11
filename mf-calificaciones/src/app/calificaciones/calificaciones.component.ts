@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { EventBusService } from '../services/event-bus.service';
+import calificacionesJson from '../../assets/data/calificaciones.json';
+import { EventBusLoaderService } from '../services/event-bus-loader.service';
 
 export interface EstudianteSeleccionadoPayload {
   id: number;
@@ -59,19 +59,18 @@ export class CalificacionesComponent implements OnInit, OnDestroy {
 
   private readonly subs = new Subscription();
 
-  constructor(
-    private readonly http: HttpClient,
-    private readonly eventBus: EventBusService,
-  ) {}
+  constructor(private readonly eventBusLoader: EventBusLoaderService) {}
 
   ngOnInit(): void {
-    this.subs.add(
-      this.eventBus.on('estudiante.seleccionado').subscribe((payload) => {
-        this.estudiante = payload as EstudianteSeleccionadoPayload;
-        this.mostrarBannerEvento(this.estudiante.nombre);
-        this.cargarCalificacionesDelEstudiante();
-      }),
-    );
+    void this.eventBusLoader.getEventBus().then((bus) => {
+      this.subs.add(
+        bus.on('estudiante.seleccionado').subscribe((payload: unknown) => {
+          this.estudiante = payload as EstudianteSeleccionadoPayload;
+          this.mostrarBannerEvento(this.estudiante.nombre);
+          this.cargarCalificaciones(this.estudiante.id);
+        }),
+      );
+    });
   }
 
   ngOnDestroy(): void {
@@ -136,8 +135,8 @@ export class CalificacionesComponent implements OnInit, OnDestroy {
     }, 3000);
   }
 
-  private cargarCalificacionesDelEstudiante(): void {
-    if (!this.estudiante) {
+  private cargarCalificaciones(estudianteId: number): void {
+    if (!this.estudiante || this.estudiante.id !== estudianteId) {
       return;
     }
     this.errorCarga = null;
@@ -147,21 +146,16 @@ export class CalificacionesComponent implements OnInit, OnDestroy {
     }
     this.cargandoDatos = true;
     this.errorCarga = null;
-    this.subs.add(
-      this.http.get<Calificacion[]>('assets/data/calificaciones.json').subscribe({
-        next: (lista) => {
-          this.todasLasCalificaciones = lista;
-          this.cargandoDatos = false;
-          this.aplicarFiltroYResumen();
-        },
-        error: () => {
-          this.cargandoDatos = false;
-          this.errorCarga = 'No se pudieron cargar las calificaciones.';
-          this.calificaciones = [];
-          this.reiniciarResumen();
-        },
-      }),
-    );
+    try {
+      this.todasLasCalificaciones = calificacionesJson as Calificacion[];
+      this.cargandoDatos = false;
+      this.aplicarFiltroYResumen();
+    } catch {
+      this.cargandoDatos = false;
+      this.errorCarga = 'No se pudieron cargar las calificaciones.';
+      this.calificaciones = [];
+      this.reiniciarResumen();
+    }
   }
 
   private aplicarFiltroYResumen(): void {

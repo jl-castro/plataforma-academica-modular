@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { EventBusService } from '../services/event-bus.service';
 import estudiantesJson from '../../assets/data/estudiantes.json';
+import { EventBusLoaderService } from '../services/event-bus-loader.service';
 
 export interface Estudiante {
   id: number;
@@ -24,7 +24,14 @@ export class EstudiantesComponent implements OnInit {
   seleccionId: number | null = null;
   mensajeSeleccion: string | null = null;
 
-  constructor(private readonly eventBus: EventBusService) {}
+  private eventBus: any = null;
+  private readonly busReady: Promise<void>;
+
+  constructor(private readonly eventBusLoader: EventBusLoaderService) {
+    this.busReady = this.eventBusLoader.getEventBus().then((bus) => {
+      this.eventBus = bus;
+    });
+  }
 
   ngOnInit(): void {
     try {
@@ -52,12 +59,14 @@ export class EstudiantesComponent implements OnInit {
   seleccionar(est: Estudiante): void {
     this.seleccionId = est.id;
     this.mensajeSeleccion = `Estudiante seleccionado: ${est.nombre}`;
-    this.eventBus.emit('estudiante.seleccionado', {
-      id: est.id,
-      nombre: est.nombre,
-      codigo: est.codigo,
-      carrera: est.carrera,
-      semestre: est.semestre,
+    void this.busReady.then(() => {
+      this.eventBus?.emit('estudiante.seleccionado', {
+        id: est.id,
+        nombre: est.nombre,
+        codigo: est.codigo,
+        carrera: est.carrera,
+        semestre: est.semestre,
+      });
     });
   }
 }
