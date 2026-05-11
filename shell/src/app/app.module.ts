@@ -2,8 +2,12 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
-import { AppRoutingModule, PAM_MODULO_CARGADO_INITIALIZER } from './app-routing.module';
+import { RouteReuseStrategy, RouterModule } from '@angular/router';
+import {
+  AppRoutingModule,
+  NoCacheRouteReuseStrategy,
+  PAM_MODULO_CARGADO_INITIALIZER,
+} from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EventBusService, eventBusInstance } from './services/event-bus.service';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -63,6 +67,7 @@ import {
   ],
   providers: [
     PAM_MODULO_CARGADO_INITIALIZER,
+    { provide: RouteReuseStrategy, useClass: NoCacheRouteReuseStrategy },
     { provide: EventBusService, useValue: eventBusInstance },
   ],
   bootstrap: [AppComponent],
