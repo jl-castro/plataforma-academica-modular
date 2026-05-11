@@ -1,1 +1,36 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --pam-primary: #1a1a2e;
+  --pam-accent: #16213e;
+  --pam-highlight: #0f3460;
+  --pam-active: #e94560;
+  --pam-text: #ffffff;
+  --pam-table-header: #0f3460;
+  --pam-status-aprobado: #00b894;
+  --pam-status-reprobado: #e94560;
+  --pam-status-curso: #fdcb6e;
+  --pam-grade-excelente: #0984e3;
+  --pam-grade-bueno: #00b894;
+  --pam-grade-suficiente: #fdcb6e;
+  --pam-grade-reprobado: #e94560;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, Cantarell, 'Noto Sans',
+    sans-serif;
+  background: var(--pam-primary);
+  color: var(--pam-text);
+}
+
+.cabecera-independiente {
+  background: var(--pam-accent);
+  color: var(--pam-text);
+  padding: 0.65rem 1rem;
+  font-size: 0.9rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}

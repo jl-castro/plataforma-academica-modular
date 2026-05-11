@@ -1,0 +1,352 @@
+[
+  {
+    "id": 1,
+    "estudianteId": 1,
+    "materia": "Algoritmos y Estructura de Datos",
+    "codigo": "INF-301",
+    "primerParcial": 20,
+    "segundoParcial": 18,
+    "examenFinal": 42,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 2,
+    "estudianteId": 1,
+    "materia": "Bases de Datos II",
+    "codigo": "INF-302",
+    "primerParcial": 22,
+    "segundoParcial": 21,
+    "examenFinal": 38,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 3,
+    "estudianteId": 1,
+    "materia": "Ingeniería de Software",
+    "codigo": "INF-401",
+    "primerParcial": 19,
+    "segundoParcial": 17,
+    "examenFinal": null,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 4,
+    "estudianteId": 1,
+    "materia": "Redes de Computadoras",
+    "codigo": "INF-350",
+    "primerParcial": 16,
+    "segundoParcial": 14,
+    "examenFinal": 28,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 5,
+    "estudianteId": 1,
+    "materia": "Ética Profesional",
+    "codigo": "HUM-210",
+    "primerParcial": 21,
+    "segundoParcial": 20,
+    "examenFinal": 35,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 6,
+    "estudianteId": 2,
+    "materia": "Programación Web Avanzada",
+    "codigo": "INF-420",
+    "primerParcial": 24,
+    "segundoParcial": 24,
+    "examenFinal": 48,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 7,
+    "estudianteId": 2,
+    "materia": "Inteligencia Artificial",
+    "codigo": "INF-455",
+    "primerParcial": 23,
+    "segundoParcial": 22,
+    "examenFinal": 45,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 8,
+    "estudianteId": 2,
+    "materia": "Sistemas Operativos",
+    "codigo": "INF-340",
+    "primerParcial": 18,
+    "segundoParcial": 17,
+    "examenFinal": null,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 9,
+    "estudianteId": 2,
+    "materia": "Compiladores",
+    "codigo": "INF-380",
+    "primerParcial": 15,
+    "segundoParcial": 12,
+    "examenFinal": 22,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 10,
+    "estudianteId": 2,
+    "materia": "Proyecto de Grado I",
+    "codigo": "INF-490",
+    "primerParcial": 20,
+    "segundoParcial": 19,
+    "examenFinal": 40,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 11,
+    "estudianteId": 3,
+    "materia": "Análisis y Diseño de Sistemas",
+    "codigo": "SIS-310",
+    "primerParcial": 19,
+    "segundoParcial": 18,
+    "examenFinal": 36,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 12,
+    "estudianteId": 3,
+    "materia": "Administración de Servidores Linux",
+    "codigo": "SIS-325",
+    "primerParcial": 21,
+    "segundoParcial": 20,
+    "examenFinal": 41,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 13,
+    "estudianteId": 3,
+    "materia": "Seguridad Informática",
+    "codigo": "SIS-410",
+    "primerParcial": 17,
+    "segundoParcial": 16,
+    "examenFinal": 30,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 14,
+    "estudianteId": 3,
+    "materia": "Cloud Computing",
+    "codigo": "SIS-430",
+    "primerParcial": 22,
+    "segundoParcial": 21,
+    "examenFinal": null,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 15,
+    "estudianteId": 4,
+    "materia": "Gestión de Proyectos TI",
+    "codigo": "SIS-405",
+    "primerParcial": 23,
+    "segundoParcial": 22,
+    "examenFinal": 44,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 16,
+    "estudianteId": 4,
+    "materia": "Arquitectura Empresarial",
+    "codigo": "SIS-440",
+    "primerParcial": 20,
+    "segundoParcial": 19,
+    "examenFinal": 37,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 17,
+    "estudianteId": 4,
+    "materia": "Minería de Datos",
+    "codigo": "SIS-450",
+    "primerParcial": 24,
+    "segundoParcial": 23,
+    "examenFinal": 47,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 18,
+    "estudianteId": 4,
+    "materia": "Comercio Electrónico",
+    "codigo": "SIS-360",
+    "primerParcial": 18,
+    "segundoParcial": 17,
+    "examenFinal": null,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 19,
+    "estudianteId": 5,
+    "materia": "Electrónica Analógica",
+    "codigo": "ELN-310",
+    "primerParcial": 14,
+    "segundoParcial": 13,
+    "examenFinal": 24,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 20,
+    "estudianteId": 5,
+    "materia": "Señales y Sistemas",
+    "codigo": "ELN-320",
+    "primerParcial": 16,
+    "segundoParcial": 15,
+    "examenFinal": 27,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 21,
+    "estudianteId": 5,
+    "materia": "Microcontroladores",
+    "codigo": "ELN-410",
+    "primerParcial": 19,
+    "segundoParcial": 18,
+    "examenFinal": null,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 22,
+    "estudianteId": 5,
+    "materia": "Instrumentación Electrónica",
+    "codigo": "ELN-380",
+    "primerParcial": 21,
+    "segundoParcial": 20,
+    "examenFinal": 39,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 23,
+    "estudianteId": 6,
+    "materia": "Diseño de Circuitos Impresos",
+    "codigo": "ELN-350",
+    "primerParcial": 22,
+    "segundoParcial": 21,
+    "examenFinal": 43,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 24,
+    "estudianteId": 6,
+    "materia": "Comunicaciones Digitales",
+    "codigo": "ELN-420",
+    "primerParcial": 24,
+    "segundoParcial": 23,
+    "examenFinal": 46,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 25,
+    "estudianteId": 6,
+    "materia": "Potencia Eléctrica",
+    "codigo": "ELN-400",
+    "primerParcial": 13,
+    "segundoParcial": 12,
+    "examenFinal": 25,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 26,
+    "estudianteId": 6,
+    "materia": "Proyecto Integrador de Grado",
+    "codigo": "ELN-490",
+    "primerParcial": 20,
+    "segundoParcial": 19,
+    "examenFinal": null,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 27,
+    "estudianteId": 6,
+    "materia": "Automatización Industrial",
+    "codigo": "ELN-430",
+    "primerParcial": 21,
+    "segundoParcial": 20,
+    "examenFinal": 40,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 28,
+    "estudianteId": 7,
+    "materia": "Mecánica de Suelos II",
+    "codigo": "CIV-340",
+    "primerParcial": 20,
+    "segundoParcial": 19,
+    "examenFinal": 38,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 29,
+    "estudianteId": 7,
+    "materia": "Estructuras de Concreto Armado",
+    "codigo": "CIV-360",
+    "primerParcial": 23,
+    "segundoParcial": 22,
+    "examenFinal": 45,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 30,
+    "estudianteId": 7,
+    "materia": "Hidráulica Aplicada",
+    "codigo": "CIV-370",
+    "primerParcial": 17,
+    "segundoParcial": 16,
+    "examenFinal": null,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 31,
+    "estudianteId": 7,
+    "materia": "Topografía Geodésica",
+    "codigo": "CIV-315",
+    "primerParcial": 22,
+    "segundoParcial": 21,
+    "examenFinal": 42,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 32,
+    "estudianteId": 8,
+    "materia": "Anatomía Humana II",
+    "codigo": "MED-220",
+    "primerParcial": 23,
+    "segundoParcial": 22,
+    "examenFinal": 46,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 33,
+    "estudianteId": 8,
+    "materia": "Fisiología Médica",
+    "codigo": "MED-230",
+    "primerParcial": 24,
+    "segundoParcial": 24,
+    "examenFinal": 48,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 34,
+    "estudianteId": 8,
+    "materia": "Bioquímica para Ciencias de la Salud",
+    "codigo": "MED-215",
+    "primerParcial": 21,
+    "segundoParcial": 20,
+    "examenFinal": null,
+    "periodo": "2025-I"
+  },
+  {
+    "id": 35,
+    "estudianteId": 8,
+    "materia": "Salud Pública Comunitaria",
+    "codigo": "MED-250",
+    "primerParcial": 20,
+    "segundoParcial": 19,
+    "examenFinal": 37,
+    "periodo": "2025-I"
+  }
+]

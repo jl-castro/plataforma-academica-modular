@@ -1,0 +1,136 @@
+<div class="calificaciones" *ngIf="!estudiante">
+  <div class="espera">
+    <p class="espera-titulo">⏳ Esperando selección de estudiante...</p>
+    <p class="espera-detalle">
+      Selecciona un estudiante en el módulo Estudiantes para ver sus calificaciones
+    </p>
+  </div>
+</div>
+
+<div class="calificaciones" *ngIf="estudiante">
+  <div class="banner-evento" *ngIf="textoBannerEvento" role="status">
+    {{ textoBannerEvento }}
+  </div>
+
+  <header class="cabecera-modulo">
+    <h1>🎓 Calificaciones</h1>
+    <p class="estudiante-activo">
+      Estudiante:
+      <strong>{{ estudiante.nombre }}</strong>
+      <span class="meta">({{ estudiante.codigo }}) · {{ estudiante.carrera }}</span>
+    </p>
+  </header>
+
+  <p class="mensaje-error" *ngIf="errorCarga">{{ errorCarga }}</p>
+  <p class="mensaje-carga" *ngIf="cargandoDatos && !errorCarga">Cargando calificaciones...</p>
+
+  <ng-container *ngIf="!cargandoDatos && !errorCarga">
+    <section class="tarjetas" aria-label="Resumen de rendimiento">
+      <article class="tarjeta">
+        <span class="tarjeta-etiqueta">Materias</span>
+        <span class="tarjeta-valor">{{ totalMaterias }}</span>
+      </article>
+      <article class="tarjeta tarjeta-aprobado">
+        <span class="tarjeta-etiqueta">Aprobadas</span>
+        <span class="tarjeta-valor">{{ materiasAprobadas }}</span>
+      </article>
+      <article class="tarjeta tarjeta-reprobado">
+        <span class="tarjeta-etiqueta">Reprobadas</span>
+        <span class="tarjeta-valor">{{ materiasReprobadas }}</span>
+      </article>
+      <article class="tarjeta tarjeta-promedio">
+        <span class="tarjeta-etiqueta">Promedio general</span>
+        <span class="tarjeta-valor">{{ calcularPromedio(calificaciones) }}</span>
+      </article>
+    </section>
+
+    <section
+      class="distribucion"
+      *ngIf="distribucionNotas.total > 0"
+      aria-label="Distribución de notas finales"
+    >
+      <h2>Distribución de calificaciones</h2>
+      <div class="distribucion-leyenda">
+        <span
+          ><i class="muestra muestra-excelente"></i> Excelente (≥90):
+          {{ distribucionNotas.excelente }}</span
+        >
+        <span
+          ><i class="muestra muestra-bueno"></i> Bueno (70–89): {{ distribucionNotas.bueno }}</span
+        >
+        <span
+          ><i class="muestra muestra-suficiente"></i> Suficiente (51–69):
+          {{ distribucionNotas.suficiente }}</span
+        >
+        <span
+          ><i class="muestra muestra-reprobado"></i> Reprobado (&lt;51):
+          {{ distribucionNotas.reprobado }}</span
+        >
+      </div>
+      <div class="barra-distribucion" role="img" [attr.aria-label]="'Barras proporcionales a ' + distribucionNotas.total + ' materias concluidas'">
+        <div
+          class="segmento segmento-excelente"
+          *ngIf="distribucionNotas.excelente > 0"
+          [style.width.%]="porcentajeDistribucion(distribucionNotas.excelente)"
+          [title]="'Excelente: ' + distribucionNotas.excelente"
+        ></div>
+        <div
+          class="segmento segmento-bueno"
+          *ngIf="distribucionNotas.bueno > 0"
+          [style.width.%]="porcentajeDistribucion(distribucionNotas.bueno)"
+          [title]="'Bueno: ' + distribucionNotas.bueno"
+        ></div>
+        <div
+          class="segmento segmento-suficiente"
+          *ngIf="distribucionNotas.suficiente > 0"
+          [style.width.%]="porcentajeDistribucion(distribucionNotas.suficiente)"
+          [title]="'Suficiente: ' + distribucionNotas.suficiente"
+        ></div>
+        <div
+          class="segmento segmento-reprobado"
+          *ngIf="distribucionNotas.reprobado > 0"
+          [style.width.%]="porcentajeDistribucion(distribucionNotas.reprobado)"
+          [title]="'Reprobado: ' + distribucionNotas.reprobado"
+        ></div>
+      </div>
+    </section>
+
+    <section class="tabla-wrap" *ngIf="calificaciones.length > 0">
+      <h2>Detalle por materia</h2>
+      <table class="tabla-calificaciones">
+        <thead>
+          <tr>
+            <th scope="col">Materia</th>
+            <th scope="col">Código</th>
+            <th scope="col">1.º parcial /25</th>
+            <th scope="col">2.º parcial /25</th>
+            <th scope="col">Examen final /50</th>
+            <th scope="col">Total</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Periodo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cal of calificaciones">
+            <td data-label="Materia">{{ cal.materia }}</td>
+            <td data-label="Código">{{ cal.codigo }}</td>
+            <td data-label="1.º parcial">{{ cal.primerParcial }}</td>
+            <td data-label="2.º parcial">{{ cal.segundoParcial }}</td>
+            <td data-label="Examen final">
+              {{ cal.examenFinal === null ? '—' : cal.examenFinal }}
+            </td>
+            <td data-label="Total"><strong>{{ calcularTotal(cal) }}</strong></td>
+            <td data-label="Estado">
+              <span class="badge" [ngClass]="claseEstado(cal)">{{ getEstado(cal) }}</span>
+            </td>
+            <td data-label="Periodo">{{ cal.periodo }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <p class="sin-datos" *ngIf="calificaciones.length === 0">
+      No hay calificaciones registradas para este estudiante.
+    </p>
+  </ng-container>
+</div>

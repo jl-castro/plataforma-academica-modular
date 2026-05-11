@@ -1,0 +1,264 @@
+.calificaciones {
+  color: var(--pam-text);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 1.25rem 2rem;
+}
+
+.espera {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: var(--pam-accent);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.espera-titulo {
+  font-size: 1.25rem;
+  margin: 0 0 0.5rem;
+}
+
+.espera-detalle {
+  margin: 0;
+  opacity: 0.85;
+  max-width: 28rem;
+  margin-inline: auto;
+}
+
+.banner-evento {
+  background: var(--pam-highlight);
+  border-left: 4px solid var(--pam-active);
+  padding: 0.65rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.cabecera-modulo h1 {
+  margin: 0 0 0.35rem;
+  font-size: 1.75rem;
+}
+
+.estudiante-activo {
+  margin: 0;
+  opacity: 0.92;
+}
+
+.estudiante-activo .meta {
+  display: inline-block;
+  margin-left: 0.35rem;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.mensaje-error {
+  color: var(--pam-status-reprobado);
+  font-weight: 500;
+}
+
+.mensaje-carga {
+  opacity: 0.85;
+}
+
+.tarjetas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin: 1.25rem 0 1.5rem;
+}
+
+.tarjeta {
+  background: var(--pam-accent);
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.tarjeta-etiqueta {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.75;
+}
+
+.tarjeta-valor {
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.tarjeta-aprobado .tarjeta-valor {
+  color: var(--pam-status-aprobado);
+}
+
+.tarjeta-reprobado .tarjeta-valor {
+  color: var(--pam-status-reprobado);
+}
+
+.tarjeta-promedio .tarjeta-valor {
+  color: var(--pam-grade-excelente);
+}
+
+.distribucion {
+  margin-bottom: 1.75rem;
+}
+
+.distribucion h2,
+.tabla-wrap h2 {
+  font-size: 1.1rem;
+  margin: 0 0 0.75rem;
+}
+
+.distribucion-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  font-size: 0.85rem;
+  margin-bottom: 0.65rem;
+  opacity: 0.9;
+}
+
+.distribucion-leyenda span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.muestra {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+.muestra-excelente {
+  background: var(--pam-grade-excelente);
+}
+
+.muestra-bueno {
+  background: var(--pam-grade-bueno);
+}
+
+.muestra-suficiente {
+  background: var(--pam-grade-suficiente);
+}
+
+.muestra-reprobado {
+  background: var(--pam-grade-reprobado);
+}
+
+.barra-distribucion {
+  display: flex;
+  height: 22px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.segmento {
+  height: 100%;
+  min-width: 2px;
+  transition: width 0.25s ease;
+}
+
+.segmento-excelente {
+  background: var(--pam-grade-excelente);
+}
+
+.segmento-bueno {
+  background: var(--pam-grade-bueno);
+}
+
+.segmento-suficiente {
+  background: var(--pam-grade-suficiente);
+}
+
+.segmento-reprobado {
+  background: var(--pam-grade-reprobado);
+}
+
+.tabla-wrap {
+  overflow-x: auto;
+}
+
+.tabla-calificaciones {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  background: var(--pam-accent);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.tabla-calificaciones th,
+.tabla-calificaciones td {
+  padding: 0.65rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.tabla-calificaciones thead {
+  background: var(--pam-table-header);
+}
+
+.tabla-calificaciones tbody tr:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.estado-aprobado {
+  background: rgba(0, 184, 148, 0.2);
+  color: var(--pam-status-aprobado);
+}
+
+.estado-reprobado {
+  background: rgba(233, 69, 96, 0.2);
+  color: var(--pam-status-reprobado);
+}
+
+.estado-curso {
+  background: rgba(253, 203, 110, 0.2);
+  color: var(--pam-status-curso);
+}
+
+.sin-datos {
+  opacity: 0.85;
+  font-style: italic;
+}
+
+@media (max-width: 720px) {
+  .tabla-calificaciones thead {
+    display: none;
+  }
+
+  .tabla-calificaciones tr {
+    display: block;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 0.35rem 0;
+  }
+
+  .tabla-calificaciones td {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    border: none;
+  }
+
+  .tabla-calificaciones td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    opacity: 0.75;
+  }
+}
