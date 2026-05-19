@@ -1,69 +1,53 @@
-<div class="calificaciones" *ngIf="!estudiante">
-  <div class="espera">
-    <div class="espera-icono" aria-hidden="true">CA</div>
-    <p class="espera-titulo">Esperando selección de estudiante</p>
-    <p class="espera-detalle">
-      Selecciona un estudiante en el módulo Estudiantes para ver sus calificaciones
-    </p>
-  </div>
+<div class="calificaciones pam-page" *ngIf="!estudiante">
+  <header class="pam-page-header">
+    <span class="pam-kicker">Rendimiento académico</span>
+    <h1>Calificaciones</h1>
+  </header>
+  <section class="pam-empty">
+    <p class="pam-empty__title">Ningún estudiante seleccionado</p>
+    <p class="pam-empty__hint">Elige un perfil en Estudiantes para ver notas y promedios.</p>
+    <a class="pam-empty__action" routerLink="/estudiantes">Ir a Estudiantes</a>
+  </section>
 </div>
 
-<div class="calificaciones" *ngIf="estudiante">
+<div class="calificaciones pam-page" *ngIf="estudiante">
   <div class="banner-evento" *ngIf="textoBannerEvento" role="status">
     {{ textoBannerEvento }}
   </div>
 
-  <header class="cabecera-modulo">
-    <div>
-      <span class="cabecera-kicker">
-        <lucide-icon name="activity" [size]="14"></lucide-icon>
-        Rendimiento académico
-      </span>
-      <h1>Calificaciones</h1>
-      <p>Lectura rápida de avance, distribución y estado final por materia.</p>
-    </div>
+  <header class="pam-page-header">
+    <span class="pam-kicker">Rendimiento académico</span>
+    <h1>Calificaciones</h1>
+    <p>Avance, distribución y estado final por materia.</p>
   </header>
 
-  <div class="student-header">
-    <lucide-icon name="user" [size]="16"></lucide-icon>
-    <span class="student-name">{{ estudiante.nombre }}</span>
-    <span class="student-meta">{{ estudiante.codigo }} · {{ estudiante.carrera }}</span>
+  <div class="contexto-estudiante">
+    <span class="contexto-estudiante__nombre">{{ estudiante.nombre }}</span>
+    <span class="contexto-estudiante__meta">{{ estudiante.codigo }} · {{ estudiante.carrera }}</span>
   </div>
 
   <p class="mensaje-error" *ngIf="errorCarga">{{ errorCarga }}</p>
   <p class="mensaje-carga" *ngIf="cargandoDatos && !errorCarga">Cargando calificaciones...</p>
 
   <ng-container *ngIf="!cargandoDatos && !errorCarga">
-    <section class="tarjetas" aria-label="Resumen de rendimiento">
-      <article class="tarjeta">
-        <span class="tarjeta-etiqueta">
-          <lucide-icon name="book-open" [size]="16"></lucide-icon>
-          Materias
-        </span>
-        <span class="tarjeta-valor">{{ totalMaterias }}</span>
-      </article>
-      <article class="tarjeta tarjeta-aprobado">
-        <span class="tarjeta-etiqueta">
-          <lucide-icon name="check-circle" [size]="16"></lucide-icon>
-          Aprobadas
-        </span>
-        <span class="tarjeta-valor">{{ materiasAprobadas }}</span>
-      </article>
-      <article class="tarjeta tarjeta-reprobado">
-        <span class="tarjeta-etiqueta">
-          <lucide-icon name="x-circle" [size]="16"></lucide-icon>
-          Reprobadas
-        </span>
-        <span class="tarjeta-valor">{{ materiasReprobadas }}</span>
-      </article>
-      <article class="tarjeta tarjeta-promedio">
-        <span class="tarjeta-etiqueta">
-          <lucide-icon name="trending-up" [size]="16"></lucide-icon>
-          Promedio general
-        </span>
-        <span class="tarjeta-valor">{{ calcularPromedio(calificaciones) }}</span>
-      </article>
-    </section>
+    <dl class="pam-stat-strip" aria-label="Resumen de rendimiento">
+      <div class="pam-stat-strip__item">
+        <dt class="pam-stat-strip__label">Materias</dt>
+        <dd class="pam-stat-strip__value">{{ totalMaterias }}</dd>
+      </div>
+      <div class="pam-stat-strip__item">
+        <dt class="pam-stat-strip__label">Aprobadas</dt>
+        <dd class="pam-stat-strip__value">{{ materiasAprobadas }}</dd>
+      </div>
+      <div class="pam-stat-strip__item">
+        <dt class="pam-stat-strip__label">Reprobadas</dt>
+        <dd class="pam-stat-strip__value">{{ materiasReprobadas }}</dd>
+      </div>
+      <div class="pam-stat-strip__item">
+        <dt class="pam-stat-strip__label">Promedio</dt>
+        <dd class="pam-stat-strip__value">{{ calcularPromedio(calificaciones) }}</dd>
+      </div>
+    </dl>
 
     <section
       class="distribucion"

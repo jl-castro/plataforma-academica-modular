@@ -31,6 +31,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
     return this.healthMap.get(moduloId)?.estado ?? 'unknown';
   }
 
+  getModuloIcon(moduloId: string): string {
+    const icons: Record<string, string> = {
+      estudiantes: 'users',
+      inscripciones: 'clipboard-list',
+      calificaciones: 'graduation-cap',
+      dashboard: 'layout-dashboard',
+    };
+    return icons[moduloId] ?? 'layout-dashboard';
+  }
+
   ngOnDestroy(): void {
     this.subs.forEach((sub) => sub.unsubscribe());
   }

@@ -1,17 +1,11 @@
-<section class="estudiantes">
-  <header class="modulo-header">
-    <div>
-      <span class="modulo-kicker">
-        <lucide-icon name="layout-dashboard" [size]="14"></lucide-icon>
-        Registro académico
-      </span>
-      <h2 class="titulo">
-        <lucide-icon name="users" [size]="18"></lucide-icon>
-        Estudiantes
-        <span class="count-badge">{{ estudiantes.length }} activos</span>
-      </h2>
-      <p>Selecciona un perfil para sincronizar inscripciones y calificaciones.</p>
-    </div>
+<section class="estudiantes pam-page">
+  <header class="pam-page-header">
+    <span class="pam-kicker">Registro académico</span>
+    <h2>
+      Estudiantes
+      <span class="count-badge">{{ estudiantes.length }} activos</span>
+    </h2>
+    <p>Elige un perfil. Las inscripciones y calificaciones se actualizan al seleccionar.</p>
   </header>
 
   @if (mensajeSeleccion) {
@@ -22,53 +16,54 @@
   }
 
   @if (cargando) {
-    <p class="estado">Cargando estudiantes…</p>
+    <div class="pam-panel" aria-busy="true" aria-label="Cargando">
+      <div class="pam-skeleton pam-skeleton--stat"></div>
+      @for (i of [1, 2, 3, 4]; track i) {
+        <div class="pam-skeleton pam-skeleton--row lista-skeleton"></div>
+      }
+    </div>
   } @else if (error) {
     <p class="estado estado--error">{{ error }}</p>
   } @else {
-    <section class="resumen" aria-label="Resumen de estudiantes">
-      <article class="resumen__item">
-        <span>
-          <lucide-icon name="users" [size]="16"></lucide-icon>
-          Registros
-        </span>
-        <strong>{{ estudiantes.length }}</strong>
-      </article>
-      <article class="resumen__item">
-        <span>
-          <lucide-icon name="book-open" [size]="16"></lucide-icon>
-          Carreras
-        </span>
-        <strong>{{ totalCarreras }}</strong>
-      </article>
-      <article class="resumen__item">
-        <span>
-          <lucide-icon name="calendar" [size]="16"></lucide-icon>
-          Sem. promedio
-        </span>
-        <strong>{{ semestrePromedio }}</strong>
-      </article>
-    </section>
+    <dl class="pam-stat-strip" aria-label="Resumen">
+      <div class="pam-stat-strip__item">
+        <dt class="pam-stat-strip__label">Registros</dt>
+        <dd class="pam-stat-strip__value">{{ estudiantes.length }}</dd>
+      </div>
+      <div class="pam-stat-strip__item">
+        <dt class="pam-stat-strip__label">Carreras</dt>
+        <dd class="pam-stat-strip__value">{{ totalCarreras }}</dd>
+      </div>
+      <div class="pam-stat-strip__item">
+        <dt class="pam-stat-strip__label">Sem. promedio</dt>
+        <dd class="pam-stat-strip__value">{{ semestrePromedio }}</dd>
+      </div>
+    </dl>
 
-    <ul class="rejilla">
-      @for (est of estudiantes; track est.id) {
-        <li>
-          <button
-            type="button"
-            class="tarjeta"
-            [class.tarjeta--seleccionada]="seleccionId === est.id"
-            (click)="seleccionar(est)"
-          >
-            <div class="avatar" aria-hidden="true">{{ iniciales(est.nombre) }}</div>
-            <div class="datos">
-              <span class="nombre">{{ est.nombre }}</span>
-              <span class="codigo">{{ est.codigo }}</span>
-              <span class="meta">{{ est.carrera }} · {{ est.semestre }}º semestre</span>
-            </div>
-            <span class="accion" aria-hidden="true">Seleccionar</span>
-          </button>
-        </li>
-      }
-    </ul>
+    <div class="pam-panel lista-panel">
+      <div class="pam-panel__header">Perfiles registrados</div>
+      <ul class="lista-estudiantes">
+        @for (est of estudiantes; track est.id) {
+          <li>
+            <button
+              type="button"
+              class="lista-estudiantes__fila"
+              [class.lista-estudiantes__fila--activa]="seleccionId === est.id"
+              (click)="seleccionar(est)"
+              [attr.aria-pressed]="seleccionId === est.id"
+            >
+              <span class="avatar" aria-hidden="true">{{ iniciales(est.nombre) }}</span>
+              <span class="lista-estudiantes__nombre">{{ est.nombre }}</span>
+              <span class="lista-estudiantes__codigo">{{ est.codigo }}</span>
+              <span class="lista-estudiantes__meta">{{ est.carrera }}</span>
+              <span class="lista-estudiantes__sem">{{ est.semestre }}º</span>
+              @if (seleccionId === est.id) {
+                <lucide-icon class="lista-estudiantes__check" name="check" [size]="16" aria-hidden="true"></lucide-icon>
+              }
+            </button>
+          </li>
+        }
+      </ul>
+    </div>
   }
 </section>

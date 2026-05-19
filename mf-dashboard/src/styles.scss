@@ -1,18 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
-
-:root {
-  --pam-bg: #fafafa;
-  --pam-surface: #ffffff;
-  --pam-primary: #1a73e8;
-  --pam-primary-light: #e8f0fe;
-  --pam-text-main: #111111;
-  --pam-text-muted: #777777;
-  --pam-text-hint: #bbbbbb;
-  --pam-border: #ebebeb;
-  --pam-success: #1e8e3e;
-  --pam-warning: #f29900;
-  --pam-danger: #d93025;
-}
+@import '../../shared/styles/pam-tokens';
 
 * {
   box-sizing: border-box;
@@ -21,20 +7,9 @@
 }
 
 body {
-  font-family: Inter, system-ui, sans-serif;
-  font-size: 14px;
-  background: #fafafa;
-  color: #111111;
+  font-family: var(--pam-font);
+  font-size: var(--pam-text-base);
+  background: var(--pam-bg);
+  color: var(--pam-text-main);
   line-height: 1.5;
-}
-
-button,
-input,
-select,
-textarea {
-  font: inherit;
-}
-
-strong {
-  font-weight: 500;
 }

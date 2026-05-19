@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { CalificacionesRoutingModule } from './calificaciones-routing.module';
 import { CalificacionesComponent } from './calificaciones.component';
 import {
@@ -27,6 +28,7 @@ import {
   declarations: [CalificacionesComponent],
   imports: [
     CommonModule,
+    RouterModule,
     CalificacionesRoutingModule,
     LucideAngularModule.pick({
       Users,

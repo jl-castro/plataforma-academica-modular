@@ -1,7 +1,7 @@
 .pam-shell {
-  min-height: 100vh;
-  background: #fafafa;
-  color: #111111;
+  min-height: 100dvh;
+  background: var(--pam-bg);
+  color: var(--pam-text-main);
 }
 
 .pam-main {

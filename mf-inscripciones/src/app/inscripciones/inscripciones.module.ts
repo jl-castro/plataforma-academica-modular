@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { InscripcionesRoutingModule } from './inscripciones-routing.module';
 import { InscripcionesComponent } from './inscripciones.component';
 import {
@@ -27,6 +28,7 @@ import {
 	declarations: [InscripcionesComponent],
 	imports: [
 		CommonModule,
+		RouterModule,
 		InscripcionesRoutingModule,
 		LucideAngularModule.pick({
 			Users,

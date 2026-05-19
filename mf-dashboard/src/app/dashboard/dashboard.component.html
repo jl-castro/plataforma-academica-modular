@@ -1,95 +1,94 @@
-<div class="section-label">
-  <lucide-icon name="activity" [size]="14"></lucide-icon>
-  Estadísticas generales
-</div>
-<h2>Dashboard</h2>
-<p class="section-desc">Resumen académico de la Plataforma Académica Modular.</p>
+<div class="dashboard pam-page">
+  <header class="pam-page-header">
+    <span class="pam-kicker">Estadísticas generales</span>
+    <h2>Dashboard</h2>
+    <p>Resumen académico de la plataforma.</p>
+  </header>
 
-<div *ngIf="loading" class="loading">Cargando estadísticas...</div>
-
-<div *ngIf="!loading && stats">
-  <div class="metrics-grid">
-    <div class="metric-card">
-      <lucide-icon name="users" [size]="16"></lucide-icon>
-      <span class="metric-label">Estudiantes</span>
-      <span class="metric-value">{{ stats.totalEstudiantes }}</span>
+  <div *ngIf="loading" class="dashboard__loading" aria-busy="true" aria-label="Cargando estadísticas">
+    <div class="metrics-grid">
+      <div *ngFor="let _ of skeletonItems" class="pam-skeleton pam-skeleton--metric"></div>
     </div>
-    <div class="metric-card">
-      <lucide-icon name="book-open" [size]="16"></lucide-icon>
-      <span class="metric-label">Materias activas</span>
-      <span class="metric-value">{{ stats.totalMaterias }}</span>
-    </div>
-    <div class="metric-card">
-      <lucide-icon name="check-circle" [size]="16"></lucide-icon>
-      <span class="metric-label">Tasa de aprobación</span>
-      <span class="metric-value success">{{ stats.tasaAprobacion }}%</span>
-    </div>
-    <div class="metric-card">
-      <lucide-icon name="trending-up" [size]="16"></lucide-icon>
-      <span class="metric-label">Promedio general</span>
-      <span class="metric-value primary">{{ stats.promedioGeneral }}</span>
-    </div>
-  </div>
-
-  <div class="section-card">
-    <div class="card-title">
-      <lucide-icon name="bar-chart-2" [size]="16"></lucide-icon>
-      Estudiantes por carrera
-    </div>
-    <div class="bar-list">
-      <div *ngFor="let carrera of stats.porCarrera" class="bar-item">
-        <div class="bar-label">
-          <span class="bar-name">{{ carrera.nombre }}</span>
-          <span class="bar-count">{{ carrera.cantidad }}</span>
-        </div>
-        <div class="bar-track">
-          <div class="bar-fill" [style.width.%]="(carrera.cantidad / stats.totalEstudiantes) * 100"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="two-col">
     <div class="section-card">
-      <div class="card-title">
-        <lucide-icon name="clock" [size]="16"></lucide-icon>
-        Distribución por semestre
-      </div>
-      <div class="pill-grid">
-        <div *ngFor="let s of stats.porSemestre" class="pill-item">
-          <span class="pill-label">{{ s.semestre }}° sem</span>
-          <span class="pill-value">{{ s.cantidad }}</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="section-card">
-      <div class="card-title">
-        <lucide-icon name="activity" [size]="16"></lucide-icon>
-        Estado de módulos
-      </div>
-      <div class="module-list">
-        <div class="module-item">
-          <lucide-icon name="check-circle" [size]="14"></lucide-icon>
-          <span>Estudiantes</span>
-          <span class="status-badge success">Activo</span>
-        </div>
-        <div class="module-item">
-          <lucide-icon name="check-circle" [size]="14"></lucide-icon>
-          <span>Inscripciones</span>
-          <span class="status-badge success">Activo</span>
-        </div>
-        <div class="module-item">
-          <lucide-icon name="check-circle" [size]="14"></lucide-icon>
-          <span>Calificaciones</span>
-          <span class="status-badge success">Activo</span>
-        </div>
-        <div class="module-item">
-          <lucide-icon name="check-circle" [size]="14"></lucide-icon>
-          <span>Dashboard</span>
-          <span class="status-badge success">Activo</span>
-        </div>
-      </div>
+      <div class="pam-skeleton pam-skeleton--title"></div>
+      <div *ngFor="let _ of skeletonBars" class="pam-skeleton pam-skeleton--bar bar-skeleton"></div>
     </div>
   </div>
+
+  <ng-container *ngIf="!loading && stats">
+    <dl class="pam-stat-strip" aria-label="Indicadores principales">
+      <div class="pam-stat-strip__item">
+        <dt class="pam-stat-strip__label">Estudiantes</dt>
+        <dd class="pam-stat-strip__value">{{ stats.totalEstudiantes }}</dd>
+      </div>
+      <div class="pam-stat-strip__item">
+        <dt class="pam-stat-strip__label">Materias activas</dt>
+        <dd class="pam-stat-strip__value">{{ stats.totalMaterias }}</dd>
+      </div>
+      <div class="pam-stat-strip__item">
+        <dt class="pam-stat-strip__label">Tasa aprobación</dt>
+        <dd class="pam-stat-strip__value">{{ stats.tasaAprobacion }}%</dd>
+      </div>
+      <div class="pam-stat-strip__item">
+        <dt class="pam-stat-strip__label">Promedio general</dt>
+        <dd class="pam-stat-strip__value">{{ stats.promedioGeneral }}</dd>
+      </div>
+    </dl>
+
+    <section class="pam-panel dashboard-chart" aria-labelledby="chart-carrera-title">
+      <h3 id="chart-carrera-title" class="card-title">Estudiantes por carrera</h3>
+      <div class="bar-list">
+        <div *ngFor="let carrera of stats.porCarrera" class="bar-item">
+          <div class="bar-label">
+            <span class="bar-name">{{ carrera.nombre }}</span>
+            <span class="bar-count">{{ carrera.cantidad }}</span>
+          </div>
+          <div class="bar-track" role="presentation">
+            <div
+              class="bar-fill"
+              [style.width.%]="(carrera.cantidad / stats.totalEstudiantes) * 100"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="two-col">
+      <section class="pam-panel" aria-labelledby="semestre-title">
+        <h3 id="semestre-title" class="pam-panel__header">Distribución por semestre</h3>
+        <div class="pill-grid">
+          <article *ngFor="let s of stats.porSemestre" class="pill-item">
+            <span class="pill-label">{{ s.semestre }}° sem</span>
+            <span class="pill-value">{{ s.cantidad }}</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="pam-panel" aria-labelledby="modulos-title">
+        <h3 id="modulos-title" class="pam-panel__header">Estado de módulos</h3>
+        <ul class="module-list">
+          <li class="module-item">
+            <lucide-icon name="check-circle" [size]="14"></lucide-icon>
+            <span>Estudiantes</span>
+            <span class="pam-badge pam-badge--success">Activo</span>
+          </li>
+          <li class="module-item">
+            <lucide-icon name="check-circle" [size]="14"></lucide-icon>
+            <span>Inscripciones</span>
+            <span class="pam-badge pam-badge--success">Activo</span>
+          </li>
+          <li class="module-item">
+            <lucide-icon name="check-circle" [size]="14"></lucide-icon>
+            <span>Calificaciones</span>
+            <span class="pam-badge pam-badge--success">Activo</span>
+          </li>
+          <li class="module-item">
+            <lucide-icon name="check-circle" [size]="14"></lucide-icon>
+            <span>Dashboard</span>
+            <span class="pam-badge pam-badge--success">Activo</span>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </ng-container>
 </div>

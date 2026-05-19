@@ -10,6 +10,8 @@ import { Component, OnInit } from '@angular/core';
 export class DashboardComponent implements OnInit {
   stats: any = null;
   loading = true;
+  readonly skeletonItems = [1, 2, 3, 4];
+  readonly skeletonBars = [1, 2, 3];
 
   constructor(private readonly http: HttpClient) {}
 
