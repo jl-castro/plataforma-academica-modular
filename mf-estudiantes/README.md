@@ -1,59 +1,49 @@
-# MfEstudiantes
+# Microfrontend Estudiantes
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.4.
+Modulo remoto encargado de listar estudiantes, mostrar metricas basicas y emitir el evento de seleccion que sincroniza a los demas microfrontends.
 
-## Development server
+## Puerto e integracion
 
-To start a local development server, run:
+- URL local: `http://localhost:4201`
+- Ruta dentro del shell: `/estudiantes`
+- Remote entry: `http://localhost:4201/remoteEntry.js`
+- Modulo expuesto: `./Module`
+- Modulo Angular expuesto: `src/app/estudiantes/estudiantes.module.ts`
 
-```bash
-ng serve
+## Responsabilidades
+
+- Cargar datos desde `src/assets/data/estudiantes.json`.
+- Mostrar total de estudiantes, carreras y semestre promedio.
+- Permitir seleccionar un estudiante.
+- Emitir `estudiante.seleccionado` usando el EventBus remoto del `shell`.
+
+Payload emitido:
+
+```ts
+{
+  id: number;
+  nombre: string;
+  codigo: string;
+  carrera: string;
+  semestre: number;
+}
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Archivos clave
 
-## Code scaffolding
+- `src/app/estudiantes/estudiantes.component.ts`
+- `src/app/estudiantes/estudiantes-routing.module.ts`
+- `src/app/services/event-bus-loader.service.ts`
+- `src/assets/data/estudiantes.json`
+- `webpack.config.js`
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Comandos
 
 ```bash
-ng generate --help
+npm install
+npm start
+npm run build
+npm test
 ```
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Los comandos se ejecutan desde la carpeta `mf-estudiantes`. Para probar la emision del evento dentro de la plataforma, el `shell` debe estar activo en `http://localhost:4200`.

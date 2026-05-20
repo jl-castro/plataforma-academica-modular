@@ -26,13 +26,13 @@ El `shell` carga los modulos remotos mediante `@angular-architects/module-federa
 
 ## Modulos y puertos
 
-| Aplicacion | Puerto | Ruta en shell | Remote entry | Modulo expuesto |
-| --- | ---: | --- | --- | --- |
-| `shell` | 4200 | `/` | `http://localhost:4200/remoteEntry.js` | `./EventBusService` |
-| `mf-estudiantes` | 4201 | `/estudiantes` | `http://localhost:4201/remoteEntry.js` | `./Module` |
-| `mf-inscripciones` | 4202 | `/inscripciones` | `http://localhost:4202/remoteEntry.js` | `./Module` |
-| `mf-calificaciones` | 4203 | `/calificaciones` | `http://localhost:4203/remoteEntry.js` | `./Module` |
-| `mf-dashboard` | 4204 | `/dashboard` | `http://localhost:4204/remoteEntry.js` | `./Module` |
+| Aplicacion | Puerto | Ruta en shell | Remote entry | Modulo expuesto | Estado en manifest |
+| --- | ---: | --- | --- | --- | --- |
+| `shell` | 4200 | `/` | `http://localhost:4200/remoteEntry.js` | `./EventBusService` | Host |
+| `mf-estudiantes` | 4201 | `/estudiantes` | `http://localhost:4201/remoteEntry.js` | `./Module` | `activo` |
+| `mf-inscripciones` | 4202 | `/inscripciones` | `http://localhost:4202/remoteEntry.js` | `./Module` | `activo` |
+| `mf-calificaciones` | 4203 | `/calificaciones` | `http://localhost:4203/remoteEntry.js` | `./Module` | `activo` |
+| `mf-dashboard` | 4204 | `/dashboard` | `http://localhost:4204/remoteEntry.js` | `./Module` | `inactivo` |
 
 ## Tecnologias principales
 
@@ -149,6 +149,7 @@ Responsabilidades:
 
 - Carga resumen estadistico desde `http://localhost:4204/assets/data/dashboard.json`.
 - Presenta informacion general de la plataforma academica.
+- Esta configurado en rutas y Module Federation, pero actualmente figura como `inactivo` en `shell/src/assets/manifest.json`, por lo que no aparece en la navegacion principal.
 
 ## Eventos de integracion
 

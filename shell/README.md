@@ -1,59 +1,50 @@
 # Shell
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.4.
+Aplicacion contenedora de la Plataforma Academica Modular. Expone la navegacion principal, carga los microfrontends remotos con Module Federation, monitorea su disponibilidad y publica el `EventBusService` usado para la comunicacion entre modulos.
 
-## Development server
+## Puerto y rutas
 
-To start a local development server, run:
+- URL local: `http://localhost:4200`
+- Ruta inicial: `/estudiantes`
+- Remote entry expuesto: `http://localhost:4200/remoteEntry.js`
+- Modulo expuesto: `./EventBusService`
 
-```bash
-ng serve
-```
+## Responsabilidades
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Cargar `mf-estudiantes`, `mf-inscripciones`, `mf-calificaciones` y `mf-dashboard` mediante rutas lazy.
+- Leer `src/assets/manifest.json` para mostrar modulos activos y registrar remotos.
+- Verificar salud de remotos con peticiones `HEAD` a cada `remoteEntry.js`.
+- Redirigir a `ModuloErrorModule` cuando un remoto esta fuera de linea o falla al cargar.
+- Registrar eventos de arquitectura en la consola interna.
 
-## Code scaffolding
+## Archivos clave
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- `src/app/app-routing.module.ts`: rutas y carga dinamica de remotos.
+- `src/app/services/event-bus.service.ts`: bus de eventos compartido.
+- `src/app/services/manifest.service.ts`: lectura del manifest.
+- `src/app/services/microfrontend-health.service.ts`: monitoreo de disponibilidad.
+- `src/app/guards/modulo-health.guard.ts`: bloqueo de navegacion a remotos offline.
+- `src/assets/manifest.json`: catalogo de microfrontends.
+- `webpack.config.js`: remotos declarados y exposicion del EventBus.
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Comandos
 
 ```bash
-ng test
+npm install
+npm start
+npm run build
+npm test
 ```
 
-## Running end-to-end tests
+Los comandos se ejecutan desde la carpeta `shell`.
 
-For end-to-end (e2e) testing, run:
+## Dependencias locales
 
-```bash
-ng e2e
-```
+Para probar la plataforma completa, levantar tambien los microfrontends remotos en sus puertos correspondientes:
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+| Microfrontend | Puerto |
+| --- | ---: |
+| `mf-estudiantes` | 4201 |
+| `mf-inscripciones` | 4202 |
+| `mf-calificaciones` | 4203 |
+| `mf-dashboard` | 4204 |

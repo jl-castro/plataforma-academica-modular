@@ -113,7 +113,7 @@ Archivo:
 shell/src/assets/manifest.json
 ```
 
-Define los modulos disponibles para navegacion y monitoreo:
+Define los modulos disponibles para navegacion y monitoreo. Los modulos con `estado: "activo"` aparecen en la navegacion principal; los modulos `inactivo` pueden seguir configurados para rutas, pruebas o activacion posterior.
 
 ```json
 {
@@ -143,7 +143,7 @@ Campos:
 | `version` | Version funcional del modulo |
 | `eventosEmitidos` | Eventos publicados por el modulo |
 | `eventosEscuchados` | Eventos consumidos por el modulo |
-| `estado` | `activo`, `inactivo` o `error` |
+| `estado` | `activo`, `inactivo` o `error`; controla principalmente si el modulo aparece en navegacion |
 
 ## Module Federation
 

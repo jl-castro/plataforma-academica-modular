@@ -203,12 +203,14 @@ Actualizar el puerto en todos estos lugares:
 
 ### El dashboard no carga con `start-all.bat`
 
-El script actual no inicia `mf-dashboard`. Levantarlo manualmente:
+El script actual no inicia `mf-dashboard` y el manifest lo mantiene con `estado: "inactivo"`, por lo que no aparece en la navegacion principal. Levantarlo manualmente:
 
 ```bash
 cd mf-dashboard
 npm start
 ```
+
+Si se desea mostrarlo en la navegacion, cambiar su estado a `activo` en `shell/src/assets/manifest.json`.
 
 ## Checklist antes de entregar cambios
 
@@ -218,4 +220,3 @@ npm start
 - Los eventos nuevos estan documentados.
 - No se introdujeron dependencias compartidas duplicadas sin necesidad.
 - Los datos JSON usados por la vista existen y tienen la estructura esperada.
-
