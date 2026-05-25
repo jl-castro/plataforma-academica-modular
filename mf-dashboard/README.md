@@ -1,6 +1,6 @@
 # Microfrontend Dashboard
 
-Modulo remoto con un resumen estadistico general de la plataforma academica.
+Modulo remoto con resumen estadistico general de la plataforma academica. Aparece en la navegacion del shell (`estado: "activo"` en el manifest).
 
 ## Puerto e integracion
 
@@ -10,28 +10,30 @@ Modulo remoto con un resumen estadistico general de la plataforma academica.
 - Modulo expuesto: `./Module`
 - Modulo Angular expuesto: `src/app/dashboard/dashboard.module.ts`
 
-## Estado actual
+## Arranque con start-all.bat
 
-El modulo esta configurado en rutas, Module Federation y manifest, pero en `shell/src/assets/manifest.json` figura con `estado: "inactivo"`. Por eso no aparece en la navegacion principal aunque la ruta remota existe.
-
-El script `start-all.bat` tampoco lo inicia automaticamente. Para usarlo, levantarlo manualmente:
+El script `start-all.bat` no inicia este modulo automaticamente. Para usarlo desde el shell:
 
 ```bash
 cd mf-dashboard
 npm start
 ```
 
+Tambien puede abrirse en modo independiente en `http://localhost:4204` sin el shell.
+
 ## Responsabilidades
 
-- Cargar datos desde `http://localhost:4204/assets/data/dashboard.json`.
-- Mostrar estadisticas generales de estudiantes, inscripciones y rendimiento.
-- Funcionar como modulo independiente sin consumir eventos del EventBus.
+- Importar resumen desde `src/assets/data/dashboard.json` en tiempo de compilacion (no via HTTP), para que funcione embebido en el shell y en standalone.
+- Agregar materias con mayor demanda importando `mf-inscripciones/src/assets/data/inscripciones.json` en build time.
+- KPIs con iconos Lucide, grafico por carrera, top de materias inscritas, distribucion por semestre y estado de modulos.
+- No consume eventos del EventBus; opera de forma autonoma.
 
 ## Archivos clave
 
 - `src/app/dashboard/dashboard.component.ts`
 - `src/app/dashboard/dashboard-routing.module.ts`
 - `src/assets/data/dashboard.json`
+- `src/styles.scss` (importa `pam-base`)
 - `webpack.config.js`
 
 ## Comandos

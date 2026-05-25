@@ -10,6 +10,10 @@ mf-estudiantes/
 mf-inscripciones/
 mf-calificaciones/
 mf-dashboard/
+shared/
+  styles/          # pam-tokens, pam-base (UI compartida)
+  demo/            # perfil demo para modo independiente
+  runtime/         # esModoIndependiente()
 ```
 
 Cada aplicacion contiene:
@@ -20,6 +24,33 @@ Cada aplicacion contiene:
 - `webpack.prod.config.js`: configuracion Module Federation para produccion.
 - `src/app`: componentes, modulos, rutas y servicios.
 - `src/assets/data`: datos JSON de demostracion, cuando aplica.
+- `src/styles.scss`: importa `shared/styles/_pam-base.scss` para estilos compartidos entre shell y MFs.
+
+## Estilos compartidos
+
+Los tokens y clases utilitarias (`pam-page`, `pam-panel`, `pam-stat-strip`, empty states, etc.) viven en:
+
+```text
+shared/styles/_pam-tokens.scss
+shared/styles/_pam-base.scss
+```
+
+Cada aplicacion los importa desde su `src/styles.scss`:
+
+```scss
+@import '../../shared/styles/pam-base';
+```
+
+Esto garantiza que cada MF se vea consistente tanto en el shell como en su puerto independiente.
+
+## Modo independiente
+
+Utilidad: `shared/runtime/modo-independiente.ts` — `esModoIndependiente(puertoEsperado?)` devuelve `true` cuando la app no corre en el shell (`4200`).
+
+- **Inscripciones** (`4202`) y **Calificaciones** (`4203`): si no reciben `estudiante.seleccionado` en ~600 ms, cargan el perfil de `shared/demo/estudiante-demo.ts` sin emitir al bus.
+- **Estudiantes** y **Dashboard**: autonomos con JSON local o import estatico.
+
+Para probar un MF aislado, abrir su puerto directamente (p. ej. `http://localhost:4202`).
 
 ## Instalacion limpia
 
@@ -189,7 +220,24 @@ El servicio de salud del `shell` hace una peticion `HEAD` al `remoteEntry.js`. R
 
 ### Inscripciones o calificaciones no muestran datos
 
-Primero seleccionar un estudiante en `/estudiantes`. Esos modulos dependen del evento `estudiante.seleccionado` para filtrar la informacion.
+**En el shell:** primero seleccionar un estudiante en `/estudiantes`. Esos modulos dependen del evento `estudiante.seleccionado` para filtrar la informacion.
+
+**En modo independiente (`4202` / `4203`):** esperar ~600 ms; debe aparecer la vista demo con Ana Lucía. Si la pantalla queda vacia, verificar que el puerto corresponda al MF y que `shared/demo/estudiante-demo.ts` este accesible en el build.
+
+### El dashboard no muestra datos en el shell
+
+El dashboard importa `dashboard.json` en el bundle (no usa `HttpClient` con rutas relativas a `assets/`). Si se cambia la fuente de datos, mantener el import estatico o usar una URL absoluta al remoto, no una ruta relativa que el shell resuelva contra sus propios assets.
+
+### El dashboard no carga con `start-all.bat`
+
+El script actual no inicia `mf-dashboard`. Levantarlo manualmente:
+
+```bash
+cd mf-dashboard
+npm start
+```
+
+Dashboard figura como `activo` en `shell/src/assets/manifest.json` y aparece en la navegacion cuando el remoto en `4204` esta online.
 
 ### Cambie un puerto y dejo de cargar el remoto
 
@@ -200,17 +248,6 @@ Actualizar el puerto en todos estos lugares:
 - `shell/src/app/app-routing.module.ts`.
 - `shell/webpack.config.js`.
 - `EventBusLoaderService`, si el cambio afecta al `shell`.
-
-### El dashboard no carga con `start-all.bat`
-
-El script actual no inicia `mf-dashboard` y el manifest lo mantiene con `estado: "inactivo"`, por lo que no aparece en la navegacion principal. Levantarlo manualmente:
-
-```bash
-cd mf-dashboard
-npm start
-```
-
-Si se desea mostrarlo en la navegacion, cambiar su estado a `activo` en `shell/src/assets/manifest.json`.
 
 ## Checklist antes de entregar cambios
 

@@ -15,6 +15,10 @@ plataforma-academica-modular/
 |-- mf-inscripciones/     # Consulta de materias inscritas por estudiante
 |-- mf-calificaciones/    # Consulta de calificaciones por estudiante
 |-- mf-dashboard/         # Resumen estadistico general
+|-- shared/               # Recursos compartidos entre microfrontends
+|   |-- styles/           # Tokens y estilos base (pam-tokens, pam-base)
+|   |-- demo/             # Perfil de demostracion para modo independiente
+|   `-- runtime/          # Utilidades de entorno (esModoIndependiente)
 `-- start-all.bat         # Script local para levantar varios servicios
 ```
 
@@ -32,7 +36,7 @@ El `shell` carga los modulos remotos mediante `@angular-architects/module-federa
 | `mf-estudiantes` | 4201 | `/estudiantes` | `http://localhost:4201/remoteEntry.js` | `./Module` | `activo` |
 | `mf-inscripciones` | 4202 | `/inscripciones` | `http://localhost:4202/remoteEntry.js` | `./Module` | `activo` |
 | `mf-calificaciones` | 4203 | `/calificaciones` | `http://localhost:4203/remoteEntry.js` | `./Module` | `activo` |
-| `mf-dashboard` | 4204 | `/dashboard` | `http://localhost:4204/remoteEntry.js` | `./Module` | `inactivo` |
+| `mf-dashboard` | 4204 | `/dashboard` | `http://localhost:4204/remoteEntry.js` | `./Module` | `activo` |
 
 ## Tecnologias principales
 
@@ -88,7 +92,25 @@ Opcion con script:
 start-all.bat
 ```
 
-Nota: el script actual inicia `shell`, `mf-estudiantes`, `mf-inscripciones` y `mf-calificaciones`. El modulo `mf-dashboard` esta configurado en el proyecto, pero debe iniciarse manualmente con `cd mf-dashboard && npm start` si se desea usar `/dashboard`.
+Nota: el script actual inicia `shell`, `mf-estudiantes`, `mf-inscripciones` y `mf-calificaciones`. Para usar Dashboard, iniciarlo manualmente con `cd mf-dashboard && npm start` o abrir `http://localhost:4204` en modo independiente.
+
+## Modo independiente vs shell
+
+Cada microfrontend puede ejecutarse en su propio puerto (`4201`–`4204`) ademas de integrarse en el shell (`4200`). En modo independiente:
+
+- Todos los MFs importan estilos compartidos desde `shared/styles/_pam-base.scss` (paneles, KPIs, empty states, tipografia).
+- **Estudiantes** y **Dashboard** funcionan de forma autonoma con datos JSON locales.
+- **Inscripciones** y **Calificaciones** muestran un perfil de demostracion (Ana Lucía, id `1`) si no reciben `estudiante.seleccionado` en ~600 ms. No emiten eventos en ese modo; el flujo por eventos del shell no cambia.
+- La deteccion de modo independiente usa `shared/runtime/modo-independiente.ts` (puerto distinto de `4200`).
+
+URLs de referencia en modo independiente:
+
+| MF | URL |
+| --- | --- |
+| Estudiantes | `http://localhost:4201` |
+| Inscripciones | `http://localhost:4202` |
+| Calificaciones | `http://localhost:4203` |
+| Dashboard | `http://localhost:4204` |
 
 ## Funcionalidad por modulo
 
@@ -109,7 +131,9 @@ Responsabilidades principales:
 Responsabilidades:
 
 - Carga estudiantes desde `mf-estudiantes/src/assets/data/estudiantes.json`.
-- Muestra metricas como total de carreras y semestre promedio.
+- Busqueda y filtros por nombre, codigo, carrera y semestre.
+- Panel lateral de perfil del estudiante seleccionado (carrera, semestre, correo).
+- Metricas: registros, carreras, semestre promedio y contador filtrado.
 - Permite seleccionar un estudiante.
 - Emite el evento `estudiante.seleccionado` mediante el EventBus del `shell`.
 
@@ -132,7 +156,9 @@ Responsabilidades:
 - Escucha el evento `estudiante.seleccionado`.
 - Carga datos desde `mf-inscripciones/src/assets/data/inscripciones.json`.
 - Filtra inscripciones por `estudianteId`.
-- Calcula creditos totales y estados de materias.
+- Barra de carga de creditos inscritos (max. 30), chips por estado y calendario semanal.
+- Barras de creditos por materia y tabla de detalle.
+- En modo independiente (`4202`): carga demo local si no hay evento (sin alterar el contrato del bus).
 
 ### Calificaciones
 
@@ -141,15 +167,18 @@ Responsabilidades:
 - Escucha el evento `estudiante.seleccionado`.
 - Carga datos desde `mf-calificaciones/src/assets/data/calificaciones.json`.
 - Filtra calificaciones por estudiante.
-- Calcula totales, aprobaciones, reprobaciones y distribucion de notas.
+- Promedio general destacado, grafico de barras por materia (parciales y final), filas expandibles.
+- Distribucion de notas, totales, aprobaciones y reprobaciones.
+- En modo independiente (`4203`): carga demo local si no hay evento (sin alterar el contrato del bus).
 
 ### Dashboard
 
 Responsabilidades:
 
-- Carga resumen estadistico desde `http://localhost:4204/assets/data/dashboard.json`.
-- Presenta informacion general de la plataforma academica.
-- Esta configurado en rutas y Module Federation, pero actualmente figura como `inactivo` en `shell/src/assets/manifest.json`, por lo que no aparece en la navegacion principal.
+- Importa resumen desde `mf-dashboard/src/assets/data/dashboard.json` (empaquetado en el bundle; funciona en shell e independiente).
+- Agrega demanda de materias desde `mf-inscripciones/.../inscripciones.json` en tiempo de compilacion.
+- KPIs con iconos, grafico por carrera, top de materias inscritas, distribucion por semestre y estado de modulos.
+- No consume eventos del EventBus; opera de forma autonoma.
 
 ## Eventos de integracion
 
@@ -183,7 +212,18 @@ npm test
 
 Estos comandos se ejecutan dentro de cada carpeta (`shell`, `mf-estudiantes`, etc.).
 
+## Datos y estilos compartidos
+
+| Recurso | Ubicacion | Uso |
+| --- | --- | --- |
+| Estilos base | `shared/styles/_pam-base.scss`, `_pam-tokens.scss` | Importados en cada MF para UI consistente en shell e independiente |
+| Modo independiente | `shared/runtime/modo-independiente.ts` | Detecta si el MF corre fuera del shell (puerto ≠ 4200) |
+| Perfil demo | `shared/demo/estudiante-demo.ts` | Ana Lucía (id `1`) para Inscripciones y Calificaciones en standalone |
+
+Los datos de demostracion viven en `src/assets/data/` de cada MF. **Dashboard** importa su JSON en el bundle (`import dashboardJson from '...'`) para que funcione tanto en el shell como en `4204`; evitar rutas HTTP relativas a `assets/` cuando el modulo se carga dentro del shell, porque el host resuelve contra sus propios assets.
+
 ## Documentacion adicional
 
 - [Arquitectura](docs/ARQUITECTURA.md)
 - [Desarrollo y mantenimiento](docs/DESARROLLO.md)
+- [Escenarios de demostracion](docs/DEMO.md)

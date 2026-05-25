@@ -76,8 +76,10 @@ Este escenario introduce la idea central de la tesis: el sistema se estructura m
 7. Navegar hacia el módulo Estudiantes.
 8. Navegar hacia Inscripciones.
 9. Navegar hacia Calificaciones.
-10. Navegar hacia Dashboard, si está activo.
+10. Navegar hacia Dashboard (activo en el manifest; requiere `mf-dashboard` en `4204`).
 11. Mostrar en la consola arquitectónica los registros de carga o actividad.
+
+**Opcional (modo independiente):** abrir un MF en su puerto (`4201`–`4204`) para mostrar que cada unidad puede ejecutarse y presentarse como producto autónomo, con estilos compartidos desde `shared/styles/`. Inscripciones y Calificaciones muestran demo local si no hay evento del shell.
 
 ## Mensaje que debe comunicarse
 
@@ -390,7 +392,7 @@ Antes de realizar la demostración, se recomienda verificar lo siguiente:
 - Estudiantes debe estar activo.
 - Inscripciones debe estar activo.
 - Calificaciones debe estar activo.
-- Dashboard debe estar activo si se usará como evidencia de incorporación de módulo.
+- Dashboard debe estar activo y el remoto en `4204` online si se usará en la navegación del shell.
 - El manifiesto debe estar sincronizado con las rutas y puertos reales.
 - La consola arquitectónica debe mostrar eventos y errores.
 - El bus de eventos debe registrar `estudiante.seleccionado`.
@@ -407,9 +409,21 @@ La demo no debe centrarse en la funcionalidad académica, sino en la evidencia d
 
 El orden recomendado es:
 
-1. composición modular de la plataforma;
-2. comunicación desacoplada por eventos;
-3. falla controlada de un módulo remoto;
-4. incorporación de un nuevo módulo.
+1. Composición modular.
+2. Comunicación por eventos.
+3. Falla controlada.
+4. Incorporación de Dashboard.
 
-Este orden permite construir una explicación progresiva y coherente: primero se entiende la estructura, luego la interacción, después la resiliencia y finalmente la evolución.
+---
+
+# 9. Anexo: UI y modo independiente (no arquitectura core)
+
+Las mejoras recientes de interfaz (filtros en Estudiantes, calendario y créditos en Inscripciones, gráficos en Calificaciones, KPIs en Dashboard) **no modifican** el marco arquitectónico: eventos, manifest, shell y Module Federation permanecen iguales.
+
+Sirven para:
+
+- reforzar la **delimitación modular** (cada MF se percibe como unidad completa);
+- permitir **demostración standalone** en puertos `4201`–`4204` con estilos unificados (`shared/styles/_pam-base.scss`);
+- ofrecer **demo local** en Inscripciones/Calificaciones cuando no hay EventBus (perfil Ana Lucía, sin emitir eventos).
+
+En la narrativa de tesis, conviene presentar la UI enriquecida como consecuencia de la independencia de cada módulo, no como funcionalidad académica del sistema.

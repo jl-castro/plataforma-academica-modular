@@ -1,6 +1,6 @@
 # Microfrontend Estudiantes
 
-Modulo remoto encargado de listar estudiantes, mostrar metricas basicas y emitir el evento de seleccion que sincroniza a los demas microfrontends.
+Modulo remoto encargado de listar estudiantes, permitir busqueda y filtros, mostrar el perfil del seleccionado y emitir el evento que sincroniza a los demas microfrontends.
 
 ## Puerto e integracion
 
@@ -13,8 +13,9 @@ Modulo remoto encargado de listar estudiantes, mostrar metricas basicas y emitir
 ## Responsabilidades
 
 - Cargar datos desde `src/assets/data/estudiantes.json`.
-- Mostrar total de estudiantes, carreras y semestre promedio.
-- Permitir seleccionar un estudiante.
+- Busqueda por nombre o codigo; filtros por carrera y semestre.
+- Panel lateral de perfil (avatar, correo, carrera, semestre) al seleccionar un estudiante.
+- Metricas: total de registros, carreras, semestre promedio y contador de resultados filtrados.
 - Emitir `estudiante.seleccionado` usando el EventBus remoto del `shell`.
 
 Payload emitido:
@@ -29,12 +30,17 @@ Payload emitido:
 }
 ```
 
+## Modo independiente
+
+Funciona de forma autonoma en `http://localhost:4201` con datos JSON locales. Importa estilos desde `shared/styles/_pam-base.scss`.
+
 ## Archivos clave
 
 - `src/app/estudiantes/estudiantes.component.ts`
 - `src/app/estudiantes/estudiantes-routing.module.ts`
 - `src/app/services/event-bus-loader.service.ts`
 - `src/assets/data/estudiantes.json`
+- `src/styles.scss` (importa `pam-base`)
 - `webpack.config.js`
 
 ## Comandos

@@ -217,17 +217,42 @@ Metodos principales:
 
 Los datos de demostracion viven en archivos JSON dentro de cada microfrontend:
 
-| Modulo | Archivo |
+| Modulo | Archivo | Notas |
+| --- | --- | --- |
+| Estudiantes | `mf-estudiantes/src/assets/data/estudiantes.json` | Carga via HTTP en el MF |
+| Inscripciones | `mf-inscripciones/src/assets/data/inscripciones.json` | Filtrado por evento o demo standalone |
+| Calificaciones | `mf-calificaciones/src/assets/data/calificaciones.json` | Filtrado por evento o demo standalone |
+| Dashboard | `mf-dashboard/src/assets/data/dashboard.json` | **Import estatico** en el componente (no HTTP relativo) |
+| Dashboard (demanda) | `mf-inscripciones/src/assets/data/inscripciones.json` | Import en build time para top de materias |
+
+## Recursos compartidos (`shared/`)
+
+Recursos de presentacion y utilidades de entorno compartidos entre microfrontends. **No sustituyen** el EventBus ni los contratos del manifest; el core arquitectonico no cambia.
+
+| Carpeta | Contenido |
 | --- | --- |
-| Estudiantes | `mf-estudiantes/src/assets/data/estudiantes.json` |
-| Inscripciones | `mf-inscripciones/src/assets/data/inscripciones.json` |
-| Calificaciones | `mf-calificaciones/src/assets/data/calificaciones.json` |
-| Dashboard | `mf-dashboard/src/assets/data/dashboard.json` |
+| `shared/styles/` | Tokens (`_pam-tokens.scss`) y estilos base (`_pam-base.scss`) importados por shell y MFs |
+| `shared/demo/` | Perfil `ESTUDIANTE_DEMO` para Inscripciones y Calificaciones en modo independiente |
+| `shared/runtime/` | `esModoIndependiente()` — detecta ejecucion fuera del shell (puerto ≠ 4200) |
+
+Cada MF importa `pam-base` en su `styles.scss` para que la UI sea coherente en shell e independiente.
+
+## Capa de presentacion (UI)
+
+Los microfrontends incluyen mejoras de interfaz (filtros, KPIs, calendario, graficos) que no alteran:
+
+- contratos de eventos;
+- manifest;
+- Module Federation;
+- flujo shell → remotos.
+
+Son evidencia de **delimitacion modular**: cada MF puede evolucionar su UX sin acoplar logica de negocio entre modulos.
 
 ## Consideraciones tecnicas
 
-- Los microfrontends dependen del `shell` para usar el EventBus.
-- `mf-inscripciones` y `mf-calificaciones` deben recibir un evento de estudiante antes de mostrar datos filtrados.
+- Los microfrontends dependen del `shell` para usar el EventBus en integracion normal.
+- `mf-inscripciones` y `mf-calificaciones` requieren `estudiante.seleccionado` en el shell; en modo independiente usan demo local sin emitir eventos.
+- Evitar `HttpClient.get('assets/...')` en modulos cargados dentro del shell: el host resuelve assets propios. Preferir import estatico de JSON o URL absoluta al remoto.
 - Las rutas del `shell` y el `manifest.json` deben mantenerse sincronizados.
 - Si cambia un puerto, deben actualizarse el `angular.json`, el `manifest`, el `app-routing.module.ts` del shell y las referencias de Module Federation.
 - `shareAll({ singleton: true, strictVersion: true, requiredVersion: 'auto' })` evita duplicar dependencias compartidas de Angular entre host y remotos.
