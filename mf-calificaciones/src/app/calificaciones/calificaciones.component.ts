@@ -1,5 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { ESTUDIANTE_DEMO } from '../../../../shared/demo/estudiante-demo';
+import { esModoIndependiente } from '../../../../shared/runtime/modo-independiente';
 import calificacionesJson from '../../assets/data/calificaciones.json';
 import { EventBusLoaderService } from '../services/event-bus-loader.service';
 
@@ -45,6 +47,7 @@ export class CalificacionesComponent implements OnInit, OnDestroy {
   filaExpandidaId: number | null = null;
 
   textoBannerEvento: string | null = null;
+  modoDemoActivo = false;
   private bannerTimeoutId: ReturnType<typeof setTimeout> | null = null;
 
   totalMaterias = 0;
@@ -59,25 +62,43 @@ export class CalificacionesComponent implements OnInit, OnDestroy {
   };
 
   private readonly subs = new Subscription();
+  private readonly modoIndependiente = esModoIndependiente('4203');
+  private recibioEstudiantePorEvento = false;
+  private demoTimeoutId: ReturnType<typeof setTimeout> | null = null;
 
-  constructor(private readonly eventBusLoader: EventBusLoaderService) {}
+  constructor(
+    private readonly eventBusLoader: EventBusLoaderService,
+    private readonly ngZone: NgZone,
+  ) {}
 
   ngOnInit(): void {
     void this.eventBusLoader.getEventBus().then((bus) => {
       this.subs.add(
         bus.on('estudiante.seleccionado').subscribe((payload: unknown) => {
-          const globalBus = (window as any).__PAM_EVENT_BUS__;
-          if (globalBus) globalBus.log('estudiante.seleccionado', payload, 'recibido');
-          this.estudiante = payload as EstudianteSeleccionadoPayload;
-          this.filaExpandidaId = null;
-          this.mostrarBannerEvento(this.estudiante.nombre);
-          this.cargarCalificaciones(this.estudiante.id);
+          this.ngZone.run(() => {
+            const globalBus = (window as any).__PAM_EVENT_BUS__;
+            if (globalBus) {
+              globalBus.log('estudiante.seleccionado', payload, 'recibido');
+            }
+            this.recibioEstudiantePorEvento = true;
+            this.cancelarDemoPendiente();
+            this.modoDemoActivo = false;
+            this.estudiante = payload as EstudianteSeleccionadoPayload;
+            this.filaExpandidaId = null;
+            this.mostrarBannerEvento(this.estudiante.nombre);
+            this.cargarCalificaciones(this.estudiante.id);
+          });
         }),
       );
+
+      if (this.modoIndependiente) {
+        this.programarCargaDemo();
+      }
     });
   }
 
   ngOnDestroy(): void {
+    this.cancelarDemoPendiente();
     if (this.bannerTimeoutId !== null) {
       clearTimeout(this.bannerTimeoutId);
     }
@@ -173,6 +194,40 @@ export class CalificacionesComponent implements OnInit, OnDestroy {
       return 0;
     }
     return (cantidad / this.distribucionNotas.total) * 100;
+  }
+
+  private programarCargaDemo(): void {
+    this.cancelarDemoPendiente();
+    this.demoTimeoutId = setTimeout(() => {
+      this.demoTimeoutId = null;
+      if (this.recibioEstudiantePorEvento || this.estudiante) {
+        return;
+      }
+      this.ngZone.run(() => this.aplicarEstudianteDemo());
+    }, 600);
+  }
+
+  private cancelarDemoPendiente(): void {
+    if (this.demoTimeoutId !== null) {
+      clearTimeout(this.demoTimeoutId);
+      this.demoTimeoutId = null;
+    }
+  }
+
+  private aplicarEstudianteDemo(): void {
+    this.modoDemoActivo = true;
+    this.estudiante = { ...ESTUDIANTE_DEMO };
+    this.filaExpandidaId = null;
+    this.cargarCalificaciones(ESTUDIANTE_DEMO.id);
+    if (this.bannerTimeoutId !== null) {
+      clearTimeout(this.bannerTimeoutId);
+    }
+    this.textoBannerEvento =
+      'Vista de demostración con perfil local (modo independiente).';
+    this.bannerTimeoutId = setTimeout(() => {
+      this.textoBannerEvento = null;
+      this.bannerTimeoutId = null;
+    }, 5000);
   }
 
   private mostrarBannerEvento(nombreEstudiante: string): void {

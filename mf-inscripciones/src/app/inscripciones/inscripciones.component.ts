@@ -1,5 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { Subject, Subscription, takeUntil, timer } from 'rxjs';
+import { ESTUDIANTE_DEMO } from '../../../../shared/demo/estudiante-demo';
+import { esModoIndependiente } from '../../../../shared/runtime/modo-independiente';
 import inscripcionesJson from '../../assets/data/inscripciones.json';
 import { EventBusLoaderService } from '../services/event-bus-loader.service';
 
@@ -72,10 +74,17 @@ export class InscripcionesComponent implements OnInit, OnDestroy {
   protected filtroEstado: FiltroEstadoInscripcion = 'Todos';
   protected eventoBannerVisible = false;
   protected eventoBannerText = '';
+  protected modoDemoActivo = false;
 
   private todasLasInscripciones: InscripcionItem[] | null = null;
+  private readonly modoIndependiente = esModoIndependiente('4202');
+  private recibioEstudiantePorEvento = false;
+  private demoTimeoutId: ReturnType<typeof setTimeout> | null = null;
 
-  constructor(private readonly eventBusLoader: EventBusLoaderService) {}
+  constructor(
+    private readonly eventBusLoader: EventBusLoaderService,
+    private readonly ngZone: NgZone,
+  ) {}
 
   ngOnInit(): void {
     void this.eventBusLoader.getEventBus().then((bus) => {
@@ -83,18 +92,29 @@ export class InscripcionesComponent implements OnInit, OnDestroy {
         .on('estudiante.seleccionado')
         .pipe(takeUntil(this.destroy$))
         .subscribe((estudiante: unknown) => {
-          const globalBus = (window as any).__PAM_EVENT_BUS__;
-          if (globalBus) globalBus.log('estudiante.seleccionado', estudiante, 'recibido');
-          this.onEstudianteEvento(estudiante);
-          const id = this.estudianteSeleccionado?.id;
-          if (id) {
-            this.cargarInscripciones(id);
-          }
+          this.ngZone.run(() => {
+            const globalBus = (window as any).__PAM_EVENT_BUS__;
+            if (globalBus) {
+              globalBus.log('estudiante.seleccionado', estudiante, 'recibido');
+            }
+            this.recibioEstudiantePorEvento = true;
+            this.cancelarDemoPendiente();
+            this.onEstudianteEvento(estudiante, true);
+            const id = this.estudianteSeleccionado?.id;
+            if (id) {
+              this.cargarInscripciones(id);
+            }
+          });
         });
+
+      if (this.modoIndependiente) {
+        this.programarCargaDemo();
+      }
     });
   }
 
   ngOnDestroy(): void {
+    this.cancelarDemoPendiente();
     this.busSubscription?.unsubscribe();
     this.eventLogTimerSub?.unsubscribe();
     this.destroy$.next();
@@ -255,19 +275,61 @@ export class InscripcionesComponent implements OnInit, OnDestroy {
     return { dias, inicio, fin };
   }
 
-  private onEstudianteEvento(payload: unknown): void {
-    const estudiante = this.normalizarEstudiante(payload);
-    this.estudianteSeleccionado = estudiante;
-    this.filtroEstado = 'Todos';
+  private programarCargaDemo(): void {
+    this.cancelarDemoPendiente();
+    this.demoTimeoutId = setTimeout(() => {
+      this.demoTimeoutId = null;
+      if (this.recibioEstudiantePorEvento || this.estudianteSeleccionado) {
+        return;
+      }
+      this.ngZone.run(() => this.aplicarEstudianteDemo());
+    }, 600);
+  }
 
+  private cancelarDemoPendiente(): void {
+    if (this.demoTimeoutId !== null) {
+      clearTimeout(this.demoTimeoutId);
+      this.demoTimeoutId = null;
+    }
+  }
+
+  private aplicarEstudianteDemo(): void {
+    this.modoDemoActivo = true;
+    this.estudianteSeleccionado = {
+      id: ESTUDIANTE_DEMO.id,
+      nombre: ESTUDIANTE_DEMO.nombre,
+      codigo: ESTUDIANTE_DEMO.codigo,
+      carrera: ESTUDIANTE_DEMO.carrera,
+    };
+    this.filtroEstado = 'Todos';
+    this.cargarInscripciones(ESTUDIANTE_DEMO.id);
     this.eventLogTimerSub?.unsubscribe();
-    this.eventoBannerText = `📥 Evento recibido: estudiante.seleccionado → ${estudiante.nombre}`;
+    this.eventoBannerText =
+      'Vista de demostración con perfil local (modo independiente).';
     this.eventoBannerVisible = true;
-    this.eventLogTimerSub = timer(3000)
+    this.eventLogTimerSub = timer(5000)
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.eventoBannerVisible = false;
       });
+  }
+
+  private onEstudianteEvento(payload: unknown, desdeEvento = false): void {
+    const estudiante = this.normalizarEstudiante(payload);
+    this.estudianteSeleccionado = estudiante;
+    this.filtroEstado = 'Todos';
+
+    if (desdeEvento) {
+      this.modoDemoActivo = false;
+      this.eventLogTimerSub?.unsubscribe();
+      this.eventoBannerText = `📥 Evento recibido: estudiante.seleccionado → ${estudiante.nombre}`;
+      this.eventoBannerVisible = true;
+      this.eventLogTimerSub = timer(3000)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(() => {
+          this.eventoBannerVisible = false;
+        });
+    }
   }
 
   private normalizarEstudiante(payload: unknown): EstudianteSeleccionado {

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { esModoIndependiente } from '../../../shared/runtime/modo-independiente';
 
 @Component({
   selector: 'app-root',
@@ -6,6 +7,5 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-  readonly modoIndependiente =
-    typeof window !== 'undefined' && window.location.port === '4203';
+  readonly modoIndependiente = esModoIndependiente('4203');
 }

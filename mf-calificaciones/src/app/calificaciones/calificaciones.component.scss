@@ -28,6 +28,12 @@
   color: var(--pam-success);
   font-size: var(--pam-text-sm);
   font-weight: 500;
+
+  &--demo {
+    background: var(--pam-accent-subtle);
+    color: var(--pam-accent);
+    border: 1px solid var(--pam-border);
+  }
 }
 
 .mensaje-error {

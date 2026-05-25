@@ -11,7 +11,12 @@
 </div>
 
 <div class="calificaciones pam-page" *ngIf="estudiante">
-  <div class="banner-evento" *ngIf="textoBannerEvento" role="status">
+  <div
+    class="banner-evento"
+    [class.banner-evento--demo]="modoDemoActivo"
+    *ngIf="textoBannerEvento"
+    role="status"
+  >
     {{ textoBannerEvento }}
   </div>
 

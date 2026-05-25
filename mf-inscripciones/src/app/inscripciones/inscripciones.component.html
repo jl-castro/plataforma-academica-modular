@@ -1,5 +1,11 @@
 <div class="inscripciones pam-page">
-	<div class="inscripciones__banner" *ngIf="eventoBannerVisible" role="status" aria-live="polite">
+	<div
+		class="inscripciones__banner"
+		[class.inscripciones__banner--demo]="modoDemoActivo"
+		*ngIf="eventoBannerVisible"
+		role="status"
+		aria-live="polite"
+	>
 		{{ eventoBannerText }}
 	</div>
 
