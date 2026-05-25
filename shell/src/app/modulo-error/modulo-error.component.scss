@@ -7,117 +7,153 @@
 }
 
 .error-card {
-  text-align: center;
-  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
   width: 100%;
   background: var(--pam-surface);
   border: 1px solid var(--pam-border);
   border-radius: var(--pam-radius-lg);
-  padding: 48px 36px;
+  padding: 32px 28px 24px;
   box-shadow: var(--pam-shadow);
+  text-align: center;
+}
+
+.error-card__icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  border-radius: 50%;
+  background: var(--pam-danger-bg);
+  color: var(--pam-danger);
 
   lucide-icon {
-    color: var(--pam-danger);
-    margin-bottom: 20px;
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
 h3 {
-  font-family: var(--pam-font-heading);
-  font-size: 18px;
+  font-size: var(--pam-text-xl);
   font-weight: 600;
   color: var(--pam-text-main);
-  margin-bottom: 10px;
-}
-
-p {
-  font-size: 14px;
-  color: var(--pam-text-muted);
   margin-bottom: 8px;
+  line-height: 1.3;
 }
 
-.error-hint {
-  font-size: 13px;
-  color: var(--pam-text-hint);
+.error-card__lead {
+  font-size: var(--pam-text-sm);
+  color: var(--pam-text-main);
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+
+.error-card__hint {
+  font-size: var(--pam-text-sm);
+  color: var(--pam-text-muted);
   margin-bottom: 20px;
+  line-height: 1.5;
+  max-width: 32ch;
 }
 
 .retry-error {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   gap: 8px;
-  font-size: 12px;
-  color: var(--pam-danger);
-  background: var(--pam-danger-bg);
+  width: 100%;
+  margin-bottom: 16px;
+  padding: 10px 12px;
   border-radius: var(--pam-radius-sm);
-  padding: 10px 14px;
-  margin-bottom: 20px;
+  background: var(--pam-danger-bg);
+  color: var(--pam-danger);
+  font-size: var(--pam-text-sm);
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: left;
 
   lucide-icon {
+    flex-shrink: 0;
+    margin-top: 1px;
     color: var(--pam-danger);
-    margin-bottom: 0;
-    display: inline;
   }
 }
 
 .error-actions {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 28px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 .retry-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   min-height: 44px;
-  padding: 10px 22px;
+  padding: 10px 20px;
   background: var(--pam-accent);
   border: none;
   border-radius: var(--pam-radius-sm);
-  color: #ffffff;
-  font-size: 14px;
+  color: oklch(0.99 0.005 250);
+  font-size: var(--pam-text-sm);
   font-weight: 600;
   cursor: pointer;
-  font-family: var(--pam-font-body);
   transition: background var(--pam-transition);
 
+  lucide-icon {
+    flex-shrink: 0;
+    color: oklch(0.99 0.005 250);
+  }
+
+  span {
+    line-height: 1;
+  }
+
   &:hover:not(:disabled) {
-    background: #1d4ed8;
+    background: var(--pam-accent-hover);
   }
 
   &:focus-visible {
     outline: 2px solid var(--pam-accent);
-    outline-offset: 3px;
+    outline-offset: 2px;
   }
 
   &:disabled {
-    opacity: 0.5;
+    opacity: 0.55;
     cursor: not-allowed;
   }
 }
 
 .back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-height: 44px;
-  font-size: 14px;
-  color: var(--pam-text-muted);
-  background: none;
-  border: none;
-  cursor: pointer;
   padding: 10px 16px;
+  font-size: var(--pam-text-sm);
+  font-weight: 500;
+  color: var(--pam-text-muted);
+  background: transparent;
+  border: 1px solid var(--pam-border);
   border-radius: var(--pam-radius-sm);
-  font-family: var(--pam-font-body);
+  cursor: pointer;
   transition:
     color var(--pam-transition),
+    border-color var(--pam-transition),
     background var(--pam-transition);
 
   &:hover {
     color: var(--pam-text-main);
+    border-color: var(--pam-border-strong);
     background: var(--pam-surface-muted);
   }
 
@@ -132,8 +168,20 @@ p {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  font-size: 11px;
-  color: var(--pam-text-hint);
+  width: 100%;
+  margin: 0;
+  padding-top: 16px;
   border-top: 1px solid var(--pam-border);
-  padding-top: 20px;
+  font-size: var(--pam-text-xs);
+  color: var(--pam-text-muted);
+  line-height: 1.4;
+
+  lucide-icon {
+    flex-shrink: 0;
+    color: var(--pam-text-muted);
+  }
+
+  span {
+    text-align: left;
+  }
 }

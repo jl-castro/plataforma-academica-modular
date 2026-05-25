@@ -1,30 +1,33 @@
 <div class="error-container">
   <div class="error-card">
-    <lucide-icon name="alert-circle" [size]="32"></lucide-icon>
+    <div class="error-card__icon-wrap" aria-hidden="true">
+      <lucide-icon name="alert-circle" [size]="28"></lucide-icon>
+    </div>
+
     <h3>Módulo no disponible</h3>
-    <p>No se pudo conectar con el módulo remoto.</p>
-    <p class="error-hint">
+    <p class="error-card__lead">No se pudo conectar con el módulo remoto.</p>
+    <p class="error-card__hint">
       El resto de la plataforma continúa funcionando normalmente.
     </p>
 
-    <div *ngIf="retryFailed" class="retry-error">
-      <lucide-icon name="x-circle" [size]="13"></lucide-icon>
-      El módulo sigue sin responder. Verifica que el servidor esté activo.
+    <div *ngIf="retryFailed" class="retry-error" role="alert">
+      <lucide-icon name="x-circle" [size]="14" aria-hidden="true"></lucide-icon>
+      <span>El módulo sigue sin responder. Verifica que el servidor esté activo.</span>
     </div>
 
     <div class="error-actions">
-      <button class="retry-btn" (click)="retry()" [disabled]="isRetrying">
-        <lucide-icon name="refresh-cw" [size]="14"></lucide-icon>
-        {{ isRetrying ? 'Verificando...' : 'Reconectar' }}
+      <button type="button" class="retry-btn" (click)="retry()" [disabled]="isRetrying">
+        <lucide-icon name="refresh-cw" [size]="16" aria-hidden="true"></lucide-icon>
+        <span>{{ isRetrying ? 'Verificando…' : 'Reconectar' }}</span>
       </button>
-      <button class="back-btn" (click)="goToEstudiantes()">
+      <button type="button" class="back-btn" (click)="goToEstudiantes()">
         Ir a Estudiantes
       </button>
     </div>
 
-    <div class="error-console-note">
-      <lucide-icon name="activity" [size]="12"></lucide-icon>
-      El error ha sido registrado en la consola arquitectónica.
-    </div>
+    <p class="error-console-note">
+      <lucide-icon name="activity" [size]="14" aria-hidden="true"></lucide-icon>
+      <span>El error ha sido registrado en la consola arquitectónica.</span>
+    </p>
   </div>
 </div>

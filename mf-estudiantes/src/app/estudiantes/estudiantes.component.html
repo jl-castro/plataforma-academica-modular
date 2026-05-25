@@ -5,7 +5,7 @@
       Estudiantes
       <span class="count-badge">{{ estudiantes.length }} activos</span>
     </h2>
-    <p>Elige un perfil. Las inscripciones y calificaciones se actualizan al seleccionar.</p>
+    <p>Gestión de perfiles registrados. Selecciona un estudiante para sincronizar otros módulos.</p>
   </header>
 
   @if (mensajeSeleccion) {
@@ -38,32 +38,142 @@
         <dt class="pam-stat-strip__label">Sem. promedio</dt>
         <dd class="pam-stat-strip__value">{{ semestrePromedio }}</dd>
       </div>
+      <div class="pam-stat-strip__item">
+        <dt class="pam-stat-strip__label">Filtrados</dt>
+        <dd class="pam-stat-strip__value">{{ estudiantesFiltrados.length }}</dd>
+      </div>
     </dl>
 
-    <div class="pam-panel lista-panel">
-      <div class="pam-panel__header">Perfiles registrados</div>
-      <ul class="lista-estudiantes">
-        @for (est of estudiantes; track est.id) {
-          <li>
-            <button
-              type="button"
-              class="lista-estudiantes__fila"
-              [class.lista-estudiantes__fila--activa]="seleccionId === est.id"
-              (click)="seleccionar(est)"
-              [attr.aria-pressed]="seleccionId === est.id"
-            >
-              <span class="avatar" aria-hidden="true">{{ iniciales(est.nombre) }}</span>
-              <span class="lista-estudiantes__nombre">{{ est.nombre }}</span>
-              <span class="lista-estudiantes__codigo">{{ est.codigo }}</span>
-              <span class="lista-estudiantes__meta">{{ est.carrera }}</span>
-              <span class="lista-estudiantes__sem">{{ est.semestre }}º</span>
-              @if (seleccionId === est.id) {
-                <lucide-icon class="lista-estudiantes__check" name="check" [size]="16" aria-hidden="true"></lucide-icon>
-              }
-            </button>
-          </li>
+    <div class="estudiantes-toolbar pam-panel">
+      <label class="estudiantes-toolbar__busqueda">
+        <lucide-icon name="users" [size]="16" aria-hidden="true"></lucide-icon>
+        <span class="visually-hidden">Buscar estudiante</span>
+        <input
+          type="search"
+          placeholder="Buscar por nombre, código o carrera…"
+          [value]="busqueda"
+          (input)="onBusquedaInput($any($event.target).value)"
+        />
+      </label>
+      <select
+        class="estudiantes-toolbar__select"
+        [value]="filtroCarrera"
+        (change)="filtroCarrera = $any($event.target).value"
+        aria-label="Filtrar por carrera"
+      >
+        <option value="">Todas las carreras</option>
+        @for (carrera of carrerasDisponibles; track carrera) {
+          <option [value]="carrera">{{ carrera }}</option>
         }
-      </ul>
+      </select>
+      <select
+        class="estudiantes-toolbar__select"
+        [value]="filtroSemestre ?? ''"
+        (change)="
+          filtroSemestre =
+            $any($event.target).value === '' ? null : +$any($event.target).value
+        "
+        aria-label="Filtrar por semestre"
+      >
+        <option value="">Todos los semestres</option>
+        @for (sem of semestresDisponibles; track sem) {
+          <option [value]="sem">{{ sem }}º semestre</option>
+        }
+      </select>
+      @if (hayFiltrosActivos) {
+        <button type="button" class="estudiantes-toolbar__limpiar" (click)="limpiarFiltros()">
+          Limpiar
+        </button>
+      }
+    </div>
+
+    <div class="estudiantes-layout">
+      <div class="pam-panel lista-panel">
+        <div class="pam-panel__header">
+          Perfiles registrados
+          <span class="lista-panel__count">{{ estudiantesFiltrados.length }}</span>
+        </div>
+        @if (estudiantesFiltrados.length === 0) {
+          <p class="lista-panel__vacio">No hay estudiantes que coincidan con los filtros.</p>
+        } @else {
+          <ul class="lista-estudiantes">
+            @for (est of estudiantesFiltrados; track est.id) {
+              <li>
+                <button
+                  type="button"
+                  class="lista-estudiantes__fila"
+                  [class.lista-estudiantes__fila--activa]="seleccionId === est.id"
+                  (click)="seleccionar(est)"
+                  [attr.aria-pressed]="seleccionId === est.id"
+                >
+                  <span class="avatar" aria-hidden="true">{{ iniciales(est.nombre) }}</span>
+                  <span class="lista-estudiantes__nombre">{{ est.nombre }}</span>
+                  <span class="lista-estudiantes__codigo">{{ est.codigo }}</span>
+                  <span class="lista-estudiantes__meta">{{ est.carrera }}</span>
+                  <span class="lista-estudiantes__sem">{{ est.semestre }}º</span>
+                  @if (seleccionId === est.id) {
+                    <lucide-icon
+                      class="lista-estudiantes__check"
+                      name="check"
+                      [size]="16"
+                      aria-hidden="true"
+                    ></lucide-icon>
+                  }
+                </button>
+              </li>
+            }
+          </ul>
+        }
+      </div>
+
+      <aside class="perfil-panel pam-panel" aria-label="Perfil del estudiante">
+        @if (estudianteActivo; as est) {
+          <div class="perfil-panel__hero">
+            <span class="perfil-panel__avatar" aria-hidden="true">{{ iniciales(est.nombre) }}</span>
+            <div>
+              <h3 class="perfil-panel__nombre">{{ est.nombre }}</h3>
+              <p class="perfil-panel__codigo">{{ est.codigo }}</p>
+            </div>
+          </div>
+          <dl class="perfil-panel__datos">
+            <div class="perfil-panel__dato">
+              <dt>
+                <lucide-icon name="award" [size]="14" aria-hidden="true"></lucide-icon>
+                Carrera
+              </dt>
+              <dd>{{ est.carrera }}</dd>
+            </div>
+            <div class="perfil-panel__dato">
+              <dt>
+                <lucide-icon name="hash" [size]="14" aria-hidden="true"></lucide-icon>
+                Semestre
+              </dt>
+              <dd>{{ est.semestre }}º</dd>
+            </div>
+            <div class="perfil-panel__dato">
+              <dt>
+                <lucide-icon name="user" [size]="14" aria-hidden="true"></lucide-icon>
+                Correo
+              </dt>
+              <dd>
+                <a [href]="'mailto:' + est.email">{{ est.email }}</a>
+              </dd>
+            </div>
+          </dl>
+          <p class="perfil-panel__hint">
+            <lucide-icon name="activity" [size]="14" aria-hidden="true"></lucide-icon>
+            Perfil activo — otros módulos reaccionan al seleccionar.
+          </p>
+        } @else {
+          <div class="perfil-panel__placeholder">
+            <lucide-icon name="user" [size]="32" aria-hidden="true"></lucide-icon>
+            <p class="perfil-panel__placeholder-title">Sin perfil seleccionado</p>
+            <p class="perfil-panel__placeholder-hint">
+              Elige un estudiante de la lista para ver su ficha completa.
+            </p>
+          </div>
+        }
+      </aside>
     </div>
   }
 </section>

@@ -6,7 +6,7 @@
 	<header class="pam-page-header">
 		<span class="pam-kicker">Gestión curricular</span>
 		<h1>Inscripciones</h1>
-		<p>Carga académica y estado de materias del estudiante activo.</p>
+		<p>Carga académica, horarios y estado de materias del estudiante activo.</p>
 	</header>
 
 	<section class="pam-empty" *ngIf="!hayEstudiante">
@@ -22,6 +22,28 @@
 			<span class="contexto-estudiante__nombre">{{ estudianteSeleccionado?.nombre }}</span>
 			<span class="contexto-estudiante__meta">{{ estudianteSeleccionado?.codigo }} · {{ estudianteSeleccionado?.carrera }}</span>
 		</div>
+
+		<section class="carga-creditos pam-panel" aria-label="Carga de créditos">
+			<div class="carga-creditos__header">
+				<h2 class="carga-creditos__titulo">
+					<lucide-icon name="book-marked" [size]="16" aria-hidden="true"></lucide-icon>
+					Carga académica
+				</h2>
+				<span class="carga-creditos__valor">
+					<strong>{{ creditosInscritos }}</strong> / {{ maxCreditos }} créditos inscritos
+				</span>
+			</div>
+			<div
+				class="carga-creditos__track"
+				role="progressbar"
+				[attr.aria-valuenow]="creditosInscritos"
+				aria-valuemin="0"
+				[attr.aria-valuemax]="maxCreditos"
+			>
+				<div class="carga-creditos__fill" [style.width.%]="porcentajeCreditos"></div>
+			</div>
+			<p class="carga-creditos__hint">{{ creditosDisponibles }} créditos disponibles</p>
+		</section>
 
 		<dl class="pam-stat-strip" aria-label="Resumen de inscripciones">
 			<div class="pam-stat-strip__item">
@@ -42,7 +64,74 @@
 			</div>
 		</dl>
 
-		<div class="pam-panel" *ngIf="inscripciones.length > 0; else sinMaterias">
+		<div class="filtros-estado" role="group" aria-label="Filtrar por estado">
+			<button
+				*ngFor="let filtro of filtrosEstado"
+				type="button"
+				class="filtros-estado__chip"
+				[class.filtros-estado__chip--activo]="filtroEstado === filtro"
+				(click)="setFiltroEstado(filtro)"
+			>
+				{{ filtro }}
+				<span class="filtros-estado__count" *ngIf="filtro !== 'Todos'">{{ contarPorEstado(filtro) }}</span>
+				<span class="filtros-estado__count" *ngIf="filtro === 'Todos'">{{ inscripciones.length }}</span>
+			</button>
+		</div>
+
+		<section
+			class="calendario pam-panel"
+			*ngIf="inscripcionesVisibles.length > 0"
+			aria-labelledby="calendario-title"
+		>
+			<h2 id="calendario-title" class="calendario__titulo">
+				<lucide-icon name="calendar" [size]="16" aria-hidden="true"></lucide-icon>
+				Horario semanal
+			</h2>
+			<div class="calendario__grid">
+				<div class="calendario__col" *ngFor="let dia of diasSemana; let i = index">
+					<div class="calendario__dia">{{ dia }}</div>
+					<div class="calendario__bloques">
+						<div
+							*ngFor="let bloque of bloquesPorDia(i)"
+							class="calendario__bloque"
+							[ngClass]="claseBloque(bloque.estado)"
+							[style.min-height.px]="alturaBloque(bloque)"
+						>
+							<span class="calendario__bloque-materia">{{ bloque.materia }}</span>
+							<span class="calendario__bloque-meta">{{ bloque.codigo }}</span>
+							<span class="calendario__bloque-hora">{{ bloque.horario }}</span>
+						</div>
+						<p class="calendario__vacio-dia" *ngIf="bloquesPorDia(i).length === 0">—</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section
+			class="creditos-materias pam-panel"
+			*ngIf="inscripcionesVisibles.length > 0"
+			aria-labelledby="creditos-materia-title"
+		>
+			<h2 id="creditos-materia-title" class="creditos-materias__titulo">Créditos por materia</h2>
+			<div class="creditos-materias__lista">
+				<div class="creditos-materias__item" *ngFor="let ins of inscripcionesVisibles">
+					<div class="creditos-materias__label">
+						<span class="creditos-materias__nombre">{{ ins.materia }}</span>
+						<span class="creditos-materias__valor">{{ ins.creditos }} cr.</span>
+					</div>
+					<div class="creditos-materias__track">
+						<div
+							class="creditos-materias__fill"
+							[ngClass]="claseEstado(ins.estado)"
+							[style.width.%]="porcentajeCreditosMateria(ins.creditos)"
+						></div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<div class="pam-panel" *ngIf="inscripcionesVisibles.length > 0; else sinMaterias">
+			<div class="pam-panel__header">Detalle de materias</div>
 			<table class="tabla-inscripciones">
 				<thead>
 					<tr>
@@ -55,7 +144,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr *ngFor="let ins of inscripciones">
+					<tr *ngFor="let ins of inscripcionesVisibles">
 						<td data-label="Materia"><strong>{{ ins.materia }}</strong></td>
 						<td data-label="Código">{{ ins.codigo }}</td>
 						<td data-label="Créditos">{{ ins.creditos }}</td>
@@ -68,7 +157,9 @@
 		</div>
 
 		<ng-template #sinMaterias>
-			<p class="pam-empty__hint inscripciones__sin-datos">Sin materias registradas para este estudiante.</p>
+			<p class="pam-empty__hint inscripciones__sin-datos">
+				Sin materias con el filtro «{{ filtroEstado }}».
+			</p>
 		</ng-template>
 	</ng-container>
 </div>

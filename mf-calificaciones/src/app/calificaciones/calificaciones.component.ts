@@ -42,6 +42,7 @@ export class CalificacionesComponent implements OnInit, OnDestroy {
   todasLasCalificaciones: Calificacion[] | null = null;
   cargandoDatos = false;
   errorCarga: string | null = null;
+  filaExpandidaId: number | null = null;
 
   textoBannerEvento: string | null = null;
   private bannerTimeoutId: ReturnType<typeof setTimeout> | null = null;
@@ -68,6 +69,7 @@ export class CalificacionesComponent implements OnInit, OnDestroy {
           const globalBus = (window as any).__PAM_EVENT_BUS__;
           if (globalBus) globalBus.log('estudiante.seleccionado', payload, 'recibido');
           this.estudiante = payload as EstudianteSeleccionadoPayload;
+          this.filaExpandidaId = null;
           this.mostrarBannerEvento(this.estudiante.nombre);
           this.cargarCalificaciones(this.estudiante.id);
         }),
@@ -82,8 +84,55 @@ export class CalificacionesComponent implements OnInit, OnDestroy {
     this.subs.unsubscribe();
   }
 
+  get promedioGeneral(): number {
+    return this.calcularPromedio(this.calificaciones);
+  }
+
+  get clasePromedioHero(): string {
+    const p = this.promedioGeneral;
+    if (p >= 75) {
+      return 'promedio-hero promedio-hero--excelente';
+    }
+    if (p >= 51) {
+      return 'promedio-hero promedio-hero--bueno';
+    }
+    if (p > 0) {
+      return 'promedio-hero promedio-hero--bajo';
+    }
+    return 'promedio-hero promedio-hero--neutro';
+  }
+
+  get etiquetaPromedio(): string {
+    const p = this.promedioGeneral;
+    if (p === 0) {
+      return 'Sin materias concluidas';
+    }
+    if (p >= 75) {
+      return 'Rendimiento destacado';
+    }
+    if (p >= 51) {
+      return 'Rendimiento aceptable';
+    }
+    return 'Requiere refuerzo';
+  }
+
   calcularTotal(cal: Calificacion): number {
     return cal.primerParcial + cal.segundoParcial + (cal.examenFinal ?? 0);
+  }
+
+  alturaBarraParcial(valor: number, maximo: number): number {
+    if (maximo <= 0) {
+      return 0;
+    }
+    return Math.max(4, (valor / maximo) * 100);
+  }
+
+  toggleFila(id: number): void {
+    this.filaExpandidaId = this.filaExpandidaId === id ? null : id;
+  }
+
+  filaExpandida(id: number): boolean {
+    return this.filaExpandidaId === id;
   }
 
   getEstado(cal: Calificacion): string {

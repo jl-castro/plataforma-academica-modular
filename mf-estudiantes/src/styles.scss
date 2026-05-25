@@ -1,15 +1,1 @@
-@import '../../shared/styles/pam-tokens';
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: var(--pam-font);
-  font-size: var(--pam-text-base);
-  background: var(--pam-bg);
-  color: var(--pam-text-main);
-  line-height: 1.5;
-}
+@import '../../shared/styles/pam-base';

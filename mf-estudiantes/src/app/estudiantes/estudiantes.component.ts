@@ -24,6 +24,10 @@ export class EstudiantesComponent implements OnInit {
   seleccionId: number | null = null;
   mensajeSeleccion: string | null = null;
 
+  busqueda = '';
+  filtroCarrera = '';
+  filtroSemestre: number | null = null;
+
   private eventBus: any = null;
   private readonly busReady: Promise<void>;
 
@@ -41,6 +45,53 @@ export class EstudiantesComponent implements OnInit {
     } finally {
       this.cargando = false;
     }
+  }
+
+  get carrerasDisponibles(): string[] {
+    return [...new Set(this.estudiantes.map((est) => est.carrera))].sort();
+  }
+
+  get semestresDisponibles(): number[] {
+    return [...new Set(this.estudiantes.map((est) => est.semestre))].sort(
+      (a, b) => a - b,
+    );
+  }
+
+  get estudiantesFiltrados(): Estudiante[] {
+    const termino = this.busqueda.trim().toLowerCase();
+    return this.estudiantes.filter((est) => {
+      if (this.filtroCarrera && est.carrera !== this.filtroCarrera) {
+        return false;
+      }
+      if (this.filtroSemestre !== null && est.semestre !== this.filtroSemestre) {
+        return false;
+      }
+      if (!termino) {
+        return true;
+      }
+      return (
+        est.nombre.toLowerCase().includes(termino) ||
+        est.codigo.toLowerCase().includes(termino) ||
+        est.carrera.toLowerCase().includes(termino)
+      );
+    });
+  }
+
+  get estudianteActivo(): Estudiante | null {
+    if (this.seleccionId === null) {
+      return null;
+    }
+    return (
+      this.estudiantes.find((est) => est.id === this.seleccionId) ?? null
+    );
+  }
+
+  get hayFiltrosActivos(): boolean {
+    return (
+      this.busqueda.trim().length > 0 ||
+      this.filtroCarrera !== '' ||
+      this.filtroSemestre !== null
+    );
   }
 
   get totalCarreras(): number {
@@ -66,6 +117,16 @@ export class EstudiantesComponent implements OnInit {
     const a = partes[0].charAt(0);
     const b = partes[partes.length - 1].charAt(0);
     return (a + b).toUpperCase();
+  }
+
+  limpiarFiltros(): void {
+    this.busqueda = '';
+    this.filtroCarrera = '';
+    this.filtroSemestre = null;
+  }
+
+  onBusquedaInput(valor: string): void {
+    this.busqueda = valor;
   }
 
   seleccionar(est: Estudiante): void {
