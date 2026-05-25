@@ -219,7 +219,7 @@ Los datos de demostracion viven en archivos JSON dentro de cada microfrontend:
 
 | Modulo | Archivo | Notas |
 | --- | --- | --- |
-| Estudiantes | `mf-estudiantes/src/assets/data/estudiantes.json` | Carga via HTTP en el MF |
+| Estudiantes | `mf-estudiantes/src/assets/data/estudiantes.json` | Import estatico en el componente |
 | Inscripciones | `mf-inscripciones/src/assets/data/inscripciones.json` | Filtrado por evento o demo standalone |
 | Calificaciones | `mf-calificaciones/src/assets/data/calificaciones.json` | Filtrado por evento o demo standalone |
 | Dashboard | `mf-dashboard/src/assets/data/dashboard.json` | **Import estatico** en el componente (no HTTP relativo) |

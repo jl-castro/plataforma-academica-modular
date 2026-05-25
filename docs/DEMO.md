@@ -268,7 +268,7 @@ Este escenario cierra la demo mostrando la capacidad de evolución de la platafo
 1. Mostrar el manifiesto de módulos.
 2. Identificar la entrada correspondiente al módulo Dashboard.
 3. Verificar que Dashboard posee identificador, ruta, versión, punto de entrada, eventos y estado.
-4. Activar Dashboard en el manifiesto, si se desea mostrar como módulo incorporado en tiempo de demo.
+4. Verificar que Dashboard está `activo` en el manifiesto para mostrarlo como módulo incorporado en tiempo de demo.
 5. Levantar el microfrontend Dashboard.
 6. Volver al shell.
 7. Mostrar que Dashboard aparece como módulo disponible en la navegación.
