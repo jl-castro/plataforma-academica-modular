@@ -57,6 +57,15 @@
   font-size: var(--pam-text-sm);
   font-weight: 600;
   color: var(--pam-text-main);
+  line-height: 1;
+
+  lucide-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--pam-text-muted);
+  }
 }
 
 .carga-creditos__valor {
@@ -79,8 +88,8 @@
 .carga-creditos__fill {
   height: 100%;
   border-radius: 5px;
-  background: linear-gradient(90deg, var(--pam-accent), var(--pam-success));
-  transition: width 0.35s ease;
+  background: var(--pam-accent);
+  transition: width 0.35s var(--pam-ease);
 }
 
 .carga-creditos__hint {
@@ -145,6 +154,15 @@
   font-weight: 600;
   color: var(--pam-text-main);
   margin-bottom: 14px;
+  line-height: 1;
+
+  lucide-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--pam-text-muted);
+  }
 }
 
 .calendario__grid {
@@ -187,24 +205,25 @@
 .calendario__bloque {
   padding: 8px;
   border-radius: var(--pam-radius-sm);
-  border-left: 3px solid var(--pam-accent);
+  border: 1px solid var(--pam-border);
+  border-top: 3px solid var(--pam-accent);
   background: var(--pam-surface);
   font-size: var(--pam-text-xs);
 
   &--inscrito {
-    border-left-color: var(--pam-success);
+    border-top-color: var(--pam-success);
     background: var(--pam-success-bg);
   }
 
   &--pendiente {
-    border-left-color: var(--pam-warning);
+    border-top-color: var(--pam-warning);
     background: var(--pam-warning-bg);
   }
 
   &--retirado {
-    border-left-color: var(--pam-danger);
+    border-top-color: var(--pam-danger);
     background: var(--pam-danger-bg);
-    opacity: 0.85;
+    opacity: 0.92;
   }
 }
 
@@ -218,7 +237,7 @@
 .calendario__bloque-meta {
   display: block;
   margin-top: 2px;
-  color: var(--pam-text-hint);
+  color: var(--pam-text-muted);
   font-variant-numeric: tabular-nums;
 }
 

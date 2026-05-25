@@ -109,11 +109,26 @@ strong {
 .pam-kicker {
   display: block;
   margin-bottom: 6px;
-  color: var(--pam-text-hint);
+  color: var(--pam-text-muted);
   font-size: var(--pam-text-xs);
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+}
+
+/* Icon + text rows — consistent vertical alignment */
+.pam-icon-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1;
+
+  lucide-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
 }
 
 .pam-panel {
@@ -153,9 +168,9 @@ strong {
 
 .pam-stat-strip__label {
   display: block;
-  color: var(--pam-text-hint);
+  color: var(--pam-text-muted);
   font-size: var(--pam-text-xs);
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 2px;
 }
 
@@ -223,7 +238,7 @@ strong {
   min-height: 40px;
   padding: 8px 16px;
   background: var(--pam-accent);
-  color: oklch(0.99 0.005 250);
+  color: var(--pam-on-accent);
   font-size: var(--pam-text-sm);
   font-weight: 600;
   text-decoration: none;

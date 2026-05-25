@@ -64,7 +64,7 @@
 
   &--excelente {
     border-color: var(--pam-success);
-    background: linear-gradient(135deg, var(--pam-success-bg), var(--pam-surface));
+    background: var(--pam-success-bg);
 
     .promedio-hero__valor {
       color: var(--pam-success);
@@ -73,7 +73,7 @@
 
   &--bueno {
     border-color: var(--pam-warning);
-    background: linear-gradient(135deg, var(--pam-warning-bg), var(--pam-surface));
+    background: var(--pam-warning-bg);
 
     .promedio-hero__valor {
       color: var(--pam-warning);
@@ -82,7 +82,7 @@
 
   &--bajo {
     border-color: var(--pam-danger);
-    background: linear-gradient(135deg, var(--pam-danger-bg), var(--pam-surface));
+    background: var(--pam-danger-bg);
 
     .promedio-hero__valor {
       color: var(--pam-danger);
@@ -120,7 +120,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--pam-text-hint);
+  color: var(--pam-text-muted);
 }
 
 .promedio-hero__estado {
@@ -149,8 +149,17 @@
   gap: 8px;
   font-size: var(--pam-text-sm);
   font-weight: 600;
-  color: var(--pam-text-muted);
+  color: var(--pam-text-main);
   margin-bottom: 12px;
+  line-height: 1;
+
+  lucide-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--pam-text-muted);
+  }
 }
 
 .distribucion-etiquetas {

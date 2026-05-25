@@ -7,39 +7,52 @@
   border-top: 1px solid var(--pam-border);
   z-index: 1000;
   font-family: var(--pam-font-mono);
-  backdrop-filter: blur(8px);
 }
 
 .console-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 20px;
+  padding: 8px 16px;
   border-bottom: 1px solid var(--pam-border);
 }
 
 .console-title {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 11px;
+  font-family: var(--pam-font);
+  font-size: var(--pam-text-xs);
   font-weight: 600;
   color: var(--pam-text-muted);
-  font-family: var(--pam-font-body);
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  line-height: 1;
+
+  lucide-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--pam-text-muted);
+    flex-shrink: 0;
+  }
 }
 
 .clear-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-height: 32px;
-  font-size: 11px;
+  min-width: 32px;
+  padding: 4px 10px;
+  font-family: var(--pam-font);
+  font-size: var(--pam-text-xs);
+  font-weight: 500;
   color: var(--pam-text-muted);
   background: none;
   border: none;
-  cursor: pointer;
-  padding: 4px 10px;
   border-radius: var(--pam-radius-sm);
-  font-family: var(--pam-font-body);
+  cursor: pointer;
   transition:
     color var(--pam-transition),
     background var(--pam-transition);
@@ -58,55 +71,71 @@
 .console-body {
   height: var(--pam-console-body-height);
   overflow-y: auto;
-  padding: 8px 20px;
+  padding: 8px 16px;
 }
 
 .empty-state {
-  font-size: 12px;
-  color: var(--pam-text-hint);
+  font-size: var(--pam-text-sm);
+  color: var(--pam-text-muted);
   padding: 4px 0;
 }
 
 .log-entry {
   display: flex;
-  align-items: baseline;
-  gap: 8px;
-  font-size: 12px;
-  color: var(--pam-text-hint);
-  line-height: 1.6;
+  align-items: center;
+  gap: 10px;
+  min-height: 28px;
+  font-size: var(--pam-text-xs);
+  line-height: 1.4;
   white-space: nowrap;
 }
 
 .log-recent {
-  color: var(--pam-text-muted);
+  .log-evento,
+  .log-resumen {
+    color: var(--pam-text-main);
+  }
 }
 
 .log-time {
-  color: var(--pam-text-hint);
   flex-shrink: 0;
+  color: var(--pam-text-muted);
   font-variant-numeric: tabular-nums;
 }
 
 .log-direction {
-  font-size: 11px;
-  font-weight: 600;
-  min-width: 60px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 72px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
   flex-shrink: 0;
 }
 
 .dir-emitido {
-  color: var(--pam-accent);
+  color: var(--pam-log-emit-text);
+  background: var(--pam-log-emit-bg);
 }
+
 .dir-recibido {
-  color: var(--pam-success);
+  color: var(--pam-log-recv-text);
+  background: var(--pam-log-recv-bg);
 }
+
 .dir-error {
-  color: var(--pam-danger);
+  color: var(--pam-log-error-text);
+  background: var(--pam-log-error-bg);
 }
 
 .log-evento {
   color: var(--pam-text-muted);
   flex-shrink: 0;
+  font-weight: 500;
 }
 
 .log-arrow {

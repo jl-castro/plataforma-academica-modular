@@ -103,7 +103,7 @@ h3 {
   background: var(--pam-accent);
   border: none;
   border-radius: var(--pam-radius-sm);
-  color: oklch(0.99 0.005 250);
+  color: var(--pam-on-accent);
   font-size: var(--pam-text-sm);
   font-weight: 600;
   cursor: pointer;
@@ -111,7 +111,7 @@ h3 {
 
   lucide-icon {
     flex-shrink: 0;
-    color: oklch(0.99 0.005 250);
+    color: var(--pam-on-accent);
   }
 
   span {

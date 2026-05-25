@@ -25,7 +25,7 @@
 
 .kpi-card {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 14px;
   padding: 16px;
   background: var(--pam-surface);
@@ -34,16 +34,30 @@
   box-shadow: var(--pam-shadow-sm);
 }
 
+.kpi-card__label {
+  font-size: var(--pam-text-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--pam-text-muted);
+}
+
 .kpi-card__icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   flex-shrink: 0;
   border-radius: var(--pam-radius-sm);
   background: var(--pam-accent-subtle);
   color: var(--pam-accent);
+
+  lucide-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .kpi-card__body {
@@ -51,18 +65,11 @@
   flex-direction: column;
   gap: 2px;
   min-width: 0;
-}
-
-.kpi-card__label {
-  font-size: var(--pam-text-xs);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--pam-text-hint);
+  justify-content: center;
 }
 
 .kpi-card__value {
-  font-size: var(--pam-text-2xl);
+  font-size: var(--pam-text-xl);
   font-weight: 700;
   line-height: 1.1;
   color: var(--pam-text-main);
@@ -80,8 +87,17 @@
   gap: 8px;
   font-size: var(--pam-text-sm);
   font-weight: 600;
-  color: var(--pam-text-muted);
+  color: var(--pam-text-main);
   margin-bottom: 16px;
+  line-height: 1;
+
+  lucide-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--pam-text-muted);
+  }
 }
 
 .dashboard-chart {
@@ -138,7 +154,7 @@
 .demanda-materias__sub {
   margin: -8px 0 14px;
   font-size: var(--pam-text-xs);
-  color: var(--pam-text-hint);
+  color: var(--pam-text-muted);
 }
 
 .demanda-list {
@@ -192,7 +208,7 @@
 
 .demanda-item__meta {
   font-size: var(--pam-text-xs);
-  color: var(--pam-text-hint);
+  color: var(--pam-text-muted);
   flex-shrink: 0;
 }
 
@@ -206,7 +222,7 @@
 .demanda-item__fill {
   height: 100%;
   border-radius: 3px;
-  background: linear-gradient(90deg, var(--pam-accent), var(--pam-success));
+  background: var(--pam-accent);
   transition: width 0.35s var(--pam-ease);
 }
 
@@ -244,7 +260,7 @@
 .pill-label {
   display: block;
   font-size: var(--pam-text-xs);
-  color: var(--pam-text-hint);
+  color: var(--pam-text-muted);
   margin-bottom: 4px;
 }
 

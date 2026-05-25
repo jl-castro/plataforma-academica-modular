@@ -16,8 +16,15 @@
   --pam-accent-hover: oklch(0.46 0.19 255);
   --pam-accent-muted: oklch(0.94 0.04 255);
   --pam-accent-subtle: oklch(0.97 0.02 255);
+  --pam-on-accent: oklch(0.99 0.005 250);
 
-  /* Borders */
+  /* Console log chips — readable on light chrome */
+  --pam-log-emit-bg: oklch(0.94 0.04 255);
+  --pam-log-emit-text: oklch(0.42 0.14 255);
+  --pam-log-recv-bg: oklch(0.94 0.04 145);
+  --pam-log-recv-text: oklch(0.42 0.12 145);
+  --pam-log-error-bg: oklch(0.96 0.04 25);
+  --pam-log-error-text: oklch(0.45 0.16 25);
   --pam-border: oklch(0.9 0.012 250);
   --pam-border-strong: oklch(0.84 0.018 250);
   --pam-selected: oklch(0.52 0.18 255);
