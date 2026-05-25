@@ -2,41 +2,42 @@
   <header class="pam-page-header">
     <span class="pam-kicker">Estadísticas generales</span>
     <h2>Dashboard</h2>
-    <p>Resumen académico de la plataforma.</p>
+    <p>Panel institucional: indicadores, distribución y demanda curricular de la plataforma.</p>
   </header>
 
   <div *ngIf="loading" class="dashboard__loading" aria-busy="true" aria-label="Cargando estadísticas">
-    <div class="metrics-grid">
+    <div class="kpi-grid">
       <div *ngFor="let _ of skeletonItems" class="pam-skeleton pam-skeleton--metric"></div>
     </div>
-    <div class="section-card">
+    <div class="pam-panel dashboard-chart">
       <div class="pam-skeleton pam-skeleton--title"></div>
       <div *ngFor="let _ of skeletonBars" class="pam-skeleton pam-skeleton--bar bar-skeleton"></div>
     </div>
   </div>
 
+  <p *ngIf="!loading && errorCarga" class="dashboard__error">
+    No se pudieron cargar las estadísticas del dashboard.
+  </p>
+
   <ng-container *ngIf="!loading && stats">
-    <dl class="pam-stat-strip" aria-label="Indicadores principales">
-      <div class="pam-stat-strip__item">
-        <dt class="pam-stat-strip__label">Estudiantes</dt>
-        <dd class="pam-stat-strip__value">{{ stats.totalEstudiantes }}</dd>
-      </div>
-      <div class="pam-stat-strip__item">
-        <dt class="pam-stat-strip__label">Materias activas</dt>
-        <dd class="pam-stat-strip__value">{{ stats.totalMaterias }}</dd>
-      </div>
-      <div class="pam-stat-strip__item">
-        <dt class="pam-stat-strip__label">Tasa aprobación</dt>
-        <dd class="pam-stat-strip__value">{{ stats.tasaAprobacion }}%</dd>
-      </div>
-      <div class="pam-stat-strip__item">
-        <dt class="pam-stat-strip__label">Promedio general</dt>
-        <dd class="pam-stat-strip__value">{{ stats.promedioGeneral }}</dd>
-      </div>
-    </dl>
+    <section class="kpi-grid" aria-label="Indicadores principales">
+      <article *ngFor="let kpi of kpis" class="kpi-card">
+        <div class="kpi-card__icon" aria-hidden="true">
+          <lucide-icon [name]="kpi.icon" [size]="22"></lucide-icon>
+        </div>
+        <div class="kpi-card__body">
+          <span class="kpi-card__label">{{ kpi.label }}</span>
+          <span class="kpi-card__value">{{ kpi.value }}</span>
+          <span class="kpi-card__hint" *ngIf="kpi.hint">{{ kpi.hint }}</span>
+        </div>
+      </article>
+    </section>
 
     <section class="pam-panel dashboard-chart" aria-labelledby="chart-carrera-title">
-      <h3 id="chart-carrera-title" class="card-title">Estudiantes por carrera</h3>
+      <h3 id="chart-carrera-title" class="section-title">
+        <lucide-icon name="bar-chart-2" [size]="16" aria-hidden="true"></lucide-icon>
+        Estudiantes por carrera
+      </h3>
       <div class="bar-list">
         <div *ngFor="let carrera of stats.porCarrera" class="bar-item">
           <div class="bar-label">
@@ -49,6 +50,36 @@
               [style.width.%]="(carrera.cantidad / stats.totalEstudiantes) * 100"
             ></div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="pam-panel demanda-materias"
+      *ngIf="materiasDemanda.length > 0"
+      aria-labelledby="demanda-title"
+    >
+      <h3 id="demanda-title" class="section-title">
+        <lucide-icon name="activity" [size]="16" aria-hidden="true"></lucide-icon>
+        Materias con mayor demanda
+      </h3>
+      <p class="demanda-materias__sub">Inscripciones con estado «Inscrito», ordenadas por volumen.</p>
+      <div class="demanda-list">
+        <div *ngFor="let materia of materiasDemanda; let i = index" class="demanda-item">
+          <div class="demanda-item__rank">{{ i + 1 }}</div>
+          <div class="demanda-item__content">
+            <div class="demanda-item__header">
+              <span class="demanda-item__nombre">{{ materia.materia }}</span>
+              <span class="demanda-item__meta">{{ materia.codigo }} · {{ materia.creditos }} cr.</span>
+            </div>
+            <div class="demanda-item__track">
+              <div
+                class="demanda-item__fill"
+                [style.width.%]="porcentajeDemanda(materia.inscritos)"
+              ></div>
+            </div>
+          </div>
+          <span class="demanda-item__count">{{ materia.inscritos }}</span>
         </div>
       </div>
     </section>
