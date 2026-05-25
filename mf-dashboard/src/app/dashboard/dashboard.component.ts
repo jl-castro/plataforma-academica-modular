@@ -97,15 +97,31 @@ export class DashboardComponent implements OnInit {
     ];
   }
 
-  get maxInscritosMateria(): number {
+  /** Ancho de barra relativo a la materia con más inscripciones (la #1 = 100%). */
+  get maxInscritosDemanda(): number {
     if (this.materiasDemanda.length === 0) {
       return 1;
     }
     return Math.max(...this.materiasDemanda.map((m) => m.inscritos));
   }
 
+  /** True cuando todas las materias listadas tienen el mismo conteo. */
+  get demandaEmpatada(): boolean {
+    if (this.materiasDemanda.length <= 1) {
+      return true;
+    }
+    const conteos = this.materiasDemanda.map((m) => m.inscritos);
+    return Math.min(...conteos) === Math.max(...conteos);
+  }
+
   porcentajeDemanda(inscritos: number): number {
-    return (inscritos / this.maxInscritosMateria) * 100;
+    return (inscritos / this.maxInscritosDemanda) * 100;
+  }
+
+  /** Etiqueta accesible para cada barra de demanda. */
+  etiquetaDemanda(materia: MateriaDemanda): string {
+    const pct = this.porcentajeDemanda(materia.inscritos);
+    return `${materia.materia}: ${materia.inscritos} inscripciones (${pct.toFixed(0)}% de la más demandada)`;
   }
 
   private calcularDemandaMaterias(filas: InscripcionFuente[]): MateriaDemanda[] {

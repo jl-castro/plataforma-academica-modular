@@ -63,7 +63,14 @@
         <lucide-icon name="activity" [size]="16" aria-hidden="true"></lucide-icon>
         Materias con mayor demanda
       </h3>
-      <p class="demanda-materias__sub">Inscripciones con estado «Inscrito», ordenadas por volumen.</p>
+      <p class="demanda-materias__sub">
+        Cada fila cuenta inscripciones con estado «Inscrito». El número es el total; la barra
+        compara con la materia #1 (100% = la más demandada).
+      </p>
+      <p *ngIf="demandaEmpatada" class="demanda-materias__nota">
+        Todas las materias listadas tienen la misma demanda ({{ materiasDemanda[0].inscritos }}
+        inscripción{{ materiasDemanda[0].inscritos === 1 ? '' : 'es' }} cada una).
+      </p>
       <div class="demanda-list">
         <div *ngFor="let materia of materiasDemanda; let i = index" class="demanda-item">
           <div class="demanda-item__rank">{{ i + 1 }}</div>
@@ -72,10 +79,14 @@
               <span class="demanda-item__nombre">{{ materia.materia }}</span>
               <span class="demanda-item__meta">{{ materia.codigo }} · {{ materia.creditos }} cr.</span>
             </div>
-            <div class="demanda-item__track">
+            <div
+              class="demanda-item__track"
+              role="img"
+              [attr.aria-label]="etiquetaDemanda(materia)"
+            >
               <div
                 class="demanda-item__fill"
-                [style.width.%]="porcentajeDemanda(materia.inscritos)"
+                [style.width]="porcentajeDemanda(materia.inscritos) + '%'"
               ></div>
             </div>
           </div>

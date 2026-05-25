@@ -368,5 +368,135 @@
 		"horario": "Sábado 08:00 - 12:00",
 		"docente": "Dr. Gustavo Navia",
 		"estado": "Retirado"
+	},
+	{
+		"id": 38,
+		"estudianteId": 2,
+		"materia": "Algoritmos y Estructura de Datos",
+		"codigo": "INF-301",
+		"creditos": 6,
+		"horario": "Lunes y Miércoles 08:00 - 10:00",
+		"docente": "Ph.D. Carlos Mendoza",
+		"estado": "Inscrito"
+	},
+	{
+		"id": 39,
+		"estudianteId": 3,
+		"materia": "Algoritmos y Estructura de Datos",
+		"codigo": "INF-301",
+		"creditos": 6,
+		"horario": "Lunes y Miércoles 08:00 - 10:00",
+		"docente": "Ph.D. Carlos Mendoza",
+		"estado": "Inscrito"
+	},
+	{
+		"id": 40,
+		"estudianteId": 4,
+		"materia": "Algoritmos y Estructura de Datos",
+		"codigo": "INF-301",
+		"creditos": 6,
+		"horario": "Lunes y Miércoles 08:00 - 10:00",
+		"docente": "Ph.D. Carlos Mendoza",
+		"estado": "Inscrito"
+	},
+	{
+		"id": 41,
+		"estudianteId": 5,
+		"materia": "Algoritmos y Estructura de Datos",
+		"codigo": "INF-301",
+		"creditos": 6,
+		"horario": "Lunes y Miércoles 08:00 - 10:00",
+		"docente": "Ph.D. Carlos Mendoza",
+		"estado": "Inscrito"
+	},
+	{
+		"id": 42,
+		"estudianteId": 6,
+		"materia": "Algoritmos y Estructura de Datos",
+		"codigo": "INF-301",
+		"creditos": 6,
+		"horario": "Lunes y Miércoles 08:00 - 10:00",
+		"docente": "Ph.D. Carlos Mendoza",
+		"estado": "Inscrito"
+	},
+	{
+		"id": 43,
+		"estudianteId": 2,
+		"materia": "Bases de Datos II",
+		"codigo": "INF-302",
+		"creditos": 5,
+		"horario": "Martes y Jueves 14:00 - 16:00",
+		"docente": "M.Sc. Patricia Villarroel",
+		"estado": "Inscrito"
+	},
+	{
+		"id": 44,
+		"estudianteId": 3,
+		"materia": "Bases de Datos II",
+		"codigo": "INF-302",
+		"creditos": 5,
+		"horario": "Martes y Jueves 14:00 - 16:00",
+		"docente": "M.Sc. Patricia Villarroel",
+		"estado": "Inscrito"
+	},
+	{
+		"id": 45,
+		"estudianteId": 4,
+		"materia": "Bases de Datos II",
+		"codigo": "INF-302",
+		"creditos": 5,
+		"horario": "Martes y Jueves 14:00 - 16:00",
+		"docente": "M.Sc. Patricia Villarroel",
+		"estado": "Inscrito"
+	},
+	{
+		"id": 46,
+		"estudianteId": 3,
+		"materia": "Programación Web Avanzada",
+		"codigo": "INF-420",
+		"creditos": 6,
+		"horario": "Lunes y Miércoles 14:00 - 16:00",
+		"docente": "M.Sc. Daniela Rojas",
+		"estado": "Inscrito"
+	},
+	{
+		"id": 47,
+		"estudianteId": 4,
+		"materia": "Programación Web Avanzada",
+		"codigo": "INF-420",
+		"creditos": 6,
+		"horario": "Lunes y Miércoles 14:00 - 16:00",
+		"docente": "M.Sc. Daniela Rojas",
+		"estado": "Inscrito"
+	},
+	{
+		"id": 48,
+		"estudianteId": 1,
+		"materia": "Inteligencia Artificial",
+		"codigo": "INF-455",
+		"creditos": 6,
+		"horario": "Martes y Jueves 08:00 - 10:00",
+		"docente": "Ph.D. Luis Arnez",
+		"estado": "Inscrito"
+	},
+	{
+		"id": 49,
+		"estudianteId": 3,
+		"materia": "Inteligencia Artificial",
+		"codigo": "INF-455",
+		"creditos": 6,
+		"horario": "Martes y Jueves 08:00 - 10:00",
+		"docente": "Ph.D. Luis Arnez",
+		"estado": "Inscrito"
+	},
+	{
+		"id": 50,
+		"estudianteId": 2,
+		"materia": "Redes de Computadoras",
+		"codigo": "INF-350",
+		"creditos": 5,
+		"horario": "Martes 08:00 - 11:00",
+		"docente": "Ing. Fernando Camacho",
+		"estado": "Inscrito"
 	}
 ]

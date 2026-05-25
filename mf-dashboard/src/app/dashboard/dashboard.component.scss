@@ -157,6 +157,15 @@
   color: var(--pam-text-muted);
 }
 
+.demanda-materias__nota {
+  margin: -6px 0 14px;
+  padding: 8px 10px;
+  border-radius: var(--pam-radius-sm);
+  background: var(--pam-surface-muted);
+  font-size: var(--pam-text-xs);
+  color: var(--pam-text-muted);
+}
+
 .demanda-list {
   display: flex;
   flex-direction: column;
@@ -221,6 +230,7 @@
 
 .demanda-item__fill {
   height: 100%;
+  width: 0;
   border-radius: 3px;
   background: var(--pam-accent);
   transition: width 0.35s var(--pam-ease);
