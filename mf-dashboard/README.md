@@ -1,6 +1,6 @@
 # Microfrontend Dashboard
 
-Modulo remoto con resumen estadistico general de la plataforma academica. Aparece en la navegacion del shell (`estado: "activo"` en el manifest).
+Modulo remoto con resumen estadistico general de la plataforma academica. En el manifest del shell figura como `inactivo` durante la demo de sustentacion; para uso diario, cambiar a `activo` (ver `docs/DEMO.md`).
 
 ## Puerto e integracion
 

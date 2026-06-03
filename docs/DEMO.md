@@ -1,9 +1,11 @@
 # Escenarios de demostración del prototipo
 
 ## Tesis
+
 **Marco de diseño para la construcción de aplicaciones web componibles mediante microfrontends y carga dinámica de módulos**
 
 ## Prototipo
+
 **Plataforma Académica Modular**
 
 ---
@@ -24,401 +26,323 @@ Por ello, la presentación debe enfocarse en escenarios arquitectónicos notorio
 
 ---
 
-## 2. Orden recomendado de la demo
+## 2. Configuración previa a la sustentación
 
-El orden propuesto para la demostración es el siguiente:
+### Estado del manifiesto
 
-| Orden | Escenario | Mensaje principal |
+Para la demo, **Dashboard debe estar `"inactivo"`** en `shell/src/assets/manifest.json`. Así:
+
+- la entrada sigue declarada en el contrato (C2);
+- no aparece en la navbar durante los pasos 1–8;
+- el paso 9 puede activarlo en vivo cambiando `"inactivo"` → `"activo"`.
+
+Los tres módulos principales (Estudiantes, Inscripciones, Calificaciones) permanecen `"activo"`.
+
+> **Nota:** La ruta `/dashboard` sigue registrada en el routing del shell por diseño del prototipo. Durante la demo, navegar únicamente desde la navbar evita confusión. Tras la sustentación, se puede volver a dejar Dashboard en `"activo"` para desarrollo cotidiano.
+
+### Servicios a levantar (pasos 0–8)
+
+Levantar **cuatro** servicios, **sin Dashboard**:
+
+```bash
+cd mf-estudiantes && npm start    # 4201
+cd mf-inscripciones && npm start  # 4202
+cd mf-calificaciones && npm start # 4203
+cd shell && npm start             # 4200
+```
+
+Verificar en `http://localhost:4200` que la navbar muestra **tres** módulos con punto verde (online).
+
+### Pestañas útiles
+
+| URL | Uso |
+| --- | --- |
+| `http://localhost:4201` | Paso 1 — Estudiantes standalone |
+| `http://localhost:4202` | Paso 1 — Inscripciones standalone |
+| `http://localhost:4203` | Paso 1 — Calificaciones standalone |
+| `http://localhost:4200` | Pasos 2–10 — Shell |
+| `http://localhost:4200/assets/manifest.json` | Paso 3 — Contrato arquitectónico |
+
+### Ensayo obligatorio
+
+Antes de la sustentación, practicar:
+
+1. Selección de estudiante → Inscripciones → Calificaciones (evento).
+2. Apagar `mf-calificaciones` (Ctrl+C) → error controlado → otros módulos OK.
+3. Reconectar Calificaciones.
+4. Activar Dashboard en manifest + levantar `mf-dashboard` + F5 en shell.
+
+**Estudiante sugerido para el paso 5:** Carlos Eduardo Flores (id 2). Evita Ana Lucía, que es el perfil demo automático en modo standalone.
+
+---
+
+## 3. Guion paso a paso
+
+Duración estimada: **18–25 minutos**.
+
+| Paso | Escenario | Criterios del marco |
 | --- | --- | --- |
-| 1 | Composición modular de la plataforma | La aplicación se arma a partir de módulos independientes |
-| 2 | Comunicación desacoplada por eventos | Los módulos colaboran sin depender directamente entre sí |
-| 3 | Falla controlada de un módulo remoto | Un módulo puede fallar sin afectar toda la plataforma |
-| 4 | Incorporación de un nuevo módulo | La arquitectura puede crecer de forma controlada |
-
-Este orden permite construir una narrativa progresiva:
-
-1. Primero se comprende la estructura general.
-2. Luego se observa la interacción entre módulos.
-3. Después se demuestra aislamiento frente a fallos.
-4. Finalmente se evidencia la capacidad de evolución del sistema.
+| 0 | Preparación | — |
+| 1 | Microfrontends independientes | C1 |
+| 2–4 | Shell, manifiesto y carga dinámica | C1, C2, C3 |
+| 5–6 | Comunicación desacoplada y consola | C2, C4 |
+| 7–8 | Falla controlada y recuperación | C1, C3, C5 |
+| 9 | Incorporación de Dashboard | C2, C3, C5 |
+| 10 | Cierre | Todos |
 
 ---
 
-# Escenario 1: Composición modular de la plataforma
+### Paso 0 — Preparación inicial
 
-## Propósito
-
-Demostrar que la Plataforma Académica Modular no está construida como una aplicación monolítica, sino como una aplicación componible formada por un shell principal y varios microfrontends independientes.
-
-Este escenario introduce la idea central de la tesis: el sistema se estructura mediante módulos funcionales autónomos que son integrados dinámicamente por un componente orquestador.
-
-## Qué se debe mostrar
-
-- El shell como punto de entrada de la plataforma.
-- La navegación principal generada a partir de los módulos disponibles.
-- Los microfrontends independientes:
-  - Estudiantes;
-  - Inscripciones;
-  - Calificaciones;
-  - Dashboard.
-- El manifiesto de módulos como contrato de integración.
-- La consola arquitectónica como mecanismo de observabilidad.
-- La carga de módulos desde el shell.
-
-## Pasos de demostración
-
-1. Abrir la plataforma desde el shell.
-2. Mostrar que el shell contiene la estructura general de navegación.
-3. Explicar que el shell no contiene lógica funcional académica.
-4. Mostrar los módulos disponibles en la navegación.
-5. Abrir el manifiesto de módulos.
-6. Señalar que cada módulo declara su ruta, versión, punto de entrada, eventos y estado.
-7. Navegar hacia el módulo Estudiantes.
-8. Navegar hacia Inscripciones.
-9. Navegar hacia Calificaciones.
-10. Navegar hacia Dashboard (activo en el manifest; requiere `mf-dashboard` en `4204`).
-11. Mostrar en la consola arquitectónica los registros de carga o actividad.
-
-**Opcional (modo independiente):** abrir un MF en su puerto (`4201`–`4204`) para mostrar que cada unidad puede ejecutarse y presentarse como producto autónomo, con estilos compartidos desde `shared/styles/`. Inscripciones y Calificaciones muestran demo local si no hay evento del shell.
-
-## Mensaje que debe comunicarse
-
-La plataforma no está compuesta por pantallas internas de una única aplicación, sino por módulos independientes que son reconocidos, registrados y cargados por el shell. El shell actúa como orquestador de composición y no como contenedor de lógica de negocio.
-
-## Parte de la tesis que se demuestra
-
-Este escenario evidencia principalmente la aplicación de los siguientes elementos del marco:
-
-| Elemento del marco | Evidencia en la demo |
-| --- | --- |
-| P1: Independencia modular | Cada microfrontend representa un dominio funcional separado |
-| P3: Integración controlada | El shell gestiona la composición de los módulos |
-| C1: Independencia modular | Los módulos están delimitados por responsabilidad funcional |
-| C3: Control de integración | La carga se realiza desde el shell y no por dependencias directas |
-| L1: Definir límites claros de cada módulo | Cada módulo tiene responsabilidad explícita |
-| L3: Utilizar un mecanismo centralizado de integración | El shell funciona como orquestador |
-
-## Evidencia generada
-
-- Navegación entre microfrontends.
-- Manifiesto de módulos.
-- Consola arquitectónica.
-- Estructura separada del shell y los microfrontends.
-- Carga de módulos desde rutas independientes.
-
-## Relación con el Capítulo IV
-
-Este escenario corresponde a la sección de descripción del prototipo y arquitectura general. Permite justificar que la Plataforma Académica Modular es un escenario válido para aplicar el marco, porque presenta una estructura compuesta por un shell y módulos independientes.
-
-También sirve como evidencia para la sección de delimitación modular, ya que permite observar que cada módulo tiene una responsabilidad funcional definida.
+Levantar los cuatro servicios indicados en la sección 2. **No levantar Dashboard.**
 
 ---
 
-# Escenario 2: Comunicación desacoplada por eventos
+### Paso 1 — Microfrontends independientes
 
-## Propósito
+Abrir en pestañas separadas:
 
-Demostrar que los microfrontends pueden coordinarse sin mantener referencias directas entre ellos, utilizando un mecanismo centralizado de comunicación basado en eventos.
+1. `http://localhost:4201` — Estudiantes  
+2. `http://localhost:4202` — Inscripciones  
+3. `http://localhost:4203` — Calificaciones  
 
-Este escenario permite mostrar que la independencia modular no impide la colaboración entre componentes. Los módulos pueden interactuar, pero lo hacen mediante un contrato de comunicación explícito y desacoplado.
+**Qué decir:**
 
-## Qué se debe mostrar
+> Estos módulos no son componentes internos de una misma aplicación. Son aplicaciones frontend independientes, cada una con su propio proyecto, configuración y puerto.
 
-- El módulo Estudiantes emitiendo el evento `estudiante.seleccionado`.
-- Los módulos Inscripciones y Calificaciones reaccionando a ese evento.
-- La consola arquitectónica registrando el evento emitido y recibido.
-- La ausencia de comunicación directa entre microfrontends.
-- El bus de eventos centralizado provisto por el shell.
+**Matiz para Inscripciones y Calificaciones en standalone:**
 
-## Pasos de demostración
+> En modo independiente cada módulo opera con datos locales de demostración. La coordinación por eventos ocurre cuando están integrados en el shell.
 
-1. Abrir el módulo Estudiantes.
-2. Seleccionar un estudiante.
-3. Mostrar que se emite el evento `estudiante.seleccionado`.
-4. Mostrar la consola arquitectónica con el evento registrado.
-5. Abrir el módulo Inscripciones.
-6. Verificar que muestra las materias asociadas al estudiante seleccionado.
-7. Abrir el módulo Calificaciones.
-8. Verificar que muestra las calificaciones asociadas al mismo estudiante.
-9. Explicar que Estudiantes no conoce internamente a Inscripciones ni a Calificaciones.
-10. Mostrar que la relación entre módulos está mediada por el bus de eventos.
-
-## Mensaje que debe comunicarse
-
-El módulo Estudiantes no llama directamente a Inscripciones ni a Calificaciones. Solo publica un evento. Los otros módulos reaccionan a ese evento porque escuchan el canal definido en el contrato de comunicación. Esto demuestra que la colaboración entre módulos ocurre sin acoplamiento directo.
-
-## Parte de la tesis que se demuestra
-
-Este escenario evidencia principalmente la aplicación de los siguientes elementos del marco:
-
-| Elemento del marco | Evidencia en la demo |
-| --- | --- |
-| P2: Contratos explícitos | El evento está declarado como parte del contrato del módulo |
-| P4: Comunicación desacoplada | Los módulos se comunican mediante eventos, no por referencias directas |
-| C2: Claridad del contrato | El manifiesto declara eventos emitidos y escuchados |
-| C4: Desacoplamiento en comunicación | La interacción ocurre mediante el bus de eventos |
-| L2: Establecer contratos explícitos entre módulos | Los eventos forman parte del contrato de integración |
-| L4: Evitar comunicación directa entre módulos | Ningún módulo invoca directamente a otro |
-
-## Evidencia generada
-
-- Evento `estudiante.seleccionado` emitido desde Estudiantes.
-- Respuesta de Inscripciones al evento.
-- Respuesta de Calificaciones al evento.
-- Registro de eventos en la consola arquitectónica.
-- Declaración de eventos en el manifiesto de módulos.
-
-## Relación con el Capítulo IV
-
-Este escenario corresponde a la sección de comunicación desacoplada. Permite demostrar que el bus de eventos funciona como mecanismo centralizado de interacción y que los módulos mantienen independencia estructural.
-
-También aporta evidencia para la rúbrica, especialmente en el criterio C4, porque permite observar si la comunicación ocurre exclusivamente mediante el mecanismo definido por el marco.
+**Evidencia:** tres aplicaciones Angular separadas en puertos distintos.
 
 ---
 
-# Escenario 3: Falla controlada de un módulo remoto
+### Paso 2 — Abrir el shell
 
-## Propósito
+Abrir `http://localhost:4200`.
 
-Demostrar que la arquitectura puede aislar la falla de un microfrontend sin comprometer el funcionamiento general de la plataforma.
+**Qué decir:**
 
-Este escenario es uno de los más importantes de la demo porque evidencia que la independencia modular no es solo una división estructural, sino que tiene consecuencias observables en la estabilidad del sistema.
+> Ahora ingreso al shell. El shell funciona como aplicación contenedora u orquestadora. Su responsabilidad es cargar estos microfrontends y presentarlos como una sola plataforma. En términos simples, el shell es una aplicación host que consume e integra microfrontends remotos.
 
-## Qué se debe mostrar
+**Qué mostrar:**
 
-- Un microfrontend funcionando normalmente.
-- La simulación de caída de ese microfrontend.
-- El shell detectando que el remoto no está disponible.
-- Una pantalla o mensaje de error controlado.
-- La consola arquitectónica registrando el fallo.
-- Los demás módulos funcionando sin interrupción.
-- Opcionalmente, la recuperación del módulo cuando vuelve a estar disponible.
-
-## Pasos de demostración
-
-1. Iniciar la plataforma con todos los módulos activos.
-2. Navegar hacia Calificaciones o Inscripciones para mostrar que el módulo funciona.
-3. Apagar el servidor del microfrontend seleccionado.
-4. Volver al shell.
-5. Intentar ingresar nuevamente al módulo apagado.
-6. Mostrar que el shell detecta que el módulo está offline.
-7. Mostrar la pantalla de error o estado no disponible.
-8. Mostrar en la consola arquitectónica el evento o registro de error.
-9. Navegar hacia otros módulos, como Estudiantes o Dashboard.
-10. Verificar que los otros módulos siguen funcionando.
-11. Opcionalmente, volver a levantar el microfrontend apagado.
-12. Mostrar que el shell puede reconocer nuevamente su disponibilidad.
-
-## Mensaje que debe comunicarse
-
-La caída de un módulo remoto no rompe toda la plataforma. El shell controla la integración, detecta la indisponibilidad del módulo y evita que el error afecte a los demás componentes. Esto demuestra aislamiento, control de integración y evolución controlada.
-
-## Parte de la tesis que se demuestra
-
-Este escenario evidencia principalmente la aplicación de los siguientes elementos del marco:
-
-| Elemento del marco | Evidencia en la demo |
-| --- | --- |
-| P1: Independencia modular | La falla de un módulo no afecta directamente a los demás |
-| P3: Integración controlada | El shell gestiona la disponibilidad y carga de módulos |
-| P5: Evolución controlada | El sistema conserva estabilidad ante un módulo no disponible |
-| C1: Independencia modular | Los módulos operan sin depender directamente del módulo caído |
-| C3: Control de integración | El shell controla la carga y el error de integración |
-| C5: Capacidad de evolución | La plataforma mantiene estabilidad ante cambios o fallos |
-| L3: Utilizar un mecanismo centralizado de integración | El shell administra la situación de fallo |
-| L5: Diseñar módulos reemplazables | El módulo puede caer o recuperarse sin alterar la estructura global |
-
-## Evidencia generada
-
-- Estado offline del módulo.
-- Registro de error en la consola arquitectónica.
-- Pantalla de error controlada.
-- Funcionamiento continuo de los demás módulos.
-- Recuperación del módulo, si se vuelve a levantar.
-
-## Relación con el Capítulo IV
-
-Este escenario corresponde a la evidencia arquitectónica y a la evaluación mediante rúbrica. Es especialmente útil para evaluar C3 y C5.
-
-Permite demostrar que la integración dinámica no solo consiste en cargar módulos exitosamente, sino también en manejar de forma controlada la indisponibilidad de un módulo remoto.
-
-Este escenario refuerza la discusión de resultados, porque muestra una ventaja arquitectónica visible frente a una estructura monolítica o fuertemente acoplada.
+- Navbar con **tres** módulos activos (sin Dashboard).
+- Consola arquitectónica en la parte inferior.
+- Ausencia de lógica académica en el shell.
 
 ---
 
-# Escenario 4: Incorporación de un nuevo módulo
+### Paso 3 — Mostrar el manifiesto
 
-## Propósito
+Abrir `http://localhost:4200/assets/manifest.json` (o el archivo en el editor).
 
-Demostrar que la arquitectura permite incorporar un nuevo microfrontend sin modificar los módulos existentes.
+**Qué decir:**
 
-Este escenario cierra la demo mostrando la capacidad de evolución de la plataforma. Después de evidenciar composición, comunicación y tolerancia al fallo, se demuestra que la arquitectura puede crecer mediante la incorporación controlada de nuevos módulos.
+> La integración no se hace de manera improvisada. Cada microfrontend está declarado en un manifiesto que funciona como contrato arquitectónico. El shell sabe qué módulos puede cargar porque estos módulos están declarados explícitamente.
 
-## Qué se debe mostrar
+**Qué señalar en cada entrada:**
 
-- El módulo Dashboard como módulo adicional.
-- Su declaración en el manifiesto.
-- Su ruta de integración.
-- Su carga desde el shell.
-- La ausencia de cambios en Estudiantes, Inscripciones y Calificaciones.
-- La consola arquitectónica registrando su carga o disponibilidad.
-
-## Pasos de demostración
-
-1. Mostrar el manifiesto de módulos.
-2. Identificar la entrada correspondiente al módulo Dashboard.
-3. Verificar que Dashboard posee identificador, ruta, versión, punto de entrada, eventos y estado.
-4. Verificar que Dashboard está `activo` en el manifiesto para mostrarlo como módulo incorporado en tiempo de demo.
-5. Levantar el microfrontend Dashboard.
-6. Volver al shell.
-7. Mostrar que Dashboard aparece como módulo disponible en la navegación.
-8. Ingresar al módulo Dashboard.
-9. Mostrar que se carga correctamente desde el shell.
-10. Explicar que no fue necesario modificar los módulos Estudiantes, Inscripciones ni Calificaciones.
-
-## Mensaje que debe comunicarse
-
-La incorporación de Dashboard evidencia que la plataforma puede crecer mediante nuevos módulos sin alterar los microfrontends existentes. El shell reconoce el nuevo módulo a partir del contrato definido en el manifiesto y lo integra como parte de la plataforma.
-
-## Parte de la tesis que se demuestra
-
-Este escenario evidencia principalmente la aplicación de los siguientes elementos del marco:
-
-| Elemento del marco | Evidencia en la demo |
-| --- | --- |
-| P2: Contratos explícitos | Dashboard se incorpora mediante una entrada declarada en el manifiesto |
-| P3: Integración controlada | El shell carga Dashboard mediante el mecanismo de integración definido |
-| P5: Evolución controlada | Se incorpora un nuevo módulo sin modificar los existentes |
-| C2: Claridad del contrato | Dashboard declara su contrato de integración |
-| C3: Control de integración | El shell gestiona su carga dinámica |
-| C5: Capacidad de evolución | El sistema se extiende sin afectar módulos previos |
-| L2: Establecer contratos explícitos entre módulos | Dashboard se declara formalmente antes de integrarse |
-| L3: Utilizar un mecanismo centralizado de integración | El shell incorpora el módulo |
-| L5: Diseñar módulos reemplazables | La arquitectura permite agregar o retirar módulos |
-
-## Evidencia generada
-
-- Entrada de Dashboard en el manifiesto.
-- Dashboard visible en navegación, si está activo.
-- Carga del módulo desde el shell.
-- Registro en consola arquitectónica.
-- Ausencia de modificaciones en los módulos existentes.
-
-## Relación con el Capítulo IV
-
-Este escenario corresponde directamente al criterio C5 de la rúbrica: capacidad de evolución.
-
-La incorporación de Dashboard debe presentarse como evidencia de extensibilidad arquitectónica, no simplemente como una pantalla estadística. Lo importante no es la funcionalidad del Dashboard, sino el hecho de que puede integrarse como nuevo módulo dentro de la plataforma sin alterar los módulos existentes.
+- `id`, `remoteEntry`, `ruta`, `version`;
+- `eventosEmitidos`, `eventosEscuchados`;
+- `estado` — destacar que Dashboard está `"inactivo"`: declarado en el contrato, pero aún no integrado en la plataforma en ejecución.
 
 ---
 
-# 3. Relación general entre escenarios y criterios de evaluación
+### Paso 4 — Carga dinámica dentro del shell
 
-| Criterio | Escenario que lo evidencia | Evidencia principal |
+Desde la navbar del shell, navegar a:
+
+- `/estudiantes`
+- `/inscripciones`
+- `/calificaciones`
+
+**Qué decir:**
+
+> Los mismos módulos que vimos de forma independiente ahora se cargan dentro del shell mediante Module Federation, cada uno desde su propio `remoteEntry.js`.
+
+**Qué mostrar:**
+
+- Carga correcta de cada módulo.
+- Entradas `modulo.cargado` en la consola arquitectónica.
+
+---
+
+### Paso 5 — Comunicación desacoplada
+
+1. Ir a **Estudiantes** en el shell.
+2. Seleccionar **Carlos Eduardo Flores** (id 2).
+3. Ir a **Inscripciones** — debe mostrar materias de Carlos.
+4. Ir a **Calificaciones** — debe mostrar calificaciones de Carlos.
+
+**Qué decir:**
+
+> Cuando selecciono un estudiante, Estudiantes emite el evento `estudiante.seleccionado`. Inscripciones y Calificaciones escuchan ese evento. Lo importante es que Estudiantes no llama directamente a estos módulos. Los microfrontends colaboran mediante eventos, no mediante dependencias directas.
+
+**Evidencia:** consola con `estudiante.seleccionado` en dirección `emitido` y `recibido`.
+
+---
+
+### Paso 6 — Consola arquitectónica
+
+Señalar el panel inferior fijo.
+
+**Qué decir:**
+
+> Esta consola registra eventos emitidos, eventos recibidos y errores de integración. No es funcionalidad de negocio; es evidencia observable para la evaluación arquitectónica. Permite observar la comunicación desacoplada y el control de integración definidos en el marco.
+
+---
+
+### Paso 7 — Falla controlada
+
+1. Entrar a **Calificaciones** — funciona normal.
+2. Apagar el servidor de `mf-calificaciones` (Ctrl+C en su terminal).
+3. Esperar unos segundos — punto rojo (offline) en la navbar.
+4. Intentar entrar de nuevo a Calificaciones.
+
+**Qué decir:**
+
+> El microfrontend de Calificaciones no está disponible. El shell detecta la falla y evita que toda la plataforma se rompa. La falla de un módulo remoto no compromete toda la plataforma.
+
+**Qué mostrar:**
+
+- Pantalla **Módulo no disponible**.
+- Consola con `modulo.error` o `modulo.desconectado`.
+- **Estudiantes** e **Inscripciones** siguen funcionando.
+
+> Este es probablemente el momento más fuerte de la demo.
+
+---
+
+### Paso 8 — Recuperación del módulo
+
+1. Volver a levantar Calificaciones: `cd mf-calificaciones && npm start`.
+2. Pulsar **Reconectar** en la pantalla de error, o navegar de nuevo a Calificaciones.
+
+**Qué decir:**
+
+> Cuando el remoto vuelve a estar disponible, el shell puede volver a cargarlo. Esto demuestra recuperación y control de integración.
+
+---
+
+### Paso 9 — Evolución con Dashboard
+
+**Qué decir antes de actuar:**
+
+> Hasta este momento la plataforma ha trabajado con tres microfrontends integrados. Dashboard está declarado en el manifiesto, pero con estado inactivo. Ahora se incorporará como módulo adicional.
+
+**Acciones en vivo:**
+
+1. En `shell/src/assets/manifest.json`, cambiar Dashboard de `"inactivo"` a `"activo"`.
+2. Levantar el remoto: `cd mf-dashboard && npm start` (4204).
+3. **F5** en el shell (`http://localhost:4200`).
+4. Verificar que **Dashboard aparece en la navbar**.
+5. Entrar a `/dashboard`.
+
+**Qué decir:**
+
+> Dashboard se incorpora como un nuevo microfrontend remoto. No fue necesario modificar Estudiantes, Inscripciones ni Calificaciones. Esto demuestra la capacidad de evolución controlada de la arquitectura.
+
+**Evidencia:** aparición del cuarto enlace en navbar + `modulo.cargado` en consola.
+
+> Presentar Dashboard como extensión arquitectónica, no como pantalla estadística.
+
+---
+
+### Paso 10 — Cierre
+
+**Qué decir:**
+
+> Con esta demostración se observa que el prototipo no es una plataforma académica tradicional, sino una aplicación web componible. Primero se evidenció que los módulos pueden existir de forma independiente; luego, que el shell los integra dinámicamente; después, que se comunican mediante eventos desacoplados; también se mostró que la caída de un módulo no rompe toda la plataforma; y finalmente, que se puede incorporar un nuevo módulo sin alterar los existentes.
+
+> Estos escenarios corresponden a los criterios de evaluación del marco: independencia modular, contratos explícitos, integración controlada, comunicación desacoplada y capacidad de evolución.
+
+---
+
+## 4. Relación entre pasos y criterios de evaluación
+
+| Criterio | Pasos que lo evidencian | Evidencia principal |
 | --- | --- | --- |
-| C1: Independencia modular | Escenario 1 y Escenario 3 | Módulos separados, ejecución independiente y falla aislada |
-| C2: Claridad del contrato | Escenario 1, Escenario 2 y Escenario 4 | Manifiesto con rutas, versiones, eventos y estados |
-| C3: Control de integración | Escenario 1, Escenario 3 y Escenario 4 | Shell como orquestador de carga dinámica |
-| C4: Desacoplamiento en comunicación | Escenario 2 | Bus de eventos y ausencia de referencias directas |
-| C5: Capacidad de evolución | Escenario 3 y Escenario 4 | Módulo caído controlado e incorporación de Dashboard |
+| C1: Independencia modular | 1, 7 | Aplicaciones en puertos separados; falla aislada |
+| C2: Claridad del contrato | 3, 5, 9 | Manifiesto con rutas, versiones, eventos y estados |
+| C3: Control de integración | 2, 4, 7, 8, 9 | Shell como orquestador; carga dinámica; error y recuperación |
+| C4: Desacoplamiento en comunicación | 5, 6 | EventBus; consola con emitido/recibido |
+| C5: Capacidad de evolución | 7, 9 | Módulo caído controlado; activación de Dashboard en manifest |
 
 ---
 
-# 4. Relación general con el Capítulo IV
+## 5. Relación con el Capítulo IV
 
-Los escenarios de demo deben alimentar directamente las siguientes secciones del Capítulo IV:
-
-| Sección del Capítulo IV | Escenario relacionado | Uso dentro del capítulo |
+| Sección del Capítulo IV | Pasos relacionados | Uso dentro del capítulo |
 | --- | --- | --- |
-| 4.2 Descripción del prototipo | Escenario 1 | Presentar estructura general del shell y microfrontends |
-| 4.3 Aplicación del marco | Escenarios 1, 2, 3 y 4 | Mostrar decisiones arquitectónicas derivadas del marco |
-| 4.4 Evidencia arquitectónica | Escenarios 2 y 3 | Presentar consola, eventos, carga dinámica y fallos controlados |
-| 4.5 Evaluación mediante rúbrica | Escenarios 1, 2, 3 y 4 | Evaluar C1, C2, C3, C4 y C5 |
-| 4.6 Discusión de resultados | Escenarios 3 y 4 | Interpretar estabilidad, extensibilidad y límites de validación |
-| 4.7 Síntesis del capítulo | Todos | Concluir que el marco permite estructurar una arquitectura coherente |
+| 4.2 Descripción del prototipo | 1, 2, 4 | Estructura shell + microfrontends |
+| 4.3 Aplicación del marco | 1–9 | Decisiones arquitectónicas derivadas del marco |
+| 4.4 Evidencia arquitectónica | 5, 6, 7 | Consola, eventos, fallos controlados |
+| 4.5 Evaluación mediante rúbrica | 1–9 | C1–C5 |
+| 4.6 Discusión de resultados | 7, 9 | Estabilidad, extensibilidad, límites |
+| 4.7 Síntesis del capítulo | 10 | Conclusión del marco materializado |
 
 ---
 
-# 5. Narrativa sugerida para presentar la demo
+## 6. Recomendaciones para que la demo sea notoria
 
-La demostración puede introducirse de la siguiente manera:
-
-> Esta demo no busca mostrar una plataforma académica completa, sino evidenciar cómo el marco de diseño arquitectónico se materializa en un prototipo funcional mínimo. La demostración se organiza en cuatro escenarios: primero, se muestra cómo la plataforma se compone mediante microfrontends independientes; segundo, cómo estos módulos se comunican mediante eventos sin acoplamiento directo; tercero, cómo la caída de un módulo remoto no afecta el funcionamiento global; y finalmente, cómo la arquitectura permite incorporar un nuevo módulo sin modificar los existentes.
-
----
-
-# 6. Recomendaciones para que la demo sea notoria
-
-## Evitar presentar la demo como funcionalidades pequeñas
+### Evitar presentar la demo como funcionalidades pequeñas
 
 No conviene decir:
 
 > Este módulo muestra estudiantes, este muestra materias y este muestra notas.
 
-Esa explicación reduce la demo a una aplicación común.
-
 Conviene decir:
 
 > Estos módulos representan unidades funcionales independientes que son integradas dinámicamente por un shell y coordinadas mediante contratos y eventos.
 
-## Mostrar evidencia arquitectónica visible
+### Mostrar evidencia arquitectónica visible
 
-Cada escenario debe apoyarse en elementos observables:
+Cada paso debe apoyarse en elementos observables:
 
-- manifest;
+- manifest (incluido Dashboard `inactivo` → `activo`);
 - consola arquitectónica;
-- navegación modular;
+- navegación modular (3 → 4 módulos);
 - estados online/offline;
 - eventos emitidos y recibidos;
-- carga de microfrontends;
-- incorporación de Dashboard;
-- fallo controlado de un módulo.
+- carga desde `remoteEntry.js`;
+- fallo controlado y recuperación.
 
-## Dar protagonismo al fallo controlado
+### Dar protagonismo al fallo controlado
 
-El escenario de falla controlada debe destacarse porque es el más notorio para un jurado. Permite mostrar de forma visible que la arquitectura no se comporta como una aplicación monolítica.
+El paso 7 debe destacarse porque evidencia de forma visible que la arquitectura no se comporta como una aplicación monolítica.
 
-## Presentar Dashboard como extensión arquitectónica
+### Presentar Dashboard como extensión arquitectónica
 
-Dashboard no debe presentarse principalmente como un resumen estadístico. Debe presentarse como evidencia de que la arquitectura puede crecer mediante nuevos módulos.
-
----
-
-# 7. Estado esperado del prototipo antes de la demo
-
-Antes de realizar la demostración, se recomienda verificar lo siguiente:
-
-- El shell debe iniciar correctamente.
-- Estudiantes debe estar activo.
-- Inscripciones debe estar activo.
-- Calificaciones debe estar activo.
-- Dashboard debe estar activo y el remoto en `4204` online si se usará en la navegación del shell.
-- El manifiesto debe estar sincronizado con las rutas y puertos reales.
-- La consola arquitectónica debe mostrar eventos y errores.
-- El bus de eventos debe registrar `estudiante.seleccionado`.
-- Debe existir una pantalla o respuesta controlada para módulos offline.
-- Debe probarse previamente la caída y recuperación de un módulo remoto.
+Dashboard no debe presentarse principalmente como resumen estadístico. Debe presentarse como evidencia de que la arquitectura puede crecer mediante nuevos módulos activados en el contrato del manifiesto.
 
 ---
 
-# 8. Conclusión
+## 7. Checklist pre-sustentación
 
-Los cuatro escenarios definidos permiten demostrar de manera clara y notoria que el prototipo está alineado con el marco de diseño arquitectónico propuesto en la tesis.
-
-La demo no debe centrarse en la funcionalidad académica, sino en la evidencia de que la arquitectura resultante es modular, componible, integrable dinámicamente, comunicada de forma desacoplada y capaz de evolucionar sin afectar la estabilidad global del sistema.
-
-El orden recomendado es:
-
-1. Composición modular.
-2. Comunicación por eventos.
-3. Falla controlada.
-4. Incorporación de Dashboard.
+- [ ] `mf-estudiantes`, `mf-inscripciones`, `mf-calificaciones` y `shell` en ejecución.
+- [ ] `mf-dashboard` **apagado** al inicio.
+- [ ] Dashboard con `"estado": "inactivo"` en `manifest.json`.
+- [ ] Navbar del shell muestra **3** módulos con punto verde.
+- [ ] Pestaña con `manifest.json` preparada.
+- [ ] Consola arquitectónica visible.
+- [ ] Ensayado: evento `estudiante.seleccionado` con Carlos (id 2).
+- [ ] Ensayado: apagar/reconectar Calificaciones (pasos 7–8).
+- [ ] Ensayado: activar Dashboard en manifest + F5 (paso 9).
+- [ ] Tras ensayos, restaurar manifest a `"inactivo"` si la sustentación aún no es hoy.
 
 ---
 
-# 9. Anexo: UI y modo independiente (no arquitectura core)
+## 8. Después de la demo
 
-Las mejoras recientes de interfaz (filtros en Estudiantes, calendario y créditos en Inscripciones, gráficos en Calificaciones, KPIs en Dashboard) **no modifican** el marco arquitectónico: eventos, manifest, shell y Module Federation permanecen iguales.
+Para desarrollo cotidiano, se puede dejar Dashboard en `"activo"` y levantar los cinco servicios. Ese estado no es el de la sustentación, pero es válido para trabajo diario.
+
+---
+
+## 9. Anexo: UI y modo independiente (no arquitectura core)
+
+Las mejoras de interfaz (filtros en Estudiantes, calendario en Inscripciones, gráficos en Calificaciones, KPIs en Dashboard) **no modifican** el marco arquitectónico: eventos, manifest, shell y Module Federation permanecen iguales.
 
 Sirven para:
 

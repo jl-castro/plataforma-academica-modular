@@ -36,7 +36,7 @@ El `shell` carga los modulos remotos mediante `@angular-architects/module-federa
 | `mf-estudiantes` | 4201 | `/estudiantes` | `http://localhost:4201/remoteEntry.js` | `./Module` | `activo` |
 | `mf-inscripciones` | 4202 | `/inscripciones` | `http://localhost:4202/remoteEntry.js` | `./Module` | `activo` |
 | `mf-calificaciones` | 4203 | `/calificaciones` | `http://localhost:4203/remoteEntry.js` | `./Module` | `activo` |
-| `mf-dashboard` | 4204 | `/dashboard` | `http://localhost:4204/remoteEntry.js` | `./Module` | `activo` |
+| `mf-dashboard` | 4204 | `/dashboard` | `http://localhost:4204/remoteEntry.js` | `./Module` | `inactivo` (demo) / `activo` (dev) |
 
 ## Tecnologias principales
 
@@ -93,6 +93,8 @@ start-all.bat
 ```
 
 Nota: el script actual inicia `shell`, `mf-estudiantes`, `mf-inscripciones` y `mf-calificaciones`. Para usar Dashboard, iniciarlo manualmente con `cd mf-dashboard && npm start` o abrir `http://localhost:4204` en modo independiente.
+
+Para la **demo de sustentacion**, Dashboard figura como `inactivo` en `shell/src/assets/manifest.json` y su servidor no se levanta hasta el paso final (ver `docs/DEMO.md`). Para desarrollo cotidiano, cambiar a `"activo"` y levantar los cinco servicios.
 
 ## Modo independiente vs shell
 

@@ -237,7 +237,7 @@ cd mf-dashboard
 npm start
 ```
 
-Dashboard figura como `activo` en `shell/src/assets/manifest.json` y aparece en la navegacion cuando el remoto en `4204` esta online.
+En el repositorio, Dashboard figura como `inactivo` en `shell/src/assets/manifest.json` para la demo de sustentacion (no aparece en la navbar hasta activarlo en vivo). Para desarrollo cotidiano, usar `"estado": "activo"` y tener el remoto en `4204` online. Ver `docs/DEMO.md`.
 
 ### Cambie un puerto y dejo de cargar el remoto
 
