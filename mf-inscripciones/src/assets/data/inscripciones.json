@@ -1,502 +1,372 @@
 [
-	{
-		"id": 1,
-		"estudianteId": 1,
-		"materia": "Algoritmos y Estructura de Datos",
-		"codigo": "INF-301",
-		"creditos": 6,
-		"horario": "Lunes y Miércoles 08:00 - 10:00",
-		"docente": "Ph.D. Carlos Mendoza",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 2,
-		"estudianteId": 1,
-		"materia": "Bases de Datos II",
-		"codigo": "INF-302",
-		"creditos": 5,
-		"horario": "Martes y Jueves 14:00 - 16:00",
-		"docente": "M.Sc. Patricia Villarroel",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 3,
-		"estudianteId": 1,
-		"materia": "Ingeniería de Software",
-		"codigo": "INF-401",
-		"creditos": 6,
-		"horario": "Miércoles y Viernes 10:00 - 12:00",
-		"docente": "Ph.D. Rodrigo Salazar",
-		"estado": "Pendiente"
-	},
-	{
-		"id": 4,
-		"estudianteId": 1,
-		"materia": "Redes de Computadoras",
-		"codigo": "INF-350",
-		"creditos": 5,
-		"horario": "Martes 08:00 - 11:00",
-		"docente": "Ing. Fernando Camacho",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 5,
-		"estudianteId": 1,
-		"materia": "Ética Profesional",
-		"codigo": "HUM-210",
-		"creditos": 3,
-		"horario": "Viernes 16:00 - 18:00",
-		"docente": "Lic. Marcela Quiroga",
-		"estado": "Retirado"
-	},
-	{
-		"id": 6,
-		"estudianteId": 2,
-		"materia": "Programación Web Avanzada",
-		"codigo": "INF-420",
-		"creditos": 6,
-		"horario": "Lunes y Miércoles 14:00 - 16:00",
-		"docente": "M.Sc. Daniela Rojas",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 7,
-		"estudianteId": 2,
-		"materia": "Inteligencia Artificial",
-		"codigo": "INF-455",
-		"creditos": 6,
-		"horario": "Martes y Jueves 08:00 - 10:00",
-		"docente": "Ph.D. Luis Arnez",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 8,
-		"estudianteId": 2,
-		"materia": "Sistemas Operativos",
-		"codigo": "INF-340",
-		"creditos": 5,
-		"horario": "Miércoles 14:00 - 17:00",
-		"docente": "Ing. Oscar Terrazas",
-		"estado": "Pendiente"
-	},
-	{
-		"id": 9,
-		"estudianteId": 2,
-		"materia": "Compiladores",
-		"codigo": "INF-380",
-		"creditos": 6,
-		"horario": "Jueves y Sábado 09:00 - 11:00",
-		"docente": "Ph.D. Ana María Ledezma",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 10,
-		"estudianteId": 2,
-		"materia": "Proyecto de Grado I",
-		"codigo": "INF-490",
-		"creditos": 4,
-		"horario": "Horario a convenir con tutor",
-		"docente": "Ph.D. Carlos Mendoza",
-		"estado": "Pendiente"
-	},
-	{
-		"id": 11,
-		"estudianteId": 3,
-		"materia": "Análisis y Diseño de Sistemas",
-		"codigo": "SIS-310",
-		"creditos": 6,
-		"horario": "Lunes y Miércoles 10:00 - 12:00",
-		"docente": "M.Sc. Gabriela Flores",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 12,
-		"estudianteId": 3,
-		"materia": "Administración de Servidores Linux",
-		"codigo": "SIS-325",
-		"creditos": 5,
-		"horario": "Martes y Jueves 14:00 - 16:00",
-		"docente": "Ing. Hugo Peñaranda",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 13,
-		"estudianteId": 3,
-		"materia": "Seguridad Informática",
-		"codigo": "SIS-410",
-		"creditos": 6,
-		"horario": "Viernes 08:00 - 12:00",
-		"docente": "M.Sc. Ricardo Blanco",
-		"estado": "Retirado"
-	},
-	{
-		"id": 14,
-		"estudianteId": 3,
-		"materia": "Cloud Computing",
-		"codigo": "SIS-430",
-		"creditos": 5,
-		"horario": "Miércoles y Viernes 15:00 - 17:00",
-		"docente": "Ing. Valeria Montaño",
-		"estado": "Pendiente"
-	},
-	{
-		"id": 15,
-		"estudianteId": 4,
-		"materia": "Gestión de Proyectos TI",
-		"codigo": "SIS-405",
-		"creditos": 5,
-		"horario": "Lunes 14:00 - 17:00",
-		"docente": "MBA Claudia Espinoza",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 16,
-		"estudianteId": 4,
-		"materia": "Arquitectura Empresarial",
-		"codigo": "SIS-440",
-		"creditos": 6,
-		"horario": "Martes y Jueves 08:00 - 10:00",
-		"docente": "Ph.D. Mauricio Torrico",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 17,
-		"estudianteId": 4,
-		"materia": "Minería de Datos",
-		"codigo": "SIS-450",
-		"creditos": 6,
-		"horario": "Miércoles 08:00 - 11:00",
-		"docente": "M.Sc. Elena Andrade",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 18,
-		"estudianteId": 4,
-		"materia": "Comercio Electrónico",
-		"codigo": "SIS-360",
-		"creditos": 4,
-		"horario": "Jueves 16:00 - 18:00",
-		"docente": "Lic. Jorge Mercado",
-		"estado": "Pendiente"
-	},
-	{
-		"id": 19,
-		"estudianteId": 4,
-		"materia": "Auditoría de Sistemas",
-		"codigo": "SIS-470",
-		"creditos": 5,
-		"horario": "Viernes 10:00 - 13:00",
-		"docente": "CPA. Sandra Velásquez",
-		"estado": "Retirado"
-	},
-	{
-		"id": 20,
-		"estudianteId": 5,
-		"materia": "Electrónica Analógica",
-		"codigo": "ELN-310",
-		"creditos": 6,
-		"horario": "Lunes y Miércoles 08:00 - 10:00",
-		"docente": "Ph.D. Miguel Ángel López",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 21,
-		"estudianteId": 5,
-		"materia": "Señales y Sistemas",
-		"codigo": "ELN-320",
-		"creditos": 6,
-		"horario": "Martes y Jueves 10:00 - 12:00",
-		"docente": "M.Sc. Paola Urquidi",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 22,
-		"estudianteId": 5,
-		"materia": "Microcontroladores",
-		"codigo": "ELN-410",
-		"creditos": 5,
-		"horario": "Miércoles 14:00 - 17:00",
-		"docente": "Ing. René Calle",
-		"estado": "Pendiente"
-	},
-	{
-		"id": 23,
-		"estudianteId": 5,
-		"materia": "Instrumentación Electrónica",
-		"codigo": "ELN-380",
-		"creditos": 5,
-		"horario": "Viernes 08:00 - 11:00",
-		"docente": "Ph.D. Beatriz Condori",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 24,
-		"estudianteId": 6,
-		"materia": "Diseño de Circuitos Impresos",
-		"codigo": "ELN-350",
-		"creditos": 4,
-		"horario": "Lunes 14:00 - 18:00",
-		"docente": "Ing. Cristian Vargas",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 25,
-		"estudianteId": 6,
-		"materia": "Comunicaciones Digitales",
-		"codigo": "ELN-420",
-		"creditos": 6,
-		"horario": "Martes y Jueves 08:00 - 10:00",
-		"docente": "Ph.D. Fernando Rojas",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 26,
-		"estudianteId": 6,
-		"materia": "Potencia Eléctrica",
-		"codigo": "ELN-400",
-		"creditos": 6,
-		"horario": "Miércoles y Viernes 10:00 - 12:00",
-		"docente": "M.Sc. Andrés Paredes",
-		"estado": "Retirado"
-	},
-	{
-		"id": 27,
-		"estudianteId": 6,
-		"materia": "Proyecto Integrador de Grado",
-		"codigo": "ELN-490",
-		"creditos": 5,
-		"horario": "Jueves 15:00 - 18:00",
-		"docente": "Ph.D. Miguel Ángel López",
-		"estado": "Pendiente"
-	},
-	{
-		"id": 28,
-		"estudianteId": 6,
-		"materia": "Automatización Industrial",
-		"codigo": "ELN-430",
-		"creditos": 5,
-		"horario": "Sábado 08:00 - 12:00",
-		"docente": "Ing. Silvia Ortuño",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 29,
-		"estudianteId": 7,
-		"materia": "Mecánica de Suelos II",
-		"codigo": "CIV-340",
-		"creditos": 6,
-		"horario": "Lunes y Miércoles 08:00 - 10:00",
-		"docente": "Ph.D. Enrique Claros",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 30,
-		"estudianteId": 7,
-		"materia": "Estructuras de Concreto Armado",
-		"codigo": "CIV-360",
-		"creditos": 6,
-		"horario": "Martes y Jueves 14:00 - 16:00",
-		"docente": "M.Sc. Natalia Barrientos",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 31,
-		"estudianteId": 7,
-		"materia": "Hidráulica Aplicada",
-		"codigo": "CIV-370",
-		"creditos": 5,
-		"horario": "Miércoles 10:00 - 13:00",
-		"docente": "Ing. David Apaza",
-		"estado": "Pendiente"
-	},
-	{
-		"id": 32,
-		"estudianteId": 7,
-		"materia": "Topografía Geodésica",
-		"codigo": "CIV-315",
-		"creditos": 4,
-		"horario": "Viernes 08:00 - 12:00",
-		"docente": "Ing. Marco Ticona",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 33,
-		"estudianteId": 8,
-		"materia": "Anatomía Humana II",
-		"codigo": "MED-220",
-		"creditos": 8,
-		"horario": "Lunes a Viernes 07:00 - 09:00",
-		"docente": "Dr. Juan Pablo Arce",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 34,
-		"estudianteId": 8,
-		"materia": "Fisiología Médica",
-		"codigo": "MED-230",
-		"creditos": 7,
-		"horario": "Lunes, Miércoles y Viernes 10:00 - 12:00",
-		"docente": "Dra. Carla Justiniano",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 35,
-		"estudianteId": 8,
-		"materia": "Bioquímica para Ciencias de la Salud",
-		"codigo": "MED-215",
-		"creditos": 6,
-		"horario": "Martes y Jueves 14:00 - 17:00",
-		"docente": "Ph.D. Ramiro Coaquira",
-		"estado": "Pendiente"
-	},
-	{
-		"id": 36,
-		"estudianteId": 8,
-		"materia": "Salud Pública Comunitaria",
-		"codigo": "MED-250",
-		"creditos": 5,
-		"horario": "Miércoles 15:00 - 18:00",
-		"docente": "M.Sc. Liliana Mamani",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 37,
-		"estudianteId": 8,
-		"materia": "Introducción a la Semiología",
-		"codigo": "MED-260",
-		"creditos": 6,
-		"horario": "Sábado 08:00 - 12:00",
-		"docente": "Dr. Gustavo Navia",
-		"estado": "Retirado"
-	},
-	{
-		"id": 38,
-		"estudianteId": 2,
-		"materia": "Algoritmos y Estructura de Datos",
-		"codigo": "INF-301",
-		"creditos": 6,
-		"horario": "Lunes y Miércoles 08:00 - 10:00",
-		"docente": "Ph.D. Carlos Mendoza",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 39,
-		"estudianteId": 3,
-		"materia": "Algoritmos y Estructura de Datos",
-		"codigo": "INF-301",
-		"creditos": 6,
-		"horario": "Lunes y Miércoles 08:00 - 10:00",
-		"docente": "Ph.D. Carlos Mendoza",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 40,
-		"estudianteId": 4,
-		"materia": "Algoritmos y Estructura de Datos",
-		"codigo": "INF-301",
-		"creditos": 6,
-		"horario": "Lunes y Miércoles 08:00 - 10:00",
-		"docente": "Ph.D. Carlos Mendoza",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 41,
-		"estudianteId": 5,
-		"materia": "Algoritmos y Estructura de Datos",
-		"codigo": "INF-301",
-		"creditos": 6,
-		"horario": "Lunes y Miércoles 08:00 - 10:00",
-		"docente": "Ph.D. Carlos Mendoza",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 42,
-		"estudianteId": 6,
-		"materia": "Algoritmos y Estructura de Datos",
-		"codigo": "INF-301",
-		"creditos": 6,
-		"horario": "Lunes y Miércoles 08:00 - 10:00",
-		"docente": "Ph.D. Carlos Mendoza",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 43,
-		"estudianteId": 2,
-		"materia": "Bases de Datos II",
-		"codigo": "INF-302",
-		"creditos": 5,
-		"horario": "Martes y Jueves 14:00 - 16:00",
-		"docente": "M.Sc. Patricia Villarroel",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 44,
-		"estudianteId": 3,
-		"materia": "Bases de Datos II",
-		"codigo": "INF-302",
-		"creditos": 5,
-		"horario": "Martes y Jueves 14:00 - 16:00",
-		"docente": "M.Sc. Patricia Villarroel",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 45,
-		"estudianteId": 4,
-		"materia": "Bases de Datos II",
-		"codigo": "INF-302",
-		"creditos": 5,
-		"horario": "Martes y Jueves 14:00 - 16:00",
-		"docente": "M.Sc. Patricia Villarroel",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 46,
-		"estudianteId": 3,
-		"materia": "Programación Web Avanzada",
-		"codigo": "INF-420",
-		"creditos": 6,
-		"horario": "Lunes y Miércoles 14:00 - 16:00",
-		"docente": "M.Sc. Daniela Rojas",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 47,
-		"estudianteId": 4,
-		"materia": "Programación Web Avanzada",
-		"codigo": "INF-420",
-		"creditos": 6,
-		"horario": "Lunes y Miércoles 14:00 - 16:00",
-		"docente": "M.Sc. Daniela Rojas",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 48,
-		"estudianteId": 1,
-		"materia": "Inteligencia Artificial",
-		"codigo": "INF-455",
-		"creditos": 6,
-		"horario": "Martes y Jueves 08:00 - 10:00",
-		"docente": "Ph.D. Luis Arnez",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 49,
-		"estudianteId": 3,
-		"materia": "Inteligencia Artificial",
-		"codigo": "INF-455",
-		"creditos": 6,
-		"horario": "Martes y Jueves 08:00 - 10:00",
-		"docente": "Ph.D. Luis Arnez",
-		"estado": "Inscrito"
-	},
-	{
-		"id": 50,
-		"estudianteId": 2,
-		"materia": "Redes de Computadoras",
-		"codigo": "INF-350",
-		"creditos": 5,
-		"horario": "Martes 08:00 - 11:00",
-		"docente": "Ing. Fernando Camacho",
-		"estado": "Inscrito"
-	}
+  {
+    "id": 1,
+    "estudianteId": 1,
+    "materia": "Algoritmos y Estructura de Datos",
+    "codigo": "INF-301",
+    "creditos": 6,
+    "horario": "Lunes y Miércoles 08:00 - 10:00",
+    "docente": "Ph.D. Carlos Mendoza",
+    "estado": "Inscrito"
+  },
+  {
+    "id": 2,
+    "estudianteId": 1,
+    "materia": "Bases de Datos II",
+    "codigo": "INF-302",
+    "creditos": 5,
+    "horario": "Martes y Jueves 14:00 - 16:00",
+    "docente": "M.Sc. Patricia Villarroel",
+    "estado": "Inscrito"
+  },
+  {
+    "id": 3,
+    "estudianteId": 1,
+    "materia": "Ingeniería de Software",
+    "codigo": "INF-401",
+    "creditos": 6,
+    "horario": "Miércoles y Viernes 10:00 - 12:00",
+    "docente": "Ph.D. Rodrigo Salazar",
+    "estado": "Pendiente"
+  },
+  {
+    "id": 4,
+    "estudianteId": 1,
+    "materia": "Redes de Computadoras",
+    "codigo": "INF-350",
+    "creditos": 5,
+    "horario": "Martes 08:00 - 11:00",
+    "docente": "Ing. Fernando Camacho",
+    "estado": "Inscrito"
+  },
+  {
+    "id": 5,
+    "estudianteId": 1,
+    "materia": "Ética Profesional",
+    "codigo": "HUM-210",
+    "creditos": 3,
+    "horario": "Viernes 16:00 - 18:00",
+    "docente": "Lic. Marcela Quiroga",
+    "estado": "Retirado"
+  },
+  {
+    "id": 6,
+    "estudianteId": 2,
+    "materia": "Análisis y Diseño de Sistemas",
+    "codigo": "SIS-310",
+    "creditos": 6,
+    "horario": "Lunes y Miércoles 10:00 - 12:00",
+    "docente": "M.Sc. Gabriela Flores",
+    "estado": "Inscrito"
+  },
+  {
+    "id": 7,
+    "estudianteId": 2,
+    "materia": "Administración de Servidores Linux",
+    "codigo": "SIS-325",
+    "creditos": 5,
+    "horario": "Martes y Jueves 14:00 - 16:00",
+    "docente": "Ing. Hugo Peñaranda",
+    "estado": "Inscrito"
+  },
+  {
+    "id": 8,
+    "estudianteId": 2,
+    "materia": "Seguridad Informática",
+    "codigo": "SIS-410",
+    "creditos": 6,
+    "horario": "Viernes 08:00 - 12:00",
+    "docente": "M.Sc. Ricardo Blanco",
+    "estado": "Inscrito"
+  },
+  {
+    "id": 9,
+    "estudianteId": 2,
+    "materia": "Cloud Computing",
+    "codigo": "SIS-430",
+    "creditos": 5,
+    "horario": "Miércoles y Viernes 15:00 - 17:00",
+    "docente": "Ing. Valeria Montaño",
+    "estado": "Pendiente"
+  },
+  {
+    "id": 10,
+    "estudianteId": 2,
+    "materia": "Gestión de Proyectos TI",
+    "codigo": "SIS-405",
+    "creditos": 5,
+    "horario": "Lunes 14:00 - 17:00",
+    "docente": "MBA Claudia Espinoza",
+    "estado": "Inscrito"
+  },
+  {
+    "id": 11,
+    "estudianteId": 3,
+    "materia": "Electrónica Analógica",
+    "codigo": "ELN-310",
+    "creditos": 6,
+    "horario": "Lunes y Miércoles 08:00 - 10:00",
+    "docente": "Ph.D. Miguel Ángel López",
+    "estado": "Inscrito"
+  },
+  {
+    "id": 12,
+    "estudianteId": 3,
+    "materia": "Señales y Sistemas",
+    "codigo": "ELN-320",
+    "creditos": 6,
+    "horario": "Martes y Jueves 10:00 - 12:00",
+    "docente": "M.Sc. Paola Urquidi",
+    "estado": "Inscrito"
+  },
+  {
+    "id": 13,
+    "estudianteId": 3,
+    "materia": "Microcontroladores",
+    "codigo": "ELN-410",
+    "creditos": 5,
+    "horario": "Miércoles 14:00 - 17:00",
+    "docente": "Ing. René Calle",
+    "estado": "Pendiente"
+  },
+  {
+    "id": 14,
+    "estudianteId": 3,
+    "materia": "Instrumentación Electrónica",
+    "codigo": "ELN-380",
+    "creditos": 5,
+    "horario": "Viernes 08:00 - 11:00",
+    "docente": "Ph.D. Beatriz Condori",
+    "estado": "Inscrito"
+  },
+  {
+    "id": 15,
+    "estudianteId": 4,
+    "materia": "Mecánica de Suelos II",
+    "codigo": "CIV-340",
+    "creditos": 6,
+    "horario": "Lunes y Miércoles 08:00 - 10:00",
+    "docente": "Ph.D. Enrique Claros",
+    "estado": "Inscrito"
+  },
+  {
+    "id": 16,
+    "estudianteId": 4,
+    "materia": "Estructuras de Concreto Armado",
+    "codigo": "CIV-360",
+    "creditos": 6,
+    "horario": "Martes y Jueves 14:00 - 16:00",
+    "docente": "M.Sc. Natalia Barrientos",
+    "estado": "Inscrito"
+  },
+  {
+    "id": 17,
+    "estudianteId": 4,
+    "materia": "Hidráulica Aplicada",
+    "codigo": "CIV-370",
+    "creditos": 5,
+    "horario": "Miércoles 10:00 - 13:00",
+    "docente": "Ing. David Apaza",
+    "estado": "Pendiente"
+  },
+  {
+    "id": 18,
+    "estudianteId": 4,
+    "materia": "Topografía Geodésica",
+    "codigo": "CIV-315",
+    "creditos": 4,
+    "horario": "Viernes 08:00 - 12:00",
+    "docente": "Ing. Marco Ticona",
+    "estado": "Inscrito"
+  },
+  {
+    "id": 19,
+    "estudianteId": 4,
+    "materia": "Vías y Transporte",
+    "codigo": "CIV-390",
+    "creditos": 5,
+    "horario": "Jueves 16:00 - 19:00",
+    "docente": "Ing. Roberto Salinas",
+    "estado": "Retirado"
+  },
+  {
+    "id": 20,
+    "estudianteId": 5,
+    "materia": "Anatomía Humana II",
+    "codigo": "MED-220",
+    "creditos": 8,
+    "horario": "Lunes a Viernes 07:00 - 09:00",
+    "docente": "Dr. Juan Pablo Arce",
+    "estado": "Inscrito"
+  },
+  {
+    "id": 21,
+    "estudianteId": 5,
+    "materia": "Fisiología Médica",
+    "codigo": "MED-230",
+    "creditos": 7,
+    "horario": "Lunes, Miércoles y Viernes 10:00 - 12:00",
+    "docente": "Dra. Carla Justiniano",
+    "estado": "Inscrito"
+  },
+  {
+    "id": 22,
+    "estudianteId": 5,
+    "materia": "Bioquímica para Ciencias de la Salud",
+    "codigo": "MED-215",
+    "creditos": 6,
+    "horario": "Martes y Jueves 14:00 - 17:00",
+    "docente": "Ph.D. Ramiro Coaquira",
+    "estado": "Pendiente"
+  },
+  {
+    "id": 23,
+    "estudianteId": 5,
+    "materia": "Salud Pública Comunitaria",
+    "codigo": "MED-250",
+    "creditos": 5,
+    "horario": "Miércoles 15:00 - 18:00",
+    "docente": "M.Sc. Liliana Mamani",
+    "estado": "Inscrito"
+  },
+  {
+    "id": 24,
+    "estudianteId": 6,
+    "materia": "Programación Web Avanzada",
+    "codigo": "INF-420",
+    "creditos": 6,
+    "horario": "Lunes y Miércoles 14:00 - 16:00",
+    "docente": "M.Sc. Daniela Rojas",
+    "estado": "Inscrito"
+  },
+  {
+    "id": 25,
+    "estudianteId": 6,
+    "materia": "Inteligencia Artificial",
+    "codigo": "INF-455",
+    "creditos": 6,
+    "horario": "Martes y Jueves 08:00 - 10:00",
+    "docente": "Ph.D. Luis Arnez",
+    "estado": "Inscrito"
+  },
+  {
+    "id": 26,
+    "estudianteId": 6,
+    "materia": "Sistemas Operativos",
+    "codigo": "INF-340",
+    "creditos": 5,
+    "horario": "Miércoles 14:00 - 17:00",
+    "docente": "Ing. Oscar Terrazas",
+    "estado": "Pendiente"
+  },
+  {
+    "id": 27,
+    "estudianteId": 6,
+    "materia": "Compiladores",
+    "codigo": "INF-380",
+    "creditos": 6,
+    "horario": "Jueves y Sábado 09:00 - 11:00",
+    "docente": "Ph.D. Ana María Ledezma",
+    "estado": "Inscrito"
+  },
+  {
+    "id": 28,
+    "estudianteId": 6,
+    "materia": "Proyecto de Grado I",
+    "codigo": "INF-490",
+    "creditos": 4,
+    "horario": "Horario a convenir con tutor",
+    "docente": "Ph.D. Carlos Mendoza",
+    "estado": "Inscrito"
+  },
+  {
+    "id": 29,
+    "estudianteId": 7,
+    "materia": "Arquitectura Empresarial",
+    "codigo": "SIS-440",
+    "creditos": 6,
+    "horario": "Martes y Jueves 08:00 - 10:00",
+    "docente": "Ph.D. Mauricio Torrico",
+    "estado": "Inscrito"
+  },
+  {
+    "id": 30,
+    "estudianteId": 7,
+    "materia": "Minería de Datos",
+    "codigo": "SIS-450",
+    "creditos": 6,
+    "horario": "Miércoles 08:00 - 11:00",
+    "docente": "M.Sc. Elena Andrade",
+    "estado": "Inscrito"
+  },
+  {
+    "id": 31,
+    "estudianteId": 7,
+    "materia": "Comercio Electrónico",
+    "codigo": "SIS-360",
+    "creditos": 4,
+    "horario": "Jueves 16:00 - 18:00",
+    "docente": "Lic. Jorge Mercado",
+    "estado": "Pendiente"
+  },
+  {
+    "id": 32,
+    "estudianteId": 7,
+    "materia": "Auditoría de Sistemas",
+    "codigo": "SIS-470",
+    "creditos": 5,
+    "horario": "Viernes 10:00 - 13:00",
+    "docente": "CPA. Sandra Velásquez",
+    "estado": "Retirado"
+  },
+  {
+    "id": 33,
+    "estudianteId": 8,
+    "materia": "Diseño de Circuitos Impresos",
+    "codigo": "ELN-350",
+    "creditos": 4,
+    "horario": "Lunes 14:00 - 18:00",
+    "docente": "Ing. Cristian Vargas",
+    "estado": "Inscrito"
+  },
+  {
+    "id": 34,
+    "estudianteId": 8,
+    "materia": "Comunicaciones Digitales",
+    "codigo": "ELN-420",
+    "creditos": 6,
+    "horario": "Martes y Jueves 08:00 - 10:00",
+    "docente": "Ph.D. Fernando Rojas",
+    "estado": "Inscrito"
+  },
+  {
+    "id": 35,
+    "estudianteId": 8,
+    "materia": "Potencia Eléctrica",
+    "codigo": "ELN-400",
+    "creditos": 6,
+    "horario": "Miércoles y Viernes 10:00 - 12:00",
+    "docente": "M.Sc. Andrés Paredes",
+    "estado": "Retirado"
+  },
+  {
+    "id": 36,
+    "estudianteId": 8,
+    "materia": "Proyecto Integrador de Grado",
+    "codigo": "ELN-490",
+    "creditos": 5,
+    "horario": "Jueves 15:00 - 18:00",
+    "docente": "Ph.D. Miguel Ángel López",
+    "estado": "Pendiente"
+  },
+  {
+    "id": 37,
+    "estudianteId": 8,
+    "materia": "Automatización Industrial",
+    "codigo": "ELN-430",
+    "creditos": 5,
+    "horario": "Sábado 08:00 - 12:00",
+    "docente": "Ing. Silvia Ortuño",
+    "estado": "Inscrito"
+  }
 ]
